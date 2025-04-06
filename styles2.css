@@ -1,0 +1,443 @@
+/* Import Reddit-like font */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+/* Top Banner */
+.banner {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px 20px;
+    top: 0;
+    left: 0;
+    height: 50px;
+    z-index: 999;
+}
+
+.box{
+    display: flex;
+    width: 150px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.hamburger{
+    cursor: pointer;
+    display: none; /* Hidden on larger screens */
+}
+
+.profile {
+    font-size: 20px;
+}
+
+/* Search Box */
+.search-container {
+    position: relative;
+}
+
+.search-bar {
+    display: none;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+
+/* Main Container */
+.container {
+    display: flex;
+    margin-top: 60px; /* Space for fixed header */
+}
+
+
+
+
+
+/* Left Sidebar (Navigation) */
+.left-sidebar {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 50px;
+    z-index: 2;
+    transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
+}
+
+.left-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.left-sidebar nav ul li {
+    padding: 10px 0;
+}
+
+.left-sidebar nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* Main Content */
+.content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 300px; /* To offset left sidebar */
+}
+
+/* Right Sidebar (Trending) */
+.right-sidebar {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+    .hamburger {
+        display: block;
+        background-image: url('./images/hamburger.svg'); /* Replace with your hamburger icon */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 35px; /* Adjust as needed */
+        height: 35px; /* Adjust as needed */
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    .banner {
+        justify-content: space-between;
+        position: relative;
+        align-items: center;
+    }
+
+    .content{
+        padding-top: 0%;
+        padding-left: 6vh;
+        font-size: 14px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%); /* Center the logo */
+    }
+
+    .profile {
+        /* background-image: url('./images/me.svg'); Replace with your profile icon */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 40px; /* Adjust as needed */
+        height: 40px; /* Adjust as needed */
+        cursor: pointer;
+    }
+
+    #profile-content {
+        text-align: center;
+    }
+    #profile-content p {
+        margin: 5px 0;
+    }
+    #profile-content button {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 12px;
+        padding: 4px 8px;
+        margin-top: 10px;
+    }
+    #profile-content button:hover {
+        color: #FFD050;
+        text-decoration: underline;
+    }
+
+    .login-form, .signup-form, .post-form{
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        width: 400px;
+        height: 80vh;
+        text-align: center;
+    }
+
+    .log-out-box {
+        position: fixed;
+        display: none;
+        height: 50%;
+        width: 50%;
+        font-size: 15px;
+        right: 5%;
+        top: 0;
+        transform: translate(0%, 20%);
+        padding: 5%;
+        z-index: 99;
+    }
+    
+    .form-group {
+        position: relative;
+        margin-bottom: 30px;
+        text-align: left;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: 90%;
+        font-size: 24px;
+        }
+    
+
+
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .form-group input {
+        width: 95%;
+        padding: 8px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+        height: 5vh;
+        font-size: 4vh;
+    }
+    .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        min-height: 100px;
+        resize: vertical;
+    }
+    .form-buttons {
+        justify-content: center;
+        margin-top: 45px;
+    }
+
+    .button_X{
+        font-size: 100px;
+        position: relative;
+        left: 40%;
+    }
+
+
+    .button_login{
+        margin-top: 40px;
+        font-size: 34px;
+        position: relative;
+        width: 90%;
+        color: #9d9d9d;
+        border-radius: 20px;
+        height: 80px;
+    }
+
+    .button_login:hover{
+        color: red;
+    }
+
+
+
+    .signup-link {
+        text-align: center;
+        margin-top: 25%;
+        color: #666;
+    }
+    .signup-link a {
+        margin-left: 20px;
+        font-size: 24px;
+        color: #FFD050;
+        text-decoration: none;
+    }
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+
+
+
+    .search-logo {
+        background-image: url('./images/search.svg'); /* Replace with your search icon */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 24px; /* Adjust as needed */
+        height: 24px; /* Adjust as needed */
+        display: inline-block;
+        cursor: pointer;
+        text-indent: -9999px; /* Hide text if any */
+        right: 10vh;
+    }
+
+    .left-sidebar {
+        text-align: left;
+        width: 180px;
+        left: -300px; /* Hide off-screen */
+        transition: left 0.3s ease-in-out;
+    }
+
+    .left-sidebar.show {
+        left: 0;
+    }
+
+    
+    .left-sidebar.unshow {
+        left: -300px;
+    }
+
+    .content {
+        margin-left: 0; /* No offset for sidebar */
+    }
+
+    .right-sidebar {
+        display: none; /* Hide on small screens */
+    }
+
+    /* Hide the post form initially */
+.post-form {
+    display: none;
+    margin-top: 10px;
+    z-index: 999;
+
+}
+
+.post {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid rgb(212, 212, 212,0.5);
+}
+
+
+/* Button to trigger the input visibility */
+.show-post-input{
+    position: fixed;
+    right: 5%;
+    width: 45px;
+    height: 45px;
+    bottom: 5%;
+    background-color: #FFD666;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.show-post-input:hover {
+    background-color: #FFD666;
+}
+
+
+    .search-bar {
+        display: none;
+        width: 150px;
+    }
+
+    .navigation_box {
+        position: relative;
+        width: 150px;
+        margin-left: 10%;
+    }
+
+    .nav-item {
+        padding: 10px;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .nav-item #home{
+        font-size: 300px;
+
+
+    }
+
+    .nav-item.active {
+        background-color: #FFD666; /* Light background for active item */
+        border-radius: 10px;
+        color: #010101; /* Highlight color for active item */
+    }
+
+    .nav-item img {
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+
+    ul li a {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    ul li a img {
+        width: 30px; /* Adjust size as needed */
+        height: 30px;
+        margin-right: 30px; /* Space between icon and text */
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ccc; /* Divider line */
+        margin: 10px 0;
+    }
+
+    .secondary-menu {
+        margin-top: 10px;
+    }
+
+    .secondary-menu li a {
+        font-size: 14px; /* Slightly smaller text */
+        color: #666; /* Adjust color */
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(100, 100, 100, 0.5); /* Dark gray with some transparency */
+        display: none; /* Hidden initially */
+        z-index: 1; /* Ensure it's above all other content */
+    }
+    
+    .hamburgeroverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(100, 100, 100, 0.5); /* Dark gray with some transparency */
+        display: none; /* Hidden initially */
+        z-index: 1; /* Ensure it's above all other content */
+    }
+    
+}
