@@ -20,10 +20,12 @@ function toggleMenu() {
 function toggleSearchBox() {
     const searchLogo = document.querySelector('.search-logo');
     const searchBox = document.getElementById('searchBox');
-    searchLogo.style.display = 'none'; // Hide the search logo
-    searchBox.style.display = 'block'; // Show the search box
-    searchBox.focus(); // Automatically focus on the search box when visible
+
+    searchLogo.style.display = 'none';
+    searchBox.style.display = 'block';
+    searchBox.focus();
 }
+
 
 // Close search box if clicked outside
 document.addEventListener('click', function(event) {
@@ -33,6 +35,12 @@ document.addEventListener('click', function(event) {
         searchBox.style.display = 'none'; // Hide search box
         searchLogo.style.display = 'block'; // Show search logo again
     }
+});
+
+const searchBox = document.getElementById('searchBox');
+
+searchBox.addEventListener('focus', () => {
+    searchBox.select();
 });
 
 // Function to highlight active navigation item
@@ -341,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function showLoginForm() {
     document.getElementById('login-form').style.display = 'block';
+    document.getElementById('signup-form').style.display = 'none'; // Hide signup form
     document.getElementById('overlay').style.display = 'block';
 }
 
@@ -380,6 +389,7 @@ function hideSignupForm() {
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 }
+
 
 async function login() {
     const email = document.getElementById('login-email').value;

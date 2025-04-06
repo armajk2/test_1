@@ -7,7 +7,19 @@ body {
     padding: 0;
     background-color: #f5f5f5;
     overflow-x: hidden;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
+
+body.archive{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+* {
+    outline: 1px solid red; /* helps visualize all element boundaries */
+  }
 
 /* Top Banner */
 .banner {
@@ -19,21 +31,17 @@ body {
     padding: 10px 20px;
     top: 0;
     left: 0;
-    height: 50px;
+    height: 6vh;
     z-index: 999;
 }
 
 .box{
     display: flex;
-    width: 150px;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo {
-    font-size: 25px;
-    font-weight: bold;
-}
+
 
 .hamburger{
     cursor: pointer;
@@ -44,20 +52,32 @@ body {
     font-size: 20px;
 }
 
-/* Search Box */
-.search-container {
-    position: relative;
-}
-
 .search-bar {
     display: none;
-    padding: 5px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    position: absolute;
+    right: 50%; /* ✅ Center horizontally */
+    top: 50%;
+    transform: translate(-10%, -50%);
+    width: 63vw;
+    padding: 8px;
+    border: 1px solid #b8b8b8;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    user-select: all;
+    -webkit-user-select: all;
 }
 
-
-
+.search-logo {
+    width: 24px;
+    height: 24px;
+    background-image: url('./images/search.svg'); /* or your icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-right: 1.5vh;
+}
 
 
 /* Main Container */
@@ -99,6 +119,23 @@ body {
     font-weight: bold;
 }
 
+.list ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+
+}
+
+.list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(255, 207, 207);
+    margin-top: 10vh; /* This pushes it below the fixed banner */
+}
+
 /* Main Content */
 .content {
     flex: 1;
@@ -120,21 +157,26 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1000px) {
+
     .hamburger {
-        display: block;
-        background-image: url('./images/hamburger.svg'); /* Replace with your hamburger icon */
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 35px; /* Adjust as needed */
-        height: 35px; /* Adjust as needed */
-        cursor: pointer;
-        z-index: 999;
+    display: block;
+    background-image: url('./images/hamburger.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 4.5vh;
+    height: 4.5vh;
+    cursor: pointer;
+    margin-right: 1.5vh;
     }
 
+    .profile-picture {
+        width: 4.5vh;
+        height: 4.5vh;
+        
+    }
+    
     .banner {
-        justify-content: space-between;
         position: relative;
-        align-items: center;
     }
 
     .content{
@@ -143,10 +185,20 @@ body {
         font-size: 14px;
     }
 
+    .right_banner, .left_banner{
+        display: flex;
+        position: relative;
+    }
+
+    .left_banner{
+        margin-left: auto;
+    }
+
     .logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%); /* Center the logo */
+        font-size: clamp(24px, 4vw, 28px); /* scales between 18px and 28px */
+        font-weight: bold;
+        font-family: "Cherry Bomb One", system-ui;
+
     }
 
     .profile {
@@ -180,18 +232,35 @@ body {
 
     .login-form, .signup-form, .post-form{
         display: none;
+        overflow-y: auto; /* Enables vertical scrolling */
         position: fixed;
-        top: 50%;
+        top: calc(6vh + 3vh); /* 6vh for banner height + some spacing */
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%); /* Only center horizontally */
         background: white;
-        padding: 20px;
+        padding: 2vh 3vw;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         z-index: 1000;
-        width: 400px;
+        width: 95%;
         height: 80vh;
+        max-height: 100vh;
+        min-height: 60vh;
         text-align: center;
+
+        -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+        scrollbar-width: thin; /* Slim scrollbar for Firefox */
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+    
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        overscroll-behavior: contain;
     }
 
     .log-out-box {
@@ -245,11 +314,7 @@ body {
         margin-top: 45px;
     }
 
-    .button_X{
-        font-size: 100px;
-        position: relative;
-        left: 40%;
-    }
+
 
 
     .button_login{
@@ -269,8 +334,12 @@ body {
 
 
     .signup-link {
+        transform: translate(-50%,-50%);
+        left: 50%;
+        width: 100%;
+        position: absolute;
+        bottom: 10px;
         text-align: center;
-        margin-top: 25%;
         color: #666;
     }
     .signup-link a {
@@ -285,18 +354,8 @@ body {
 
 
 
-    .search-logo {
-        background-image: url('./images/search.svg'); /* Replace with your search icon */
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 24px; /* Adjust as needed */
-        height: 24px; /* Adjust as needed */
-        display: inline-block;
-        cursor: pointer;
-        text-indent: -9999px; /* Hide text if any */
-        right: 10vh;
-    }
 
+    
     .left-sidebar {
         text-align: left;
         width: 180px;
@@ -337,19 +396,19 @@ body {
 
 
 /* Button to trigger the input visibility */
-.show-post-input{
+.show-post-input {
     position: fixed;
     right: 5%;
-    width: 45px;
-    height: 45px;
+    width: 6vh;
+    height: 6vh;
     bottom: 5%;
     background-color: #FFD666;
     color: white;
-    padding: 10px 15px;
+    padding: 10px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    z-index: 4;
+    object-fit: contain;
 }
 
 .show-post-input:hover {
@@ -357,10 +416,12 @@ body {
 }
 
 
-    .search-bar {
-        display: none;
-        width: 150px;
-    }
+.content_menu{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
 
     .navigation_box {
         position: relative;
@@ -384,6 +445,19 @@ body {
         background-color: #FFD666; /* Light background for active item */
         border-radius: 10px;
         color: #010101; /* Highlight color for active item */
+    }
+
+    .button_X {
+        position: absolute;
+        top: 2vh;
+        right: 5vh;
+        width: 6vw;
+        height: 6vw;
+        max-width: 32px;
+        max-height: 32px;
+        min-width: 20px;
+        min-height: 20px;
+        cursor: pointer;
     }
 
     .nav-item img {
@@ -410,12 +484,18 @@ body {
     }
 
     .secondary-menu {
+        position: absolute;
         margin-top: 10px;
+        list-style: none;
+        margin-left: -10%;
+        bottom: 10%;
     }
 
     .secondary-menu li a {
         font-size: 14px; /* Slightly smaller text */
         color: #666; /* Adjust color */
+        margin-bottom: 1.5vh; /* or use px like 12px if you prefer */
+
     }
 
     .overlay {
