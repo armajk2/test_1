@@ -29,8 +29,8 @@ body {
 body.archive{
     overflow: hidden;
     width: 100vw;
-    height: 100svh;
-}
+    min-height: 100vh;
+    min-height: -webkit-fill-available; }
 
 /* Top Banner */
 .banner {
@@ -89,7 +89,8 @@ body.archive{
     z-index: 1000;
     width: 20%;
     height: 40vh;
-    max-height: 100svh;
+    max-height: 100vh;
+    min-height: -webkit-fill-available;     
     min-height: 60vh;
     text-align: center;
     font-size: 14px;
@@ -233,7 +234,8 @@ body.archive{
     background-color: white;
     padding: 20px;
     border-right: 1px solid #ddd;
-    height: 100svh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;     
     max-width: 300px;
     position: fixed;
     left: 0;
@@ -243,6 +245,8 @@ body.archive{
     padding-left: 10vh;
     -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
     scrollbar-width: thin; /* Slim scrollbar for Firefox */
+        overflow-y: auto; /* Allows scrolling if content overflows */
+
 }
 
 .left-sidebar nav ul {
@@ -303,7 +307,12 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
 
 
 /* Responsive Design */
+
+
 @media (max-width: 767px) {
+
+    
+
 
     .hamburger {
         background-image: url('./images/hamburger.svg');
@@ -334,7 +343,7 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         box-sizing: border-box;
         height: 60px;
         padding: 10px 20px;
-        background: #ff0000;
+        background: #fafafa;
     }
 
     .content{
@@ -450,13 +459,15 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         z-index: 1000;
         width: 33%;
         height: 35vh;
-        max-height: 100svh;
+        max-height: 100vh;
+        min-height: -webkit-fill-available;         
         min-height: 20vh;
         text-align: left;
         font-size: 14px;
+        
 
     }
-    
+
 
     .log-out-box-buttons{
         
@@ -626,7 +637,9 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         transition: left 0.3s ease-in-out;
         padding-left: 1vh;
         padding-top: 0vh;
-        height: 93vh;
+        height: 100vh;
+height: -webkit-fill-available;
+height: fill-available;
         position: fixed;
         top: 50px; /* Adjust if your header is fixed */
         overflow-y: auto;
@@ -683,8 +696,6 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
 
     .navigation_box {
         position: relative;
-        width: 150px;
-        height: 80%;
         margin-left: 10%;
         overflow-y: auto;
     }

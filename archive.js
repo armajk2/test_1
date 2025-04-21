@@ -346,13 +346,20 @@ function updateLanguage(lang) {
 
     const listItem = document.querySelector(`.list li[data-key="${key}"]`);
     if (listItem) listItem.textContent = section.title;
+
+    listItem.style.fontSize = (lang === 'ENG') ? '20px' : '18px';
+  
   });
 
   // Highlight selected button
-  document.getElementById('lang-eng').classList.toggle('active', lang === 'ENG');
-  document.getElementById('lang-kor').classList.toggle('active', lang === 'KOR');
-}
+  const eng = document.getElementById('lang-eng');
+  const kor = document.getElementById('lang-kor');
 
+  eng.classList.toggle('active', lang === 'ENG');
+  kor.classList.toggle('active', lang === 'KOR');
+
+
+}
 // Add CSS animations
 const style = document.createElement('style');
 style.textContent = `

@@ -11,13 +11,13 @@
     padding: 0;
     margin: 0;
     font-weight: bold;
+
 }
 
 .list ul li {
     margin-top: 30px;
-    margin-bottom: 30px;
     padding-bottom: 30px;
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px #d9d9d9;
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -42,8 +42,8 @@ h3 {
 .popup{
     position: fixed;
     bottom: -100%;
-    width: 90%;
-    height: 90vh;
+    width: 100%;
+    height: calc(100vh - 60px);
     background: rgb(255, 214, 102,0.4); /* semi-transparent white */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px); /* for Safari */    
@@ -53,6 +53,8 @@ h3 {
     display: flex;
     flex-direction: column;
     will-change: transform;
+    box-sizing: border-box;
+
 }
 
 .popup::before {
@@ -69,17 +71,18 @@ h3 {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 90%;
+    width: 100%;
     padding: 20px;
+    box-sizing: border-box;
+
     overflow-y: auto;
 }
 
 .frame {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
+    gap: 40px;
     padding: 20px; /* This adds padding on all sides */
-    padding-left: 30px; /* Optional: make it more spacious on the left */
     scroll-snap-type: x mandatory;
 }
 
@@ -99,8 +102,8 @@ h3 {
 
 .box1{
     flex: 0 0 auto; /* Prevent it from shrinking */
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     background: #f3f3f3; /* optional styling */
     border-radius: 10px;
     display: flex;
@@ -114,18 +117,16 @@ h3 {
 
 .box-wrapper {
   flex: 0 0 auto;
-  width: 300px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
 }
 
 .desc {
   font-size: 14px;
   color: #555;
   text-align: center;
-  max-width: 280px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 
@@ -657,7 +658,7 @@ h3 {
 
 .lang-switch {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
     right: 20px;
     z-index: 999;
     font-weight: bold;
@@ -675,3 +676,4 @@ h3 {
 .lang-switch .active {
     color: #000; /* Highlight active language */
 }
+
