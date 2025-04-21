@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Website</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"
+            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"
+            rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <!-- Top Banner -->
+    <header class="banner">
+        <div class="left_banner">
+            <div class="hamburger" 
+            onclick="toggleMenu();"></div>
+            <div class="logo" a href="./index.html">WUDL</div>
+            <div class="search-container">
+
+                <div class="search-logo" id="searchLogo" onclick="toggleSearchBox()"></div>
+            </div>
+        </div>
+        
+        <input type="text" class="search-bar" placeholder="Search..." id="searchBox">
+
+        <div class="right_banner">
+            <div class="box">
+
+            </div>
+            <div class="show-post-input1">Write Post
+            </div>
+        <div class="profile" id="profile-section">
+            <!-- 로그인 전 -->
+            <image
+                        class="profile-picture"
+                        id="login-section"
+                        src="images/free.svg"
+                        onclick="showLoginForm()"></image>
+            <!-- 로그인 후 -->
+            <div id="profile-content" style="display: none;">
+                <img
+                  id="profile-picture"
+                  class="profile-picture"
+                  src="images/me.svg"
+                  onclick="showLogoutForm()"
+                  style="cursor: pointer;"
+                />
+                <div style="display: flex; flex-direction: column; gap: 10px;"></div>
+              </div>
+              
+        </div>
+
+
+        <!-- 로그인 폼 -->
+        <div class="login-form" id="login-form">
+            <img
+                class="button_X"
+                src="./images/close.svg"
+                alt="Close"
+                onclick="hideLoginForm()">
+            <h1>Welcome</h1>
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="profile-name" required="required">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required="required">
+            </div>
+            <div class="form-buttons">
+                <button class="button_login" onclick="login()">Log in</button>
+
+            </div>
+            <p class="signup-link">Wanna join WUDL? Sign Up!
+                <a href="#" onclick="showSignupForm()">Sign up</a>
+            </p>
+        </div>
+
+     <!-- 로그아웃 폼 -->
+     <div class="log-out-box" id="log-out-box">
+         <div class="log-out-box-buttons">
+            <ul>
+            <li><p id="profile-username" onclick="openProfilePopup()">Username</p></li>
+            <hr>
+            <li><div class="log-out-button" onclick="displayMyPosts()">My Posts</button></li>
+            <hr>
+            <li><div class="log-out-button" onclick="displayMyComments()">My Comments</button></li>
+            <hr>
+            <li><div class="log-out-button" onclick="showArchivedPosts()">Archived</button></li>
+            <hr>
+            <li><div class="log-out-button" onclick="logout()">Log out</button></li>
+            </ul>
+         </div>
+     </div>
+
+
+    <!-- 회원가입 폼 -->
+    <div class="signup-form" id="signup-form">
+        <img
+                    class="button_X"
+                    src="./images/close.svg"
+                    alt="Close"
+                    onclick="hideSignupForm()">
+
+                <h1>Sign up</h1>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required="required">
+                </div>
+                <div class="form-buttons">
+                    <button class="button_login" onclick="signup()">Sign up</button>
+                </div>
+                <p class="signup-link">Already a member of WUDL? Log in!
+                    <a href="#" onclick="showLoginForm()">Log in</a>
+                </div>
+            </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <aside class="left-sidebar" id="left-sidebar">
+            <nav>
+                <div class="navigation_box">
+                    <ul>
+                        <li><a href="#" onclick="showAllPosts()" class="nav-item" id="home"><img src="./images/home.svg" alt="Home Icon"> Home</a></li>
+                        <li><a href="#" class="nav-item" id="trending"><img src="./images/trend.svg" alt="Trending Icon"> Trending</a></li>
+            <hr>
+                        <li><a href="#" onclick="fetchPostsByCategory('free')" class="nav-item1" id="free"><img src="./images/hang.svg" alt="Seoul Icon"> Free board</a></li>
+                        <li><a href="#" onclick="fetchPostsByCategory('hang')" class="nav-item1" id="hang"><img src="./images/hang.svg" alt="Seoul Icon"> Hang out</a></li>
+                        <li><a href="#" onclick="fetchPostsByCategory('traveling')" class="nav-item1" id="traveling"><img src="./images/travel.svg" alt="Karaoke Icon"> Traveling</a></li>
+                        <li><a href="#" onclick="fetchPostsByCategory('beauty')" class="nav-item1" id="beauty"><img src="./images/beauty.svg" alt="Beauty Icon"> Beauty</a></li>
+                        <li><a href="#" onclick="fetchPostsByCategory('fashion')" class="nav-item1" id="fashion"><img src="./images/fashion.svg" alt="Beauty Icon"> Fashion</a></li>
+                        <li><a href="#" onclick="fetchPostsByCategory('festival')" class="nav-item1" id="festival"><img src="./images/festival.svg" alt="Beauty Icon"> Univ. Festival</a></li>
+                    </ul>
+                    <hr>
+                    <ul class="s_menu">
+                        <li>
+                            <a href="#">Rules</a>
+                        </li>
+                        <li>
+                            <a href="#">Policies</a>
+                        </li>
+                        <li>
+                            <a href="#">User Agreement</a>
+                        </li>
+                        <li>
+                            <a href="#">Help</a>
+                        </li>
+                        <li>
+                            <a href="./archive.html">Archive</a>
+                        </li>
+                        <li>
+                            <a href="./game.html">Game</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+        </aside>
+
+        <div class="content" id="posts-container"></div>
+
+        <aside class="right-sidebar">
+            <!-- Trending content goes here -->
+        </aside>
+    </div>
+
+<!-- Button to show/hide the post input -->
+<div class="overlay" id="overlay" onclick="hideLoginForm()"></div>
+<div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
+<div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
+<div class="hamburgeroverlay" onclick="toggleMenu()"></div>
+
+
+<div class="post-form" id="post-form" style="display: none;">
+    <div class="post-banner">
+    <h2 class="title">New Article</h2>
+    <img class="button_x" src="./images/close.svg" alt="Close" onclick="hidePostForm()">
+    </div>
+    <div class="category-row">
+        <select id="post-category">
+            <option value="free">Free board</option>
+            <option value="hang">Hang out</option>
+            <option value="traveling">Traveling</option>
+            <option value="beauty">Beauty</option>
+            <option value="fashion">Fashion</option>
+            <option value="festival">Univ. Festival</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <textarea id="post-content" required></textarea>
+    </div>
+    <div class="form-buttons">
+        <button class="button" onclick="createPost()">POST</button>
+    </div>
+</div>
+
+
+
+<!-- Overlay to darken the background -->
+
+<div class="buttons">
+    <img class="show-post-input" src="./images/write.svg">
+</div>
+
+
+<!-- Profile Edit Popup Modal -->
+<div id="profile-popup" class="popup-overlay" style="display: none;">
+  <div class="popup">
+    <h3>Edit Your Profile</h3>
+
+    <img id="avatar-preview" src="./images/me.svg" alt="Avatar Preview" class="avatar-preview" />
+
+    <!-- 아바타 업로드 -->
+    <label for="avatar-upload" class="avatar-label">Upload Avatar</label>
+    <input type="file" id="avatar-upload" accept="image/*" onchange="previewAvatar()" />
+
+    <!-- 유저네임 영역 -->
+    <div class="profile-field">
+      <span id="profile-username3">Username</span>
+      <input type="text" id="edit-username" placeholder="Username" style="display: none;" />
+      <button type="button" onclick="toggleEditUsername()" class="edit-text-btn">Edit</button>
+    </div>
+
+    <!-- 바이오 영역 -->
+    <div class="profile-field">
+      <span id="profile-bio">No bio available.</span>
+      <textarea id="edit-bio" placeholder="Write a short bio..." style="display: none;"></textarea>
+      <button type="button" onclick="toggleEditBio()" class="edit-text-btn">Edit</button>
+    </div>
+
+    <!-- 저장/취소 버튼 -->
+    <div class="popup-buttons">
+      <button onclick="saveProfile()">Save</button>
+      <button onclick="closeProfilePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+  
+<div id="profile-popup2" class="popup-overlay" style="display: none;">
+    <div class="profile-popup">
+        <div class="profile-wrap">
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <img id="profile-avatar-img" src="./images/me.svg" alt="User Avatar">
+            </div>
+            <h3 id="profile-username2">User Profile</h3>
+
+        </div>
+        </div>
+        <div class="profile-bio2" id="profile-bio2">
+        </div>
+        <div class="popup-buttons-profile">
+            <button onclick="closeUserProfile()">Cancel</button>
+          </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

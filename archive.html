@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Community Website</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="./archive.css">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"
+            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"
+            rel="stylesheet">
+        <script defer="defer" src="./archive.js"></script>
+        <!-- External JavaScript file -->
+        <script defer="defer" src="./archive_translate.js"></script>
+
+        <script defer="defer" src="script.js"></script>
+        <!-- External JavaScript file -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    </head>
+    <body>
+
+        <!-- Top Banner -->
+        <header class="banner">
+            <div class="left_banner">
+                <div class="hamburger" onclick="toggleMenu()"></div>
+                <a href="./index.html" class="logo">WUDL</a>
+
+            </div>
+
+            <input type="text" class="search-bar" placeholder="Search..." id="searchBox">
+
+            <div class="right_banner">
+                <div class="box"></div>
+                <div class="show-post-input1">Write Post
+                </div>
+                <div class="profile" id="profile-section">
+                    <!-- 로그인 전 -->
+                    <image
+                        class="profile-picture"
+                        id="login-section"
+                        src="images/free.svg"
+                        onclick="showLoginForm()"></image>
+                    <!-- 로그인 후 -->
+                    <div id="profile-content" style="display: none;">
+                        <image class="profile-picture" src="images/me.svg" onclick="showLogoutForm()"></image>
+                        <div style="display: flex; flex-direction: column; gap: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 로그인 폼 -->
+            <div class="login-form" id="login-form">
+                <img
+                    class="button_X"
+                    src="./images/close.svg"
+                    alt="Close"
+                    onclick="hideLoginForm()">
+                <h1>Welcome</h1>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required="required">
+                </div>
+                <div class="form-buttons">
+                    <button class="button_login" onclick="login()">Log in</button>
+
+                </div>
+                <p class="signup-link">Wanna join WUDL? Sign Up!
+                    <a href="#" onclick="showSignupForm()">Sign up</a>
+                </p>
+            </div>
+
+            <!-- 로그아웃 폼 -->
+            <div class="log-out-box" id="log-out-box">
+                <div class="log-out-box-buttons">
+                    <ul>
+                        <li>
+                            <p id="profile-name"></p>
+                        </li>
+                        <hr>
+                        <li>
+                            <p id="profile-username"></p>
+                        </li>
+                        <hr>
+                        <li>
+                            <div class="log-out-button" onclick="showArchivedPosts()">Archived</button>
+                        </li>
+                        <hr>
+                        <li>
+                            <div class="log-out-button" onclick="logout()">Log out</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 회원가입 폼 -->
+            <div class="signup-form" id="signup-form">
+                <img
+                    class="button_X"
+                    src="./images/close.svg"
+                    alt="Close"
+                    onclick="hideSignupForm()">
+
+                <h1>Sign up</h1>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required="required">
+                </div>
+                <div class="form-buttons">
+                    <button class="button_login" onclick="signup()">Sign up</button>
+                </div>
+                <p class="signup-link">Already a member of WUDL? Log in!
+                    <a href="#" onclick="showLoginForm()">Log in</a>
+                </div>
+            </header>
+
+            <!-- Main Container -->
+            <div class="container">
+                <aside class="left-sidebar" id="left-sidebar">
+                    <nav>
+                        <div class="navigation_box">
+                            <ul>
+                                <li>
+                                    <a href="./index.html" onclick="showAllPosts()" class="nav-item" id="home"><img src="./images/home.svg" alt="Home Icon">
+                                        Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-item" id="trending"><img src="./images/trend.svg" alt="Trending Icon">
+                                        Trending</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a href="#" onclick="fetchPostsByCategory('free')" class="nav-item1" id="free"><img src="./images/city.svg" alt="Seoul Icon">
+                                        Free board</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="fetchPostsByCategory('hang')" class="nav-item1" id="hang"><img src="./images/city.svg" alt="Seoul Icon">
+                                        Hang out</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('traveling')"
+                                        class="nav-item1"
+                                        id="traveling"><img src="./images/travel.svg" alt="Karaoke Icon">
+                                        Traveling</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('beauty')"
+                                        class="nav-item1"
+                                        id="beauty"><img src="./images/beauty.svg" alt="Beauty Icon">
+                                        Beauty</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('fashion')"
+                                        class="nav-item1"
+                                        id="fashion"><img src="./images/fashion.svg" alt="Beauty Icon">
+                                        Fashion</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('festival')"
+                                        class="nav-item1"
+                                        id="festival"><img src="./images/festival.svg" alt="Beauty Icon">
+                                        Univ. Festival</a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <ul class="s_menu">
+                                <li>
+                                    <a href="#">Rules</a>
+                                </li>
+                                <li>
+                                    <a href="#">Policies</a>
+                                </li>
+                                <li>
+                                    <a href="#">User Agreement</a>
+                                </li>
+                                <li>
+                                    <a href="#">Help</a>
+                                </li>
+                                <li>
+                                    <a href="./archive.html">Archive</a>
+                                </li>
+                                <li>
+                                    <a href="./game.html">game</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                </aside>
+
+                <aside class="right-sidebar">
+                    <!-- Trending content goes here -->
+                </aside>
+            </div>
+
+            <!-- Button to show/hide the post input -->
+            <div class="overlay" id="overlay" onclick="hideLoginForm()"></div>
+            <div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
+            <div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
+            <div class="hamburgeroverlay" onclick="toggleMenu()"></div>
+
+            <div class="list">
+                <ul>
+                    <li data-key="meeting">Meeting Notes</li>
+                    <li data-key="research">Research Findings</li>
+                    <li data-key="wireframes">Wireframes & Prototypes</li>
+                    <li data-key="feedback">Feedback Summary</li>
+                    <li data-key="usecases">Key Use Cases</li>
+                    <li data-key="branding">Logo & Typeface Selection Process</li>
+                    <li data-key="timeline">Timeline</li>
+                    <li data-key="reflection">Review / Reflection</li>
+                </ul>
+            </div>
+
+            <div class="popup" id="popup">
+                <div id="meeting" class="popup-content hidden">
+                    <h2>Meeting Notes</h2>
+                    <div class="frame">
+                        <div class="box-wrapper">
+                            <div class="box1">Meeting 1: Project Kickoff</div>
+                            <div class="desc">4/15/2025</div>
+                        </div>
+                        <div class="box-wrapper">
+                            <div class="box1">Meeting 2: Design Discussion</div>
+                            <div class="desc">4/15/2025.</div>
+                        </div>
+                        <div class="box-wrapper">
+                            <div class="box1">Meeting 3: Development Planning</div>
+                            <div class="desc">Planned tech stack, milestones, and responsibilities.</div>
+                        </div>
+                        <div class="box-wrapper">
+                            <div class="box1">Meeting 4: Testing Strategy</div>
+                            <div class="desc">Outlined QA steps, devices, and user testing.</div>
+                        </div>
+                        <div class="box-wrapper">
+                            <div class="box1">Meeting 5: Final Review</div>
+                            <div class="desc">Discussed launch, bugs, and next steps.</div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div id="research" class="popup-content hidden">
+                    <h2>Research Findings</h2>
+                    <div class="research-container">
+                        <div class="research-card">
+                            <h3>User Interviews</h3>
+                            <p>Key insights from user interviews and surveys.</p>
+                            <div class="research-details hidden">
+                                <ul>
+                                    <li>Users prefer simple navigation</li>
+                                    <li>Mobile responsiveness is crucial</li>
+                                    <li>Community features are highly valued</li>
+                                </ul>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="research-card">
+                            <h3>Competitor Analysis</h3>
+                            <p>Analysis of similar platforms and their features.</p>
+                            <div class="research-details hidden">
+                                <ul>
+                                    <li>Feature comparison matrix</li>
+                                    <li>Strengths and weaknesses</li>
+                                    <li>Market positioning</li>
+                                </ul>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="research-card">
+                            <h3>Market Trends</h3>
+                            <p>Current trends in community platforms.</p>
+                            <div class="research-details hidden">
+                                <ul>
+                                    <li>Rising popularity of niche communities</li>
+                                    <li>Integration with social media</li>
+                                    <li>Focus on user-generated content</li>
+                                </ul>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="wireframes" class="popup-content hidden">
+                    <h2>Wireframes & Prototypes</h2>
+                    <div class="prototype-container">
+                        <div class="prototype-nav">
+                            <button class="prototype-btn active" data-target="wireframe1">Wireframe 1</button>
+                            <button class="prototype-btn" data-target="wireframe2">Wireframe 2</button>
+                            <button class="prototype-btn" data-target="prototype1">Prototype 1</button>
+                            <button class="prototype-btn" data-target="prototype2">Prototype 2</button>
+                        </div>
+                        <div class="prototype-content">
+                            <div class="prototype-item active" id="wireframe1">
+                                <div class="prototype-image">Wireframe 1 Image</div>
+                                <p>Initial wireframe focusing on user flow and navigation structure.</p>
+                            </div>
+                            <div class="prototype-item" id="wireframe2">
+                                <div class="prototype-image">Wireframe 2 Image</div>
+                                <p>Refined wireframe incorporating feedback from stakeholders.</p>
+                            </div>
+                            <div class="prototype-item" id="prototype1">
+                                <div class="prototype-image">Prototype 1 Image</div>
+                                <p>First interactive prototype with basic functionality.</p>
+                            </div>
+                            <div class="prototype-item" id="prototype2">
+                                <div class="prototype-image">Prototype 2 Image</div>
+                                <p>Final prototype with all features implemented.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="feedback" class="popup-content hidden">
+                    <h2>Feedback Summary</h2>
+                    <div class="feedback-container">
+                        <div class="feedback-timeline">
+                            <div class="feedback-item">
+                                <div class="feedback-date">Week 1</div>
+                                <div class="feedback-content">
+                                    <h3>Initial User Testing</h3>
+                                    <p>Feedback on navigation and layout</p>
+                                    <div class="feedback-details hidden">
+                                        <ul>
+                                            <li>Navigation is confusing</li>
+                                            <li>Search function needs improvement</li>
+                                            <li>Mobile view needs optimization</li>
+                                        </ul>
+                                    </div>
+                                    <button class="toggle-btn">Show Details</button>
+                                </div>
+                            </div>
+                            <div class="feedback-item">
+                                <div class="feedback-date">Week 2</div>
+                                <div class="feedback-content">
+                                    <h3>Stakeholder Review</h3>
+                                    <p>Feedback on features and functionality</p>
+                                    <div class="feedback-details hidden">
+                                        <ul>
+                                            <li>Add more community features</li>
+                                            <li>Improve content organization</li>
+                                            <li>Enhance user profile options</li>
+                                        </ul>
+                                    </div>
+                                    <button class="toggle-btn">Show Details</button>
+                                </div>
+                            </div>
+                            <div class="feedback-item">
+                                <div class="feedback-date">Week 3</div>
+                                <div class="feedback-content">
+                                    <h3>Beta Testing</h3>
+                                    <p>Feedback on overall user experience</p>
+                                    <div class="feedback-details hidden">
+                                        <ul>
+                                            <li>Performance issues on mobile</li>
+                                            <li>Content loading is slow</li>
+                                            <li>UI is now more intuitive</li>
+                                        </ul>
+                                    </div>
+                                    <button class="toggle-btn">Show Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="usecases" class="popup-content hidden">
+                    <h2>Key Use Cases</h2>
+                    <div class="usecase-container">
+                        <div class="usecase-card">
+                            <div class="usecase-icon">👤</div>
+                            <h3>User Registration</h3>
+                            <p>New users can create an account and set up their profile.</p>
+                            <div class="usecase-details hidden">
+                                <h4>Steps:</h4>
+                                <ol>
+                                    <li>User clicks "Sign Up"</li>
+                                    <li>User enters email and password</li>
+                                    <li>User verifies email</li>
+                                    <li>User completes profile setup</li>
+                                </ol>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="usecase-card">
+                            <div class="usecase-icon">📝</div>
+                            <h3>Creating Posts</h3>
+                            <p>Users can create and publish new posts to the community.</p>
+                            <div class="usecase-details hidden">
+                                <h4>Steps:</h4>
+                                <ol>
+                                    <li>User clicks "Write Post"</li>
+                                    <li>User selects category</li>
+                                    <li>User writes content</li>
+                                    <li>User adds media (optional)</li>
+                                    <li>User publishes post</li>
+                                </ol>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="usecase-card">
+                            <div class="usecase-icon">🔍</div>
+                            <h3>Searching Content</h3>
+                            <p>Users can search for specific content within the platform.</p>
+                            <div class="usecase-details hidden">
+                                <h4>Steps:</h4>
+                                <ol>
+                                    <li>User enters search term</li>
+                                    <li>System displays relevant results</li>
+                                    <li>User can filter results</li>
+                                    <li>User selects desired content</li>
+                                </ol>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="branding" class="popup-content hidden">
+                    <h2>Logo & Typeface Selection</h2>
+                    <div class="branding-container">
+                        <div class="branding-section">
+                            <h3>Logo Evolution</h3>
+                            <div class="logo-showcase">
+                                <div class="logo-item">
+                                    <div class="logo-image">Logo 1</div>
+                                    <p>Initial concept</p>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="logo-image">Logo 2</div>
+                                    <p>Refined concept</p>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="logo-image">Logo 3</div>
+                                    <p>Final logo</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="branding-section">
+                            <h3>Typeface Selection</h3>
+                            <div class="typeface-showcase">
+                                <div class="typeface-item">
+                                    <h4 class="typeface-sample" style="font-family: 'IBM Plex Sans';">IBM Plex Sans</h4>
+                                    <p>Used for body text and UI elements</p>
+                                </div>
+                                <div class="typeface-item">
+                                    <h4 class="typeface-sample" style="font-family: 'Cherry Bomb One';">Cherry Bomb One</h4>
+                                    <p>Used for logo and headings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="branding-section">
+                            <h3>Color Palette</h3>
+                            <div class="color-showcase">
+                                <div class="color-item">
+                                    <div class="color-swatch" style="background-color: #FFD666;"></div>
+                                    <p>Primary: #FFD666</p>
+                                </div>
+                                <div class="color-item">
+                                    <div class="color-swatch" style="background-color: #f3f3f3;"></div>
+                                    <p>Secondary: #f3f3f3</p>
+                                </div>
+                                <div class="color-item">
+                                    <div class="color-swatch" style="background-color: #000000;"></div>
+                                    <p>Text: #000000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="timeline" class="popup-content hidden">
+                    <h2>Timeline</h2>
+                    <div class="timeline-frame">
+                      <div class="timeline-progress">
+                        <div class="timeline-progress-bar"></div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">📌 February - Project Kickoff</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📅</div>
+                              <div class="timeline-details-text">Initial project planning and team formation</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">👥</div>
+                              <div class="timeline-details-text">Stakeholder meetings and requirements gathering</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📋</div>
+                              <div class="timeline-details-text">Project scope and timeline defined</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">🧠 Week 1 - Research + Ideation</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🔍</div>
+                              <div class="timeline-details-text">User research and interviews conducted</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📊</div>
+                              <div class="timeline-details-text">Competitor analysis completed</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">💡</div>
+                              <div class="timeline-details-text">Initial design concepts developed</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">🎨 Week 2 - Wireframing</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">✏️</div>
+                              <div class="timeline-details-text">Low-fidelity wireframes created</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🔄</div>
+                              <div class="timeline-details-text">Iterative feedback and refinement</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📱</div>
+                              <div class="timeline-details-text">Mobile and desktop layouts designed</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">💻 Week 3 - Prototype Development</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🛠️</div>
+                              <div class="timeline-details-text">Interactive prototypes built</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🎮</div>
+                              <div class="timeline-details-text">User flow testing and optimization</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🔧</div>
+                              <div class="timeline-details-text">Technical feasibility assessment</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">🧪 Week 4 - Testing</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">👥</div>
+                              <div class="timeline-details-text">User testing sessions conducted</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📝</div>
+                              <div class="timeline-details-text">Feedback collected and analyzed</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🔄</div>
+                              <div class="timeline-details-text">Design iterations based on feedback</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">🚀 Week 5 - Final Implementation</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">💻</div>
+                              <div class="timeline-details-text">Final development and coding</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🔍</div>
+                              <div class="timeline-details-text">Quality assurance and bug fixes</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📱</div>
+                              <div class="timeline-details-text">Cross-device testing and optimization</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="timeline-box">
+                        <div class="timeline-content">📂 Week 6 - Archive + Reflection</div>
+                        <div class="timeline-details">
+                          <div class="timeline-details-content">
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📊</div>
+                              <div class="timeline-details-text">Project metrics and analytics review</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">📝</div>
+                              <div class="timeline-details-text">Documentation and knowledge sharing</div>
+                            </div>
+                            <div class="timeline-details-item">
+                              <div class="timeline-details-icon">🤝</div>
+                              <div class="timeline-details-text">Team retrospective and lessons learned</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div id="reflection" class="popup-content hidden">
+                    <h2>Review / Reflection</h2>
+                    <div class="reflection-container">
+                        <div class="reflection-card">
+                            <h3>What Went Well</h3>
+                            <ul class="reflection-list">
+                                <li>User-centered design approach</li>
+                                <li>Iterative development process</li>
+                                <li>Strong team collaboration</li>
+                                <li>Effective feedback integration</li>
+                            </ul>
+                        </div>
+                        <div class="reflection-card">
+                            <h3>Challenges Faced</h3>
+                            <ul class="reflection-list">
+                                <li>Technical implementation hurdles</li>
+                                <li>Time constraints</li>
+                                <li>Balancing feature scope</li>
+                                <li>Cross-browser compatibility</li>
+                            </ul>
+                        </div>
+                        <div class="reflection-card">
+                            <h3>Lessons Learned</h3>
+                            <ul class="reflection-list">
+                                <li>Importance of early user testing</li>
+                                <li>Value of iterative design</li>
+                                <li>Need for clear communication</li>
+                                <li>Benefits of modular development</li>
+                            </ul>
+                        </div>
+                        <div class="reflection-card">
+                            <h3>Future Improvements</h3>
+                            <ul class="reflection-list">
+                                <li>Enhanced mobile experience</li>
+                                <li>Additional community features</li>
+                                <li>Performance optimization</li>
+                                <li>Expanded content categories</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lang-switch">
+                <span id="lang-eng" onclick="updateLanguage('ENG')">ENG</span> /
+                <span id="lang-kor" onclick="updateLanguage('KOR')">KOR</span>
+              </div>
+              
+
+
+
+        </body>
+
+    </html>

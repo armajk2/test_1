@@ -11,13 +11,12 @@ const app = express();
 
 // CORS 설정
 app.use(cors({
-    origin: '*', // HTML 파일이 실행되는 주소
+    origin: '*', // HTML 파일이 실행되는 주소 -> 실제 주소 입력
     credentials: true
 }));
 
 app.use(express.json());
 
-app.use(express.static('public'));
 app.use('/auth', authRoutes);
 app.use('/posts', postRoutes);
 
