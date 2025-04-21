@@ -29,7 +29,7 @@ body {
 body.archive{
     overflow: hidden;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
 }
 
 /* Top Banner */
@@ -43,16 +43,9 @@ body.archive{
     padding: 10px;
     top: 0;
     height: 6vh;
-    width: 99%;
+    width: 100%;
     background-color: #fafafa;
     z-index: 999;
-}
-
-.right_banner{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 200px;
 }
 
 
@@ -96,7 +89,7 @@ body.archive{
     z-index: 1000;
     width: 20%;
     height: 40vh;
-    max-height: 100vh;
+    max-height: 100svh;
     min-height: 60vh;
     text-align: center;
     font-size: 14px;
@@ -240,7 +233,7 @@ body.archive{
     background-color: white;
     padding: 20px;
     border-right: 1px solid #ddd;
-    height: 100vh;
+    height: 100svh;
     max-width: 300px;
     position: fixed;
     left: 0;
@@ -338,8 +331,10 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         position: fixed;
         align-items: center;
         z-index: 999;
-        height:4vh;
-        background-color: white;
+        box-sizing: border-box;
+        height: 60px;
+        padding: 10px 20px;
+        background: #fafafa;
     }
 
     .content{
@@ -373,16 +368,7 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         position: relative;
     }
 
-    .right_banner{
-        margin-left: auto;
-        justify-content: flex-end;
-        gap: 20px;
-        margin-right: 20px;
-        align-items: center;
-    }
-
     .left_banner{
-        margin-left: 10px;
         align-items: center;
         display: flex;
         justify-content: flex-start;
@@ -454,17 +440,17 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
 
 
     .log-out-box {
-        top: calc(4vh + 2vh); /* 6vh for banner height + some spacing */
+        top: calc(4vh + 3vh); /* 6vh for banner height + some spacing */
         left: 64%;
         transform: translateX(0%); /* Only center horizontally */
         background: white;
-        padding-left: 10px;
+        padding-left: 0px;
         border-radius: 15px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         z-index: 1000;
-        width: 30%;
-        height: 20vh;
-        max-height: 100vh;
+        width: 33%;
+        height: 35vh;
+        max-height: 100svh;
         min-height: 20vh;
         text-align: left;
         font-size: 14px;
@@ -495,6 +481,7 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         display: none;
         margin-top: 10px;
         z-index: 999;
+        height: 70%;
     }
 
     .post-banner{
