@@ -248,6 +248,8 @@ body.archive{
     z-index: 2;
     transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
     padding-left: 10vh;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    scrollbar-width: thin; /* Slim scrollbar for Firefox */
 }
 
 .left-sidebar nav ul {
@@ -637,7 +639,14 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         transition: left 0.3s ease-in-out;
         padding-left: 1vh;
         padding-top: 0vh;
-
+        height: 93vh;
+        position: fixed;
+        top: 50px; /* Adjust if your header is fixed */
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        z-index: 10; /* Ensure it's above other content */
     }
 
     .left-sidebar.show {
