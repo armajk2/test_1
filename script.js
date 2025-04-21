@@ -1,4 +1,4 @@
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const backendUrl = 'https://wudl-api.onrender.com'
 
 document.addEventListener('DOMContentLoaded', () => {
     // 이제 모든 함수가 정의된 상태니까 안전하게 실행됨
@@ -131,7 +131,7 @@ function loginUser(token) {
 async function fetchPosts() {
     try {
         // console.log('게시물 목록 가져오기 시작...');
-        const response = await axios.get('${backendUrl}/posts');
+        const response = await axios.get(`${backendUrl}/posts`);
         // console.log('서버 응답:', response.data);
 
         const posts = response.data.data || [];
@@ -222,7 +222,7 @@ async function createPost() {
     const category = document.getElementById('post-category').value;
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('${backendUrl}/posts',
+        const response = await axios.post(`${backendUrl}/posts`,
             { content, category },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -541,7 +541,7 @@ async function login() {
 
     try {
         // console.log('로그인 시도:', { email });
-        const response = await axios.post('${backendUrl}/auth/login', {
+        const response = await axios.post(`${backendUrl}/auth/login`, {
             email,
             password
         });
@@ -573,7 +573,7 @@ async function signup() {
 
     try {
         console.log('회원가입 시도:', { email });
-        const response = await axios.post('${backendUrl}/auth/signup', {
+        const response = await axios.post(`${backendUrl}/auth/signup`, {
             email,
             password
         });
@@ -688,7 +688,7 @@ async function showArchivedPosts() {
             return;
         }
 
-        const response = await axios.get('${backendUrl}/posts/archived', {
+        const response = await axios.get(`${backendUrl}/posts/archived`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -860,7 +860,7 @@ function displayPosts(posts) {
 
 async function fetchTrendingPosts() {
     try {
-        const response = await axios.get('${backendUrl}/posts/trending');
+        const response = await axios.get(`${backendUrl}/posts/trending`);
         console.log(response.data.data);
         displayPosts(response.data.data);
     } catch (error) {
@@ -964,7 +964,7 @@ async function saveProfile() {
 
                 try {
                     const token = localStorage.getItem('token');
-                    const response = await axios.post('${backendUrl}/auth/profile/update', requestData, {
+                    const response = await axios.post(`${backendUrl}/auth/profile/update`, requestData, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -997,7 +997,7 @@ async function saveProfile() {
             };
         } else {
             const token = localStorage.getItem('token');
-            const response = await axios.post('${backendUrl}/auth/profile/update', requestData, {
+            const response = await axios.post(`${backendUrl}/auth/profile/update`, requestData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -1036,7 +1036,7 @@ async function loadUserProfile() {
 
     try {
         // Supabase에서 사용자 정보 불러오기
-        const response = await axios.get('${backendUrl}/auth/profile', {
+        const response = await axios.get(`${backendUrl}/auth/profile`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

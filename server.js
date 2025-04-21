@@ -11,7 +11,7 @@ const app = express();
 
 // CORS 설정
 app.use(cors({
-    origin: process.env.VITE_FRONTEND_URL, // HTML 파일이 실행되는 주소 -> 실제 주소 입력
+    origin: 'http://wudl.netlify.app', // HTML 파일이 실행되는 주소 -> 실제 주소 입력
     credentials: true
 }));
 
