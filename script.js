@@ -803,8 +803,8 @@ function displayPosts(posts) {
                 <div class="post-header">
                     <div>
                     ${isLoggedIn ? 
-                        `<strong class="username-link" onclick="showUserProfile('${post.author?.user_id}', '${post.author?.username || '사용자'}')">${post.author?.username || '사용자'}</strong>` :
-                    `<span>${post.author?.username || '사용자'}</span>`}
+                        `<strong class="username-link" onclick="showUserProfile('${post.author?.user_id || post.user_id}', '${post.author?.username || post.username || '사용자'}')">${post.author?.username || '사용자'}</strong>` :
+                    `<span>${post.author?.username || post.username || '사용자'}</span>`}
                     <small>${new Date(post.created_at).toLocaleString()}</small>
                     </div>
                     <div class="action-wrapper">
