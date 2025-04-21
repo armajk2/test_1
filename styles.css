@@ -334,7 +334,7 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         box-sizing: border-box;
         height: 60px;
         padding: 10px 20px;
-        background: #fafafa;
+        background: #ff0000;
     }
 
     .content{
