@@ -71,7 +71,7 @@ router.post('/signup', async (req, res) => {
             email,
             password,
             options: {
-                emailRedirectTo: `http://wudl.netlify.app/confirm.html`
+                emailRedirectTo: `http://wudl.netlify.app`
             }
         });
 
