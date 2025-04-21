@@ -1,6 +1,4 @@
-// const API_BASE = location.hostname === 'localhost'
-//   ? 'http://localhost:5000'
-//   : 'https://api.wudl.com'; -> 배포 시 바꾸기
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 document.addEventListener('DOMContentLoaded', () => {
     // 이제 모든 함수가 정의된 상태니까 안전하게 실행됨
@@ -133,7 +131,7 @@ function loginUser(token) {
 async function fetchPosts() {
     try {
         // console.log('게시물 목록 가져오기 시작...');
-        const response = await axios.get('http://localhost:5000/posts');
+        const response = await axios.get('${backendUrl}/posts');
         // console.log('서버 응답:', response.data);
 
         const posts = response.data.data || [];
@@ -224,7 +222,7 @@ async function createPost() {
     const category = document.getElementById('post-category').value;
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://localhost:5000/posts',
+        const response = await axios.post('${backendUrl}/posts',
             { content, category },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -252,7 +250,7 @@ async function submitComment(postId) {
 
         const token = localStorage.getItem('token');
         const response = await axios.post(
-            `http://localhost:5000/posts/${postId}/comments`,
+            `${backendUrl}/posts/${postId}/comments`,
             { content },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -270,7 +268,7 @@ async function submitComment(postId) {
 // 댓글 불러오기 함수
 async function loadComments(postId) {
     try {
-        const response = await axios.get(`http://localhost:5000/posts/${postId}/comments`);
+        const response = await axios.get(`${backendUrl}/posts/${postId}/comments`);
         if (!response.data) throw new Error('댓글을 불러오는데 실패했습니다.');
 
         const comments = response.data;
@@ -344,7 +342,7 @@ async function likePost(postId) {
         // });
 
         const response = await axios.post(
-            `http://localhost:5000/posts/${postId}/like`,
+            `${backendUrl}/posts/${postId}/like`,
             {},
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -408,8 +406,8 @@ async function submitReport() {
             return;
         }
 
-        console.log('신고 요청 전송:', `http://localhost:5000/posts/${postId}/report`);
-        const response = await axios.post(`http://localhost:5000/posts/${postId}/report`,
+        console.log('신고 요청 전송:', `${backendUrl}/posts/${postId}/report`);
+        const response = await axios.post(`${backendUrl}/posts/${postId}/report`,
             { reason },
             {
                 headers: { Authorization: `Bearer ${token}` },
@@ -543,7 +541,7 @@ async function login() {
 
     try {
         // console.log('로그인 시도:', { email });
-        const response = await axios.post('http://localhost:5000/auth/login', {
+        const response = await axios.post('${backendUrl}/auth/login', {
             email,
             password
         });
@@ -575,7 +573,7 @@ async function signup() {
 
     try {
         console.log('회원가입 시도:', { email });
-        const response = await axios.post('http://localhost:5000/auth/signup', {
+        const response = await axios.post('${backendUrl}/auth/signup', {
             email,
             password
         });
@@ -658,7 +656,7 @@ async function handleArchiveClick(postId) {
     }
 
     try {
-        const response = await fetch(`http://localhost:5000/posts/${postId}/archive`, {
+        const response = await fetch(`${backendUrl}/posts/${postId}/archive`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -690,7 +688,7 @@ async function showArchivedPosts() {
             return;
         }
 
-        const response = await axios.get('http://localhost:5000/posts/archived', {
+        const response = await axios.get('${backendUrl}/posts/archived', {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -782,7 +780,7 @@ function showAllPosts() {
 
 async function fetchPostsByCategory(category) {
     try {
-        const url = `http://localhost:5000/posts?category=${category}`;
+        const url = `${backendUrl}/posts?category=${category}`;
         const response = await axios.get(url);
         displayPosts(response.data.data);
     } catch (error) {
@@ -862,7 +860,7 @@ function displayPosts(posts) {
 
 async function fetchTrendingPosts() {
     try {
-        const response = await axios.get('http://localhost:5000/posts/trending');
+        const response = await axios.get('${backendUrl}/posts/trending');
         console.log(response.data.data);
         displayPosts(response.data.data);
     } catch (error) {
@@ -966,7 +964,7 @@ async function saveProfile() {
 
                 try {
                     const token = localStorage.getItem('token');
-                    const response = await axios.post('http://localhost:5000/auth/profile/update', requestData, {
+                    const response = await axios.post('${backendUrl}/auth/profile/update', requestData, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -999,7 +997,7 @@ async function saveProfile() {
             };
         } else {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:5000/auth/profile/update', requestData, {
+            const response = await axios.post('${backendUrl}/auth/profile/update', requestData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -1038,7 +1036,7 @@ async function loadUserProfile() {
 
     try {
         // Supabase에서 사용자 정보 불러오기
-        const response = await axios.get('http://localhost:5000/auth/profile', {
+        const response = await axios.get('${backendUrl}/auth/profile', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -1083,7 +1081,7 @@ async function searchPosts() {
     if (!keyword) return alert('검색어를 입력해주세요');
 
     try {
-        const response = await axios.get(`http://localhost:5000/posts/search?keyword=${encodeURIComponent(keyword)}`);
+        const response = await axios.get(`${backendUrl}/posts/search?keyword=${encodeURIComponent(keyword)}`);
         const posts = response.data;
 
         displayPosts(posts);  // 기존에 쓰던 게시물 렌더링 함수 재활용하면 됨
@@ -1128,7 +1126,7 @@ async function handleDeleteClick(postId) {
     if (!confirmDelete) return;
 
     try {
-        const response = await fetch(`http://localhost:5000/posts/${postId}`, {
+        const response = await fetch(`${backendUrl}/posts/${postId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // 로그인 토큰
@@ -1163,7 +1161,7 @@ async function displayMyPosts() {
         }
 
         // 사용자의 게시물만 가져오기 위한 API 호출
-        const url = `http://localhost:5000/posts/my-posts`;
+        const url = `${backendUrl}/posts/my-posts`;
         const response = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -1197,7 +1195,7 @@ async function handleDeleteComment(postId, commentId) {
     try {
         const token = localStorage.getItem('token');
         const response = await axios.delete(
-            `http://localhost:5000/posts/${postId}/comments/${commentId}`,
+            `${backendUrl}/posts/${postId}/comments/${commentId}`,
             { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -1226,7 +1224,7 @@ async function displayMyComments() {
             return;
         }
 
-        const url = `http://localhost:5000/posts/my-comments`;
+        const url = `${backendUrl}/posts/my-comments`;
         const response = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -1359,7 +1357,7 @@ function showUserProfile(userId, username) {
 async function fetchUserProfile(userId) {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:5000/auth/${userId}`, {
+        const response = await axios.get(`${backendUrl}/auth/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
