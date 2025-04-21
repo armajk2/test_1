@@ -815,7 +815,7 @@ function displayPosts(posts) {
                             <button class="action-button report" onclick="handleReportClick('${post.post_id}')">Report</button>
                     ${
         localStorage.getItem('user') &&
-        post.author?.user_id === JSON.parse(localStorage.getItem('user')).id
+        (post.author?.user_id || post.user_id) === JSON.parse(localStorage.getItem('user')).id
             ? `<button class="action-button delete" onclick="handleDeleteClick('${post.post_id}')">Delete</button>`
             : ''
         }
