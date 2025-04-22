@@ -1,7 +1,7 @@
 // script.js
 let scene, camera, renderer, character, targetPosition, cameraOffset, lookTarget;
-const mapSize = 50;
-const boundary = 49;
+const mapSize = 20;
+const boundary = 19;
 const wallThickness = 1;
 const buildings = [];
 const buildingGroups = {
@@ -19,24 +19,45 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.body.appendChild(renderer.domElement);
 
   camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
   updateCameraOffset();
 
   const tileSize = 2;
-  const tileColor = 0xeaeaea;
+  const tileTexture = new THREE.TextureLoader().load('textures/ground.jpg');
+  tileTexture.wrapS = tileTexture.wrapT = THREE.RepeatWrapping;
+  tileTexture.repeat.set(1, 1); // You can increase this for more detail per tile
+  const tileMaterial = new THREE.MeshBasicMaterial({ map: tileTexture });
+  
   for (let i = -mapSize / 2; i < mapSize / 2; i++) {
     for (let j = -mapSize / 2; j < mapSize / 2; j++) {
       const geo = new THREE.PlaneGeometry(tileSize, tileSize);
-      const mat = new THREE.MeshBasicMaterial({ color: tileColor });
-      const tile = new THREE.Mesh(geo, mat);
+      const tile = new THREE.Mesh(geo, tileMaterial);
       tile.rotation.x = -Math.PI / 2;
       tile.position.set(i * tileSize, 0, j * tileSize);
       scene.add(tile);
     }
   }
-
+  
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(10, 20, 10);
+  light.castShadow = true;
+  light.shadow.mapSize.width = 1024;
+  light.shadow.mapSize.height = 1024;
+  light.shadow.camera.near = 0.5;
+  light.shadow.camera.far = 50;
+  light.shadow.camera.left = -30;
+  light.shadow.camera.right = 30;
+  light.shadow.camera.top = 30;
+  light.shadow.camera.bottom = -30;
+  scene.add(light);
+  
+  // Optional: add a helper to visualize the light's shadow camera
+  // scene.add(new THREE.CameraHelper(light.shadow.camera));
+  
   const charGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.6);
   const charMaterial = new THREE.MeshBasicMaterial({ color: 0x00cc66 });
   character = new THREE.Mesh(charGeometry, charMaterial);
@@ -55,18 +76,20 @@ function init() {
   createWalls();
   createManualBuildings();
 
-  window.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') return;
-    const x = (e.clientX / window.innerWidth) * 2 - 1;
-    const y = -(e.clientY / window.innerHeight) * 2 + 1;
+  renderer.domElement.addEventListener('click', (e) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     moveToPointer(x, y);
   });
 
-  window.addEventListener('touchstart', (e) => {
-    const x = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
-    const y = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+  renderer.domElement.addEventListener('touchstart', (e) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    const y = -((e.touches[0].clientY - rect.top) / rect.height) * 2 + 1;
     moveToPointer(x, y);
   });
+
 
   window.addEventListener('resize', onWindowResize);
 
@@ -140,10 +163,18 @@ function moveToPointer(x, y) {
 
 function createWalls() {
   const wallHeight = 1;
-  const wallTexture = new THREE.TextureLoader().load('white-brick.png');
-  const material = new THREE.MeshBasicMaterial({ map: wallTexture });
+  const wallColor = 0xFFD666;  // This is your key color, or you can use any hex color value
+  
+  // Create a transparent material for the walls
+  const material = new THREE.MeshBasicMaterial({ 
+    color: 0x000000,    // You can choose any color, it won't be visible with opacity 0
+    transparent: true,  // Enable transparency
+    opacity: 0          // Set opacity to 0 (fully transparent)
+  });
+  // Geometry for the walls
   const geometry = new THREE.BoxGeometry(boundary * 2 + wallThickness, wallHeight, wallThickness);
 
+  // Create four walls
   const walls = [
     new THREE.Mesh(geometry, material),
     new THREE.Mesh(geometry, material),
@@ -151,6 +182,7 @@ function createWalls() {
     new THREE.Mesh(geometry, material),
   ];
 
+  // Position the walls appropriately
   walls[0].position.set(0, wallHeight / 1.6, boundary);
   walls[1].position.set(0, wallHeight / 2, -boundary);
   walls[2].rotation.y = Math.PI / 2;
@@ -158,36 +190,77 @@ function createWalls() {
   walls[3].rotation.y = Math.PI / 2;
   walls[3].position.set(-boundary, wallHeight / 2, 0);
 
+  // Add the walls to the scene
   walls.forEach(wall => scene.add(wall));
 }
 
 function createManualBuildings() {
   const loader = new THREE.TextureLoader();
   const data = [
-    { group: 'hongdae', texture: 'textures/h1.jpg', w: 2, h: 6, d: 2 },
-    { group: 'hongdae', texture: 'textures/h2.jpg', w: 3, h: 5, d: 2 },
-    { group: 'hongdae', texture: 'textures/h3.jpg', w: 2, h: 7, d: 2 },
-    { group: 'hongdae', texture: 'textures/h4.jpg', w: 2.5, h: 6, d: 2.5 },
-    { group: 'hongdae', texture: 'textures/h5.jpg', w: 2, h: 8, d: 2 },
-    { group: 'gangnam', texture: 'textures/g1.jpg', w: 3, h: 9, d: 2 },
-    { group: 'gangnam', texture: 'textures/g2.jpg', w: 2.5, h: 6, d: 2.5 },
-    { group: 'gangnam', texture: 'textures/g3.jpg', w: 2, h: 7, d: 3 },
-    { group: 'gangnam', texture: 'textures/g4.jpg', w: 3, h: 5, d: 2 },
-    { group: 'myeongdong', texture: 'textures/m1.jpg', w: 2, h: 6, d: 2 },
-    { group: 'myeongdong', texture: 'textures/m2.jpg', w: 2.5, h: 6.5, d: 2 }
+    { group: 'hongdae', texture: 'textures/h1.jpg', w: 2, h: 3, d: 2 },
+    { group: 'hongdae', texture: 'textures/h2.jpg', w: 3, h: 4, d: 2 },
+    { group: 'hongdae', texture: 'textures/h3.jpg', w: 2, h: 2, d: 2 },
+    { group: 'hongdae', texture: 'textures/h4.jpg', w: 2.5, h: 5, d: 2.5 },
+    { group: 'hongdae', texture: 'textures/h5.jpg', w: 2, h: 4, d: 2 },
+    { group: 'gangnam', texture: 'textures/g1.jpg', w: 3, h: 3, d: 2 },
+    { group: 'gangnam', texture: 'textures/g2.jpg', w: 2.5, h: 2, d: 2.5 },
+    { group: 'gangnam', texture: 'textures/g3.jpg', w: 2, h: 5, d: 3 },
+    { group: 'gangnam', texture: 'textures/g4.jpg', w: 3, h: 3, d: 2 },
+    { group: 'myeongdong', texture: 'textures/m1.jpg', w: 2, h: 2.5, d: 2 },
+    { group: 'myeongdong', texture: 'textures/m2.jpg', w: 2.5, h: 2, d: 2 }
   ];
 
   data.forEach(({ group, texture, w, h, d }) => {
     const material = new THREE.MeshBasicMaterial({ map: loader.load(texture) });
     const geo = new THREE.BoxGeometry(w, h, d);
-    const mesh = new THREE.Mesh(geo, material);
-    const x = Math.random() * (boundary * 2 - w) - boundary;
-    const z = Math.random() * (boundary * 2 - d) - boundary;
-    mesh.position.set(x, h / 2, z);
-    scene.add(mesh);
-    buildings.push(mesh);
-    buildingGroups[group].push(mesh);
+    const building = new THREE.Mesh(geo, material);
+    
+    let x, z;
+let attempts = 0;
+do {
+  x = Math.random() * (boundary * 2 - w) - boundary;
+  z = Math.random() * (boundary * 2 - d) - boundary;
+  attempts++;
+} while (isPositionOccupied(x, z, w, d) && attempts < 100);
+
+    building.position.set(x, h / 2, z);
+    
+    
+    // Create portal
+    const portalGeometry = new THREE.CircleGeometry(1, 64); // bigger & smoother
+    const portalMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.7 });
+    const portal = new THREE.Mesh(portalGeometry, portalMaterial);
+    portal.rotation.x = -Math.PI / 2; // Flat on ground
+  
+    // Offset the portal to be in front of the building
+    const portalOffset = d / 2 + 0.3; // a little in front
+    portal.position.set(x, 0.01, z + d / 2 + 1);
+  
+    scene.add(building);
+    scene.add(portal);
+    
+    buildings.push(building);
+    buildingGroups[group].push(building);
+
+    
   });
+}
+
+function isPositionOccupied(x, z, w, d) {
+  for (const b of buildings) {
+    const bounds = new THREE.Box3().setFromObject(b);
+    const min = bounds.min, max = bounds.max;
+
+    const proposedMinX = x - w / 2, proposedMaxX = x + w / 2;
+    const proposedMinZ = z - d / 2, proposedMaxZ = z + d / 2;
+
+    const intersects =
+      proposedMaxX > min.x && proposedMinX < max.x &&
+      proposedMaxZ > min.z && proposedMinZ < max.z;
+
+    if (intersects) return true;
+  }
+  return false;
 }
 
 function animate() {

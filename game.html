@@ -1,20 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<style src ="./game.css"></style>
-<title>3D Character Top View</title>
-</head>
-<body>
-  <div class="filter-buttons">
-    <button data-filter="all">All</button>
-    <button data-filter="hongdae">Hongdae</button>
-    <button data-filter="gangnam">Gangnam</button>
-    <button data-filter="myeongdong">Myeongdong</button>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="./game.js"></script>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./game.css">
 
-</body>
-</html>
+        <title>3D Character Top View</title>
+    </head>
+    <body>
+
+        <!-- Top Banner -->
+        <header class="banner">
+            <div class="left_banner">
+                <div class="hamburger" onclick="toggleMenu()"></div>
+                <a href="./index.html" class="logo">WUDL</a>
+
+            </div>
+
+            <input type="text" class="search-bar" placeholder="Search..." id="searchBox">
+
+            <div class="right_banner">
+                <div class="show-post-input1">Write Post
+                </div>
+                <div class="profile" id="profile-section">
+                    <!-- 로그인 전 -->
+                    <image
+                        class="profile-picture"
+                        id="login-section"
+                        src="images/free.svg"
+                        onclick="showLoginForm()"></image>
+                    <!-- 로그인 후 -->
+                    <div id="profile-content" style="display: none;">
+                        <image class="profile-picture" src="images/me.svg" onclick="showLogoutForm()"></image>
+                        <div style="display: flex; flex-direction: column; gap: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 로그인 폼 -->
+            <div class="login-form" id="login-form">
+                <img
+                    class="button_X"
+                    src="./images/close.svg"
+                    alt="Close"
+                    onclick="hideLoginForm()">
+                <h1>Welcome</h1>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required="required">
+                </div>
+                <div class="form-buttons">
+                    <button class="button_login" onclick="login()">Log in</button>
+
+                </div>
+                <p class="signup-link">Wanna join WUDL? Sign Up!
+                    <a href="#" onclick="showSignupForm()">Sign up</a>
+                </p>
+            </div>
+
+            <!-- 로그아웃 폼 -->
+            <div class="log-out-box" id="log-out-box">
+                <div class="log-out-box-buttons">
+                    <ul>
+                        <li>
+                            <p id="profile-name"></p>
+                        </li>
+                        <hr>
+                        <li>
+                            <p id="profile-username"></p>
+                        </li>
+                        <hr>
+                        <li>
+                            <div class="log-out-button" onclick="showArchivedPosts()">Archived</button>
+                        </li>
+                        <hr>
+                        <li>
+                            <div class="log-out-button" onclick="logout()">Log out</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 회원가입 폼 -->
+            <div class="signup-form" id="signup-form">
+                <img
+                    class="button_X"
+                    src="./images/close.svg"
+                    alt="Close"
+                    onclick="hideSignupForm()">
+
+                <h1>Sign up</h1>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required="required">
+                </div>
+                <div class="form-buttons">
+                    <button class="button_login" onclick="signup()">Sign up</button>
+                </div>
+                <p class="signup-link">Already a member of WUDL? Log in!
+                    <a href="#" onclick="showLoginForm()">Log in</a>
+                </div>
+            </header>
+
+            <!-- Main Container -->
+            <div class="container">
+                <aside class="left-sidebar" id="left-sidebar">
+                    <nav>
+                        <div class="navigation_box">
+                            <ul>
+                                <li>
+                                    <a href="./index.html" onclick="showAllPosts()" class="nav-item" id="home"><img src="./images/home.svg" alt="Home Icon">
+                                        Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-item" id="trending"><img src="./images/trend.svg" alt="Trending Icon">
+                                        Trending</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a href="#" onclick="fetchPostsByCategory('free')" class="nav-item1" id="free"><img src="./images/city.svg" alt="Seoul Icon">
+                                        Free board</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="fetchPostsByCategory('hang')" class="nav-item1" id="hang"><img src="./images/city.svg" alt="Seoul Icon">
+                                        Hang out</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('traveling')"
+                                        class="nav-item1"
+                                        id="traveling"><img src="./images/travel.svg" alt="Karaoke Icon">
+                                        Traveling</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('beauty')"
+                                        class="nav-item1"
+                                        id="beauty"><img src="./images/beauty.svg" alt="Beauty Icon">
+                                        Beauty</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('fashion')"
+                                        class="nav-item1"
+                                        id="fashion"><img src="./images/fashion.svg" alt="Beauty Icon">
+                                        Fashion</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        onclick="fetchPostsByCategory('festival')"
+                                        class="nav-item1"
+                                        id="festival"><img src="./images/festival.svg" alt="Beauty Icon">
+                                        Univ. Festival</a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <ul class="s_menu">
+                                <li>
+                                    <a href="#">Rules</a>
+                                </li>
+                                <li>
+                                    <a href="#">Policies</a>
+                                </li>
+                                <li>
+                                    <a href="#">User Agreement</a>
+                                </li>
+                                <li>
+                                    <a href="#">Help</a>
+                                </li>
+                                <li>
+                                    <a href="./archive.html">Archive</a>
+                                </li>
+                                <li>
+                                    <a href="./game.html">game</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                </aside>
+
+                <div class="filter-buttons">
+                    <button data-filter="all">All</button>
+                    <button data-filter="hongdae">Hongdae</button>
+                    <button data-filter="gangnam">Gangnam</button>
+                    <button data-filter="myeongdong">Myeongdong</button>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                <script src="./game.js"></script>
+                <script defer="defer" src="script.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/OBJLoader.js"></script>
+
+            </body>
+        </html>
