@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "This phase required collaboration with external partners",
         "A new team member joined during this phase"
       ];
-      
+
       const randomFact = randomFacts[Math.floor(Math.random() * randomFacts.length)];
       
       const newItem = document.createElement('div');
@@ -429,3 +429,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function box1_open() {
+  const box = document.querySelector('.box1');  // Select the box1 element
+  const currentHeight = window.getComputedStyle(box).height;  // Get the current computed height
+  
+  // Toggle height between 250px and 400px
+  if (currentHeight === '1000px') {
+    box.style.height = '250px';  // Collapse the box back to 250px
+  } else {
+    box.style.height = '1000px';  // Expand the box to 400px
+  }
+}

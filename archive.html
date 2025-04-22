@@ -31,17 +31,13 @@
 
     </head>
     <body>
-
         <!-- Top Banner -->
         <header class="banner">
             <div class="left_banner">
                 <div class="hamburger" onclick="toggleMenu()"></div>
                 <a href="./index.html" class="logo">WUDL</a>
-
             </div>
-
             <input type="text" class="search-bar" placeholder="Search..." id="searchBox">
-
             <div class="right_banner">
                 <div class="show-post-input1">Write Post
                 </div>
@@ -59,7 +55,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- 로그인 폼 -->
             <div class="login-form" id="login-form">
                 <img
@@ -244,35 +239,35 @@
                     <h2>Meeting Notes</h2>
                     <div class="frame">
                         <div class="box-wrapper">
-                            <div class="box1">Meeting 1: Project Kickoff</div>
-                            <div class="desc">4/15/2025</div>
+                            <div class="box1" onclick="box1_open()">Meeting 1: Project Kickoff</div>
+                            <div class="desc">12/17/2024</div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="box1">Meeting 2: Design Discussion</div>
-                            <div class="desc">4/15/2025.</div>
+                            <div class="box1" onclick="box1_open()">Meeting 2: Design Discussion</div>
+                            <div class="desc">1/13/2025</div>
                         </div>
                         <div class="box-wrapper">
                             <div class="box1">Meeting 3: Development Planning</div>
-                            <div class="desc">Planned tech stack, milestones, and responsibilities.</div>
+                            <div class="desc">3/10/2025</div>
                         </div>
                         <div class="box-wrapper">
                             <div class="box1">Meeting 4: Testing Strategy</div>
-                            <div class="desc">Outlined QA steps, devices, and user testing.</div>
+                            <div class="desc">3/18/2025</div>
                         </div>
                         <div class="box-wrapper">
                             <div class="box1">Meeting 5: Final Review</div>
-                            <div class="desc">Discussed launch, bugs, and next steps.</div>
+                            <div class="desc">4/21/2025</div>
                         </div>
                     </div>
-                    
                 </div>
+
 
                 <div id="research" class="popup-content hidden">
                     <h2>Research Findings</h2>
                     <div class="research-container">
                         <div class="research-card">
-                            <h3>User Interviews</h3>
-                            <p>Key insights from user interviews and surveys.</p>
+                            <h3>Working period</h3>
+                            <p>How soon do we have to finish everything?</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Users prefer simple navigation</li>
@@ -283,7 +278,7 @@
                             <button class="toggle-btn">Show Details</button>
                         </div>
                         <div class="research-card">
-                            <h3>Competitor Analysis</h3>
+                            <h3>What problems might arise?</h3>
                             <p>Analysis of similar platforms and their features.</p>
                             <div class="research-details hidden">
                                 <ul>
@@ -295,7 +290,31 @@
                             <button class="toggle-btn">Show Details</button>
                         </div>
                         <div class="research-card">
-                            <h3>Market Trends</h3>
+                            <h3>What should We consider?</h3>
+                            <p>Current trends in community platforms.</p>
+                            <div class="research-details hidden">
+                                <ul>
+                                    <li>Rising popularity of niche communities</li>
+                                    <li>Integration with social media</li>
+                                    <li>Focus on user-generated content</li>
+                                </ul>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="research-card">
+                            <h3>What do we have to study for?</h3>
+                            <p>Current trends in community platforms.</p>
+                            <div class="research-details hidden">
+                                <ul>
+                                    <li>Rising popularity of niche communities</li>
+                                    <li>Integration with social media</li>
+                                    <li>Focus on user-generated content</li>
+                                </ul>
+                            </div>
+                            <button class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="research-card">
+                            <h3>What to ask</h3>
                             <p>Current trends in community platforms.</p>
                             <div class="research-details hidden">
                                 <ul>
@@ -315,8 +334,36 @@
                         <div class="prototype-nav">
                             <button class="prototype-btn active" data-target="wireframe1">Wireframe 1</button>
                             <button class="prototype-btn" data-target="wireframe2">Wireframe 2</button>
-                            <button class="prototype-btn" data-target="prototype1">Prototype 1</button>
+                            <button class="prototype-btn" data-target="wireframe3">Wireframe 3</button>
+                            <button class="prototype-btn" data-target="wireframe4">Wireframe 4</button>
+                            
+                        </div>
+                        <div class="prototype-content">
+                            <div class="prototype-item active" id="wireframe1">
+                                <div class="prototype-image">Wireframe 1 Image</div>
+                                <p>Initial wireframe focusing on user flow and navigation structure.</p>
+                            </div>
+                            <div class="prototype-item" id="wireframe2">
+                                <div class="prototype-image">Wireframe 2 Image</div>
+                                <p>Refined wireframe incorporating feedback from stakeholders.</p>
+                            </div>
+                            <div class="prototype-item" id="wireframe3">
+                                <div class="prototype-image">Prototype 3 Image</div>
+                                <p>First interactive prototype with basic functionality.</p>
+                            </div>
+                            <div class="prototype-item" id="wireframe4">
+                                <div class="prototype-image">Prototype 4 Image</div>
+                                <p>Final prototype with all features implemented.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prototype-container">
+                        <div class="prototype-nav">
+                            <button class="prototype-btn active" data-target="prototype1">Prototype 1</button>
                             <button class="prototype-btn" data-target="prototype2">Prototype 2</button>
+                            <button class="prototype-btn" data-target="prototype3">Prototype 3</button>
+                            <button class="prototype-btn" data-target="prototype4">Prototype 4</button>
                         </div>
                         <div class="prototype-content">
                             <div class="prototype-item active" id="wireframe1">
@@ -342,11 +389,9 @@
                 <div id="feedback" class="popup-content hidden">
                     <h2>Feedback Summary</h2>
                     <div class="feedback-container">
-                        <div class="feedback-timeline">
                             <div class="feedback-item">
-                                <div class="feedback-date">Week 1</div>
                                 <div class="feedback-content">
-                                    <h3>Initial User Testing</h3>
+                                    <h3>Week 1</h3>
                                     <p>Feedback on navigation and layout</p>
                                     <div class="feedback-details hidden">
                                         <ul>
@@ -359,9 +404,8 @@
                                 </div>
                             </div>
                             <div class="feedback-item">
-                                <div class="feedback-date">Week 2</div>
                                 <div class="feedback-content">
-                                    <h3>Stakeholder Review</h3>
+                                    <h3>Week 2</h3>
                                     <p>Feedback on features and functionality</p>
                                     <div class="feedback-details hidden">
                                         <ul>
@@ -374,9 +418,36 @@
                                 </div>
                             </div>
                             <div class="feedback-item">
-                                <div class="feedback-date">Week 3</div>
                                 <div class="feedback-content">
-                                    <h3>Beta Testing</h3>
+                                    <h3>Week 3</h3>
+                                    <p>Feedback on overall user experience</p>
+                                    <div class="feedback-details hidden">
+                                        <ul>
+                                            <li>Performance issues on mobile</li>
+                                            <li>Content loading is slow</li>
+                                            <li>UI is now more intuitive</li>
+                                        </ul>
+                                    </div>
+                                    <button class="toggle-btn">Show Details</button>
+                                </div>
+                            </div>
+                            <div class="feedback-item">
+                                <div class="feedback-content">
+                                    <h3>Week 4</h3>
+                                    <p>Feedback on overall user experience</p>
+                                    <div class="feedback-details hidden">
+                                        <ul>
+                                            <li>Performance issues on mobile</li>
+                                            <li>Content loading is slow</li>
+                                            <li>UI is now more intuitive</li>
+                                        </ul>
+                                    </div>
+                                    <button class="toggle-btn">Show Details</button>
+                                </div>
+                            </div>
+                            <div class="feedback-item">
+                                <div class="feedback-content">
+                                    <h3>Week 5</h3>
                                     <p>Feedback on overall user experience</p>
                                     <div class="feedback-details hidden">
                                         <ul>
@@ -389,7 +460,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
 
                 <div id="usecases" class="popup-content hidden">
@@ -451,17 +521,25 @@
                             <h3>Logo Evolution</h3>
                             <div class="logo-showcase">
                                 <div class="logo-item">
-                                    <div class="logo-image">Logo 1</div>
+                                    <div class="logo-image">
+                                      <img src="./images/logo_1.png" alt="Logo">
+                                    </div>
                                     <p>Initial concept</p>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="logo-image">Logo 2</div>
-                                    <p>Refined concept</p>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="logo-image">Logo 3</div>
+                                  </div>
+                                  
+                                  <div class="logo-item logo-item-logo2">  <!-- Added class for logo-2 -->
+                                    <div class="logo-image">
+                                      WUDL
+                                    </div>
+                                    <p>Initial concept</p>
+                                  </div>
+                                  
+                                  <div class="logo-item logo-item-logo3">
+                                    <div class="logo-image">
+                                      WUDL
+                                    </div>
                                     <p>Final logo</p>
-                                </div>
+                                  </div>
                             </div>
                         </div>
                         <div class="branding-section">
@@ -485,12 +563,16 @@
                                     <p>Primary: #FFD666</p>
                                 </div>
                                 <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #f3f3f3;"></div>
+                                    <div class="color-swatch" style="background-color: #d9d9d9;"></div>
                                     <p>Secondary: #f3f3f3</p>
                                 </div>
                                 <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #000000;"></div>
-                                    <p>Text: #000000</p>
+                                    <div class="color-swatch" style="background-color: #f8f8f8;"></div>
+                                    <p>Text: #f8f8f8</p>
+                                </div>
+                                <div class="color-item">
+                                    <div class="color-swatch" style="background-color: #030303;"></div>
+                                    <p>Text: #030303</p>
                                 </div>
                             </div>
                         </div>

@@ -79,7 +79,7 @@ h3 {
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
-
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -90,8 +90,6 @@ h3 {
     padding: 20px; /* This adds padding on all sides */
     scroll-snap-type: x mandatory;
 }
-
-
 
 .frame::-webkit-scrollbar {
     height: 8px;
@@ -113,6 +111,7 @@ h3 {
     height: 250px;
     background: #f3f3f3; /* optional styling */
     border-radius: 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -348,8 +347,8 @@ h3 {
 .research-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: 60px;
+    padding: 10px;
 }
 
 .research-card {
@@ -400,7 +399,7 @@ h3 {
 }
 
 .prototype-btn {
-    padding: 10px 15px;
+    padding: 5px 5px;
     background: #f3f3f3;
     border: none;
     border-radius: 8px;
@@ -454,21 +453,6 @@ h3 {
     padding: 20px;
 }
 
-.feedback-timeline {
-    position: relative;
-    padding-left: 50px;
-}
-
-.feedback-timeline::before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #FFD666;
-}
-
 .feedback-item {
     position: relative;
     margin-bottom: 30px;
@@ -476,9 +460,9 @@ h3 {
 
 .feedback-date {
     position: absolute;
-    left: -50px;
+    left: -80px;
     top: 0;
-    width: 40px;
+    width: 80px;
     height: 40px;
     background: #FFD666;
     border-radius: 50%;
@@ -486,13 +470,12 @@ h3 {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 14px;
 }
 
 .feedback-content {
     background: #f3f3f3;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -589,7 +572,6 @@ h3 {
 
 .logo-image {
     height: 100px;
-    background: #fff;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -597,6 +579,26 @@ h3 {
     margin-bottom: 15px;
     font-weight: bold;
 }
+
+.logo-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+  /* Specific styles for logo-2 image */
+.logo-item:nth-child(2) .logo-image {
+    font-size: 60px;
+    font-family: "Jaro", system-ui;
+}
+
+.logo-item-logo3 .logo-image {
+    font-family: "Cherry Bomb One", system-ui;
+    font-size: 60px; /* Adjust size as needed */
+    font-weight: normal; /* Customize weight if you want */
+    color: #030303; /* Change color if needed */
+}
+
 
 .typeface-sample {
     font-size: 24px;
