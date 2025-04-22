@@ -4,6 +4,7 @@
 
 .list{
     text-align: center;
+
 }
 
 .list ul{
@@ -21,6 +22,11 @@
     cursor: pointer;
     transition: color 0.3s ease;
 }
+
+.list ul li:first-child {
+    margin-top: 60px;
+  }
+  
 
 .list ul li:hover {
     color: #FFD666;
@@ -71,7 +77,6 @@ h3 {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
     padding: 20px;
     box-sizing: border-box;
 
@@ -85,6 +90,8 @@ h3 {
     padding: 20px; /* This adds padding on all sides */
     scroll-snap-type: x mandatory;
 }
+
+
 
 .frame::-webkit-scrollbar {
     height: 8px;
@@ -658,7 +665,7 @@ h3 {
 
 .lang-switch {
     position: fixed;
-    bottom: calc(20px + env(safe-area-inset-bottom));
+    bottom: calc(40px + env(safe-area-inset-bottom));
     right: 20px;
     z-index: 999;
     font-weight: bold;
