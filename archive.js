@@ -180,15 +180,15 @@ function setupToggleButtons() {
 function setupPrototypeNavigation() {
   const prototypeButtons = document.querySelectorAll('.prototype-btn');
   const prototypeItems = document.querySelectorAll('.prototype-item');
-  
+
   prototypeButtons.forEach(button => {
     button.addEventListener('click', () => {
       const target = button.getAttribute('data-target');
-      
+
       // Update active button
       prototypeButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
-      
+
       // Show target content
       prototypeItems.forEach(item => {
         item.classList.remove('active');
@@ -199,6 +199,7 @@ function setupPrototypeNavigation() {
     });
   });
 }
+
 
 // Feedback timeline animation
 function setupFeedbackTimeline() {
@@ -430,14 +431,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function box1_open() {
-  const box = document.querySelector('.box1');  // Select the box1 element
-  const currentHeight = window.getComputedStyle(box).height;  // Get the current computed height
-  
-  // Toggle height between 250px and 400px
-  if (currentHeight === '1000px') {
-    box.style.height = '250px';  // Collapse the box back to 250px
-  } else {
-    box.style.height = '1000px';  // Expand the box to 400px
-  }
-}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Handle box expansion on click
+  document.querySelectorAll(".box1").forEach((box) => {
+    box.addEventListener("click", () => {
+      box.classList.add("expanded"); // Only expand, no toggle
+    });
+  });
+
+  // Handle closing ONLY when close banner is clicked
+  document.querySelectorAll(".close-banner").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent box click from firing
+      const box = e.target.closest(".box1");
+      box.classList.remove("expanded");
+    });
+  });
+});

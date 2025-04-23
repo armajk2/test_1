@@ -31,14 +31,19 @@
 
     </head>
     <body>
+
         <!-- Top Banner -->
         <header class="banner">
             <div class="left_banner">
-                <div class="hamburger" onclick="toggleMenu()"></div>
-                <a href="./index.html" class="logo">WUDL</a>
+                <div class="hamburger" onclick="toggleMenu_2();"></div>
+                <a class="logo" href="./index.html">WUDL</a>
+
             </div>
+
             <input type="text" class="search-bar" placeholder="Search..." id="searchBox">
+
             <div class="right_banner">
+
                 <div class="show-post-input1">Write Post
                 </div>
                 <div class="profile" id="profile-section">
@@ -50,177 +55,186 @@
                         onclick="showLoginForm()"></image>
                     <!-- 로그인 후 -->
                     <div id="profile-content" style="display: none;">
-                        <image class="profile-picture" src="images/me.svg" onclick="showLogoutForm()"></image>
+                        <img
+                            id="profile-picture"
+                            class="profile-picture"
+                            src="images/me.svg"
+                            onclick="showLogoutForm()"
+                            style="cursor: pointer;"/>
                         <div style="display: flex; flex-direction: column; gap: 10px;"></div>
                     </div>
-                </div>
-            </div>
-            <!-- 로그인 폼 -->
-            <div class="login-form" id="login-form">
-                <img
-                    class="button_X"
-                    src="./images/close.svg"
-                    alt="Close"
-                    onclick="hideLoginForm()">
-                <h1>Welcome</h1>
-                <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" required="required">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required="required">
-                </div>
-                <div class="form-buttons">
-                    <button class="button_login" onclick="login()">Log in</button>
 
                 </div>
-                <p class="signup-link">Wanna join WUDL? Sign Up!
-                    <a href="#" onclick="showSignupForm()">Sign up</a>
-                </p>
-            </div>
 
-            <!-- 로그아웃 폼 -->
-            <div class="log-out-box" id="log-out-box">
-                <div class="log-out-box-buttons">
-                    <ul>
-                        <li>
-                            <p id="profile-name"></p>
-                        </li>
-                        <hr>
-                        <li>
-                            <p id="profile-username"></p>
-                        </li>
-                        <hr>
-                        <li>
-                            <div class="log-out-button" onclick="showArchivedPosts()">Archived</button>
-                        </li>
-                        <hr>
-                        <li>
-                            <div class="log-out-button" onclick="logout()">Log out</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                <!-- 로그인 폼 -->
+                <div class="login-form" id="login-form">
+                    <img
+                        class="button_X"
+                        src="./images/close.svg"
+                        alt="Close"
+                        onclick="hideLoginForm()">
+                    <h1>Welcome</h1>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="profile-name" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required="required">
+                    </div>
+                    <div class="form-buttons">
+                        <button class="button_login" onclick="login()">Log in</button>
 
-            <!-- 회원가입 폼 -->
-            <div class="signup-form" id="signup-form">
-                <img
-                    class="button_X"
-                    src="./images/close.svg"
-                    alt="Close"
-                    onclick="hideSignupForm()">
+                    </div>
+                    <p class="signup-link">Wanna join WUDL? Sign Up!
+                        <a href="#" onclick="showSignupForm()">Sign up</a>
+                    </p>
+                </div>
 
-                <h1>Sign up</h1>
-                <div class="form-group">
-                    <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" required="required">
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required="required">
-                </div>
-                <div class="form-buttons">
-                    <button class="button_login" onclick="signup()">Sign up</button>
-                </div>
-                <p class="signup-link">Already a member of WUDL? Log in!
-                    <a href="#" onclick="showLoginForm()">Log in</a>
-                </div>
-            </header>
-
-            <!-- Main Container -->
-            <div class="container">
-                <aside class="left-sidebar" id="left-sidebar">
-                    <nav>
-                        <div class="navigation_box">
-                            <ul>
-                                <li>
-                                    <a href="./index.html" onclick="showAllPosts()" class="nav-item" id="home"><img src="./images/home.svg" alt="Home Icon">
-                                        Home</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-item" id="trending"><img src="./images/trend.svg" alt="Trending Icon">
-                                        Trending</a>
-                                </li>
-                                <hr>
-                                <li>
-                                    <a href="#" onclick="fetchPostsByCategory('free')" class="nav-item1" id="free"><img src="./images/city.svg" alt="Seoul Icon">
-                                        Free board</a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="fetchPostsByCategory('hang')" class="nav-item1" id="hang"><img src="./images/city.svg" alt="Seoul Icon">
-                                        Hang out</a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        onclick="fetchPostsByCategory('traveling')"
-                                        class="nav-item1"
-                                        id="traveling"><img src="./images/travel.svg" alt="Karaoke Icon">
-                                        Traveling</a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        onclick="fetchPostsByCategory('beauty')"
-                                        class="nav-item1"
-                                        id="beauty"><img src="./images/beauty.svg" alt="Beauty Icon">
-                                        Beauty</a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        onclick="fetchPostsByCategory('fashion')"
-                                        class="nav-item1"
-                                        id="fashion"><img src="./images/fashion.svg" alt="Beauty Icon">
-                                        Fashion</a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        onclick="fetchPostsByCategory('festival')"
-                                        class="nav-item1"
-                                        id="festival"><img src="./images/festival.svg" alt="Beauty Icon">
-                                        Univ. Festival</a>
-                                </li>
-                            </ul>
+                <!-- 로그아웃 폼 -->
+                <div class="log-out-box" id="log-out-box">
+                    <div class="log-out-box-buttons">
+                        <ul>
+                            <li>
+                                <p id="profile-username" onclick="openProfilePopup()">Username</p>
+                            </li>
                             <hr>
-                            <ul class="s_menu">
-                                <li>
-                                    <a href="#">Rules</a>
-                                </li>
-                                <li>
-                                    <a href="#">Policies</a>
-                                </li>
-                                <li>
-                                    <a href="#">User Agreement</a>
-                                </li>
-                                <li>
-                                    <a href="#">Help</a>
-                                </li>
-                                <li>
-                                    <a href="./archive.html">Archive</a>
-                                </li>
-                                <li>
-                                    <a href="./game.html">game</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                            <li>
+                                <div class="log-out-button" onclick="displayMyPosts()">My Posts</button>
+                            </li>
+                            <hr>
+                            <li>
+                                <div class="log-out-button" onclick="displayMyComments()">My Comments</button>
+                            </li>
+                            <hr>
+                            <li>
+                                <div class="log-out-button" onclick="showArchivedPosts()">Archived</button>
+                            </li>
+                            <hr>
+                            <li>
+                                <div class="log-out-button" onclick="logout()">Log out</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                </aside>
+                <!-- 회원가입 폼 -->
+                <div class="signup-form" id="signup-form">
+                    <img
+                        class="button_X"
+                        src="./images/close.svg"
+                        alt="Close"
+                        onclick="hideSignupForm()">
 
-                <aside class="right-sidebar">
-                    <!-- Trending content goes here -->
-                </aside>
-            </div>
+                    <h1>Sign up</h1>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required="required">
+                    </div>
+                    <div class="form-buttons">
+                        <button class="button_login" onclick="signup()">Sign up</button>
+                    </div>
+                    <p class="signup-link">Already a member of WUDL? Log in!
+                        <a href="#" onclick="showLoginForm()">Log in</a>
+                    </div>
+                </header>
 
-            <!-- Button to show/hide the post input -->
-            <div class="overlay" id="overlay" onclick="hideLoginForm()"></div>
-            <div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
-            <div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
-            <div class="hamburgeroverlay" onclick="toggleMenu()"></div>
+                <!-- Main Container -->
+                <div class="container">
+                    <aside class="left-sidebar" id="left-sidebar">
+                        <nav>
+                            <div class="navigation_box">
+                                <ul>
+                                    <li>
+                                        <a href="#" onclick="showAllPosts()" class="nav-item" id="home"><img src="./images/home.svg" alt="Home Icon">
+                                            Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="nav-item" id="trending"><img src="./images/trend.svg" alt="Trending Icon">
+                                            Trending</a>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <a href="#" onclick="fetchPostsByCategory('free')" class="nav-item1" id="free"><img src="./images/hang.svg" alt="Seoul Icon">
+                                            Free board</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onclick="fetchPostsByCategory('hang')" class="nav-item1" id="hang"><img src="./images/hang.svg" alt="Seoul Icon">
+                                            Hang out</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onclick="fetchPostsByCategory('traveling')"
+                                            class="nav-item1"
+                                            id="traveling"><img src="./images/travel.svg" alt="Karaoke Icon">
+                                            Traveling</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onclick="fetchPostsByCategory('beauty')"
+                                            class="nav-item1"
+                                            id="beauty"><img src="./images/beauty.svg" alt="Beauty Icon">
+                                            Beauty</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onclick="fetchPostsByCategory('fashion')"
+                                            class="nav-item1"
+                                            id="fashion"><img src="./images/fashion.svg" alt="Beauty Icon">
+                                            Fashion</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onclick="fetchPostsByCategory('festival')"
+                                            class="nav-item1"
+                                            id="festival"><img src="./images/festival.svg" alt="Beauty Icon">
+                                            Univ. Festival</a>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <ul class="s_menu">
+                                    <li>
+                                        <a href="#">Rules</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Policies</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">User Agreement</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Help</a>
+                                    </li>
+                                    <li>
+                                        <a href="./archive.html">Archive</a>
+                                    </li>
+                                    <li>
+                                        <a href="./game.html">Game</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
 
+                    </aside>
+                    <aside class="right-sidebar">
+                        <!-- Trending content goes here -->
+                    </aside>
+                </div>
+
+                <!-- Button to show/hide the post input -->
+                <div class="overlay" id="overlay" onclick="hideLoginForm()"></div>
+                <div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
+                <div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
+                <div class="hamburgeroverlay" onclick="toggleMenu_2()"></div>
+                
             <div class="list">
                 <ul>
                     <li data-key="meeting">Meeting Notes</li>
@@ -239,35 +253,103 @@
                     <h2>Meeting Notes</h2>
                     <div class="frame">
                         <div class="box-wrapper">
-                            <div class="box1" onclick="box1_open()">Meeting 1: Project Kickoff</div>
+                            <div class="box1" >
+                                <a>Meeting 1: Project Kickoff</a>
+                                <div class="hidden-text">
+                                    <hr>
+                                    <div class="chat-message person1">I'm thinking of taking a break from school this semester. </div>
+                                    <div class="chat-message person2">Oh yeah? What are you gonna do during your break?</div>
+                                    <div class="chat-message person1">Just rest and maybe study a bit on the side.</div>
+                                    <div class="chat-message person2">I see. Let's try doing something together then — I should have time too.</div>
+                                    <div class="chat-message person1">Let's goooo!</div>
+                                  </div>
+                                <div class="close-banner" onclick="closeBox(event)">Close</div>
+                              </div>
                             <div class="desc">12/17/2024</div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="box1" onclick="box1_open()">Meeting 2: Design Discussion</div>
+                            <div class="box1">
+                                <a>Meeting 2: Idea Discussion</a>
+                                <div class="hidden-text">
+                                    <hr>
+                                    <div class="chat-message person1">We should target an existing market rather than creating a new one. It’s about what's already there, right?</div>
+                                    <div class="chat-message person2">Yeah, marketing is 80% of the work. But for a platform, we need to gather both users and providers, so it’s a tough task.</div>
+                                    <div class="chat-message person1">True. There are freelance platforms like "Soomgo" and "Kmong" already. We've done some demand research, and there’s a high demand for designers.</div>
+                                    <div class="chat-message person2">So we can focus on promoting services for individual business owners. The process isn't that long.</div>
+                                    <div class="chat-message person1">Exactly, the future belongs to those who can predict it. We need a long-term plan to build value and reach a lot of people.</div>
+                                    <div class="chat-message person2">Right. The key question is: how much value can we provide, and how many people can we reach?</div>
+                                    <div class="chat-message person1">And using AI technology could be a game-changer, but do we sell our technology or just use it for profit? It’s a short-term vs long-term debate.</div>
+                                    <div class="chat-message person2">It’s like consulting for 500,000 won. But the difference is, if we build a company, we scale. The challenge is differentiating services like design, translation, tutoring… it’s hard to stand out without luck or strong connections.</div>
+                                    <div class="chat-message person1">Exactly, the key is having a unique skill set—something that others don’t have, like Apple or Nike. It’s not just about expanding an idea; it’s about the uniqueness of the skills we have.</div>
+                                    <div class="chat-message person2">So, the question is whether we should focus on selling our skills and gradually grow our business, or go with an idea-driven platform like Facebook or Baemin?</div>
+                                    <div class="chat-message person1">We only have a year to figure this out. We’ll be working with just two people. I’m willing to learn the necessary skills within two months. But we have no connections, and we need to think about the international market. We have time, but no capital.</div>
+                                  </div>
+                                <div class="close-banner" onclick="closeBox(event)">Close</div>
+                            </div>
                             <div class="desc">1/13/2025</div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="box1">Meeting 3: Development Planning</div>
+                            <div class="box1">Meeting 3: Development Planning
+                                <div class="hidden-text">
+                                    <hr>
+                                    <div class="chat-message person1">Our target users are exchange students who want to get closer to Koreans, right?</div>
+                                    <div class="chat-message person2">Exactly! And the revenue model can be through ads initially, but once we have more users, we can expand into other directions.</div>
+                                    <div class="chat-message person1">The mood needs to be friendly, comfortable, and bright, with a mix of yellow and green. This will attract users to connect easily.</div>
+                                    <div class="chat-message person2">Right! The interface should have buttons for login, Instagram, events, logo, notifications, and introduction.</div>
+                                    <div class="chat-message person1">We’ll incorporate photos and videos to make it more engaging and immersive.</div>
+                                    <div class="chat-message person2">For the user experience, the platform should make users feel excited, safe, and connected, sharing hobbies, and it should be a fun environment without fear or tension.</div>
+                                    <div class="chat-message person1">We should focus on creating opportunities for new people to meet, with small groups and challenges, and build language skills while strengthening connections.</div>
+                                    <div class="chat-message person2">We want users to experience joy, excitement, and expansion of perspectives while making new connections—just like how I wish I could enjoy Korea through the eyes of Koreans themselves.</div>
+                                    <div class="chat-message person1">We are creating new connections in a global society, but how is that different from dating apps?</div>
+                                    <div class="chat-message person2">The key is that it’s not about dating. It’s about fostering genuine connections and excitement in experiencing Korea and meeting new people, expanding your world.</div>
+                                  </div>
+                                <div class="close-banner" onclick="closeBox(event)">Close</div>
+                            </div>
                             <div class="desc">3/10/2025</div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="box1">Meeting 4: Testing Strategy</div>
+                            <div class="box1">Meeting 4: Testing Strategy
+                                <div class="hidden-text">
+                                    <hr>
+                                    <div class="chat-message person1">Our platform's key components should be straightforward: sign-up, trending posts, search engine, categories, posting, and app download later. Don't forget the logo!</div>
+                                    <div class="chat-message person2">Right, for the design, we need to focus on one-point color FFD050 for readability, with a clean and minimal UI like Reddit or Discord. Let's make it modern and simple.</div>
+                                    <div class="chat-message person1">We should also integrate simple SVG icons and animations to enhance the user experience, but keep it subtle and not overdone.</div>
+                                    <div class="chat-message person2">And we definitely need both light and dark modes, so users can choose their preference. We could also add rounded corners and soft UI for a friendly feel, like Tailwind UI.</div>
+                                    <div class="chat-message person1">For functionality, let's include features like fake accounts to boost community activity, customizable avatars, content voting, and a scoring system to encourage engagement, like karma on Reddit.</div>
+                                    <div class="chat-message person2">Yes, simplicity is key, with intuitive UI, easy navigation, and minimal distractions. We also need to ensure the design is flexible, whether light or dark mode, and the icons should stand out without cluttering the screen.</div>
+                                    <div class="chat-message person1">Exactly! Focus on the essentials—clean, user-friendly, and visually engaging.</div>
+                                  </div>
+                                <div class="close-banner" onclick="closeBox(event)">Close</div>
+                            </div>
                             <div class="desc">3/18/2025</div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="box1">Meeting 5: Final Review</div>
+                            <div class="box1">Meeting 5: Final Review
+
+                                <div class="hidden-text">
+                                    <hr>
+                                    <div class="chat-message person1">Alright, what do we need to fix now?</div>
+                                    <div class="chat-message person2">Is it functionally perfect?</div>
+                                    <div class="chat-message person1">Nope, haha.</div>
+                                    <div class="chat-message person2">Then get on it, will you?</div>
+                                    <div class="chat-message person1">Have you finished the front end?</div>
+                                    <div class="chat-message person2">Nope, haha.</div>
+                                    <div class="chat-message person1">Ugh, I can’t work with you.</div>
+                                    <div class="chat-message person2">Hey, I’m the boss here. Listen to me</div>
+                                </div>
+                                <div class="close-banner" onclick="closeBox(event)">Close</div>
+                            </div>
                             <div class="desc">4/21/2025</div>
                         </div>
                     </div>
                 </div>
-
 
                 <div id="research" class="popup-content hidden">
                     <h2>Research Findings</h2>
                     <div class="research-container">
                         <div class="research-card">
                             <h3>Working period</h3>
-                            <p>How soon do we have to finish everything?</p>
+                            <p>Define the timeline for the project and establish key milestones to ensure timely delivery.</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Users prefer simple navigation</li>
@@ -279,7 +361,7 @@
                         </div>
                         <div class="research-card">
                             <h3>What problems might arise?</h3>
-                            <p>Analysis of similar platforms and their features.</p>
+                            <p>Evaluate potential challenges that could hinder the project’s success and how to overcome them.</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Feature comparison matrix</li>
@@ -291,7 +373,7 @@
                         </div>
                         <div class="research-card">
                             <h3>What should We consider?</h3>
-                            <p>Current trends in community platforms.</p>
+                            <p>Identify key trends and factors that could influence the design and features of the platform.</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Rising popularity of niche communities</li>
@@ -303,7 +385,7 @@
                         </div>
                         <div class="research-card">
                             <h3>What do we have to study for?</h3>
-                            <p>Current trends in community platforms.</p>
+                            <p>Analyze current industry trends and market demands to inform the platform's development.</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Rising popularity of niche communities</li>
@@ -315,7 +397,7 @@
                         </div>
                         <div class="research-card">
                             <h3>What to ask</h3>
-                            <p>Current trends in community platforms.</p>
+                            <p>Gather important questions and insights from key stakeholders to guide the platform’s development.</p>
                             <div class="research-details hidden">
                                 <ul>
                                     <li>Rising popularity of niche communities</li>
@@ -336,10 +418,13 @@
                             <button class="prototype-btn" data-target="wireframe2">Wireframe 2</button>
                             <button class="prototype-btn" data-target="wireframe3">Wireframe 3</button>
                             <button class="prototype-btn" data-target="wireframe4">Wireframe 4</button>
-                            
+                            <button class="prototype-btn" data-target="wireframe5">Wireframe 5</button>
+                            <button class="prototype-btn" data-target="wireframe6">Wireframe 6</button>
+                            <button class="prototype-btn" data-target="wireframe7">Wireframe 7</button>
+                            <button class="prototype-btn" data-target="wireframe8">Wireframe 8</button>
                         </div>
                         <div class="prototype-content">
-                            <div class="prototype-item active" id="wireframe1">
+                            <div class="prototype-item" id="wireframe1">
                                 <div class="prototype-image">Wireframe 1 Image</div>
                                 <p>Initial wireframe focusing on user flow and navigation structure.</p>
                             </div>
@@ -355,31 +440,20 @@
                                 <div class="prototype-image">Prototype 4 Image</div>
                                 <p>Final prototype with all features implemented.</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="prototype-container">
-                        <div class="prototype-nav">
-                            <button class="prototype-btn active" data-target="prototype1">Prototype 1</button>
-                            <button class="prototype-btn" data-target="prototype2">Prototype 2</button>
-                            <button class="prototype-btn" data-target="prototype3">Prototype 3</button>
-                            <button class="prototype-btn" data-target="prototype4">Prototype 4</button>
-                        </div>
-                        <div class="prototype-content">
-                            <div class="prototype-item active" id="wireframe1">
-                                <div class="prototype-image">Wireframe 1 Image</div>
-                                <p>Initial wireframe focusing on user flow and navigation structure.</p>
+                            <div class="prototype-item" id="wireframe5">
+                                <div class="prototype-image">Prototype 4 Image</div>
+                                <p>Final prototype with all features implemented.</p>
                             </div>
-                            <div class="prototype-item" id="wireframe2">
-                                <div class="prototype-image">Wireframe 2 Image</div>
-                                <p>Refined wireframe incorporating feedback from stakeholders.</p>
+                            <div class="prototype-item" id="wireframe6">
+                                <div class="prototype-image">Prototype 4 Image</div>
+                                <p>Final prototype with all features implemented.</p>
                             </div>
-                            <div class="prototype-item" id="prototype1">
-                                <div class="prototype-image">Prototype 1 Image</div>
-                                <p>First interactive prototype with basic functionality.</p>
+                            <div class="prototype-item" id="wireframe7">
+                                <div class="prototype-image">Prototype 4 Image</div>
+                                <p>Final prototype with all features implemented.</p>
                             </div>
-                            <div class="prototype-item" id="prototype2">
-                                <div class="prototype-image">Prototype 2 Image</div>
+                            <div class="prototype-item" id="wireframe8">
+                                <div class="prototype-image">Prototype 4 Image</div>
                                 <p>Final prototype with all features implemented.</p>
                             </div>
                         </div>
@@ -391,8 +465,8 @@
                     <div class="feedback-container">
                             <div class="feedback-item">
                                 <div class="feedback-content">
-                                    <h3>Week 1</h3>
-                                    <p>Feedback on navigation and layout</p>
+                                    <h3>1st Feedback</h3>
+                                    <p>What do we have to research First</p>
                                     <div class="feedback-details hidden">
                                         <ul>
                                             <li>Navigation is confusing</li>
@@ -405,8 +479,8 @@
                             </div>
                             <div class="feedback-item">
                                 <div class="feedback-content">
-                                    <h3>Week 2</h3>
-                                    <p>Feedback on features and functionality</p>
+                                    <h3>2nd Feedback</h3>
+                                    <p>Insights and evaluations on the latest features and functionality of the platform, based on user and stakeholder feedback.</p>
                                     <div class="feedback-details hidden">
                                         <ul>
                                             <li>Add more community features</li>
@@ -419,7 +493,7 @@
                             </div>
                             <div class="feedback-item">
                                 <div class="feedback-content">
-                                    <h3>Week 3</h3>
+                                    <h3>3rd Feedback</h3>
                                     <p>Feedback on overall user experience</p>
                                     <div class="feedback-details hidden">
                                         <ul>
@@ -433,8 +507,8 @@
                             </div>
                             <div class="feedback-item">
                                 <div class="feedback-content">
-                                    <h3>Week 4</h3>
-                                    <p>Feedback on overall user experience</p>
+                                    <h3>4th Feedback</h3>
+                                    <p>Right before the deployment</p>
                                     <div class="feedback-details hidden">
                                         <ul>
                                             <li>Performance issues on mobile</li>
@@ -447,8 +521,8 @@
                             </div>
                             <div class="feedback-item">
                                 <div class="feedback-content">
-                                    <h3>Week 5</h3>
-                                    <p>Feedback on overall user experience</p>
+                                    <h3>5th Feedback</h3>
+                                    <p>Final Feedback after the release</p>
                                     <div class="feedback-details hidden">
                                         <ul>
                                             <li>Performance issues on mobile</li>
@@ -466,7 +540,6 @@
                     <h2>Key Use Cases</h2>
                     <div class="usecase-container">
                         <div class="usecase-card">
-                            <div class="usecase-icon">👤</div>
                             <h3>User Registration</h3>
                             <p>New users can create an account and set up their profile.</p>
                             <div class="usecase-details hidden">
@@ -481,7 +554,6 @@
                             <button class="toggle-btn">Show Details</button>
                         </div>
                         <div class="usecase-card">
-                            <div class="usecase-icon">📝</div>
                             <h3>Creating Posts</h3>
                             <p>Users can create and publish new posts to the community.</p>
                             <div class="usecase-details hidden">
@@ -497,7 +569,6 @@
                             <button class="toggle-btn">Show Details</button>
                         </div>
                         <div class="usecase-card">
-                            <div class="usecase-icon">🔍</div>
                             <h3>Searching Content</h3>
                             <p>Users can search for specific content within the platform.</p>
                             <div class="usecase-details hidden">
@@ -568,11 +639,11 @@
                                 </div>
                                 <div class="color-item">
                                     <div class="color-swatch" style="background-color: #f8f8f8;"></div>
-                                    <p>Text: #f8f8f8</p>
+                                    <p>Thrid: #f8f8f8</p>
                                 </div>
                                 <div class="color-item">
                                     <div class="color-swatch" style="background-color: #030303;"></div>
-                                    <p>Text: #030303</p>
+                                    <p>Fourth: #030303</p>
                                 </div>
                             </div>
                         </div>

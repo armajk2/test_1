@@ -59,6 +59,33 @@ function toggleMenu() {
     });
 }
 
+function toggleMenu_2() {
+    const leftSidebar = document.querySelector('.left-sidebar');
+    const hamburgeroverlay = document.querySelector('.hamburgeroverlay');
+
+    leftSidebar.classList.toggle('show');
+
+    if (window.getComputedStyle(hamburgeroverlay).display === 'none') {
+        hamburgeroverlay.style.display = 'block';
+    } else {
+        hamburgeroverlay.style.display = 'none';
+    }
+
+    document.querySelector('.left-sidebar').addEventListener('click', function () {
+        toggleMenu();
+        
+        // Additional check for the hamburgeroverlay
+        const hamburgeroverlay = document.querySelector('.hamburgeroverlay');
+        
+        if (window.getComputedStyle(hamburgeroverlay).display === 'none') {
+            hamburgeroverlay.style.display = 'block';
+        } else {
+            hamburgeroverlay.style.display = 'none';
+        }
+    });
+}
+
+
 
 // Function to toggle the search box visibility
 function toggleSearchBox() {

@@ -5,11 +5,21 @@ const boundary = 19;
 const wallThickness = 1;
 const buildings = [];
 const buildingGroups = {
-  hongdae: [],
-  gangnam: [],
-  myeongdong: []
+  Traveling: [],
+  Beuaty: [],
+  Fashion: [],
+  Festival: []
+
 };
 const visibleGroups = new Set();
+const portals = [];
+const buildingInfo = []; // Store building information for popups
+let currentBuildingIndex = 0; // Track the current building index
+let isNearPortal = false; // Track if character is near a portal
+let activePortalIndex = -1; // Track which portal is active
+
+// Define a safe zone in the center of the map for the character
+const safeZoneRadius = 3; // Radius of the safe zone
 
 init();
 animate();
@@ -67,7 +77,8 @@ function init() {
   outline.scale.set(1.1, 1.1, 1.1);
   character.add(outline);
 
-  character.position.y = 0.6;
+  // Set character position to the center of the map
+  character.position.set(0, 0.6, 0);
   scene.add(character);
 
   targetPosition = character.position.clone();
@@ -90,17 +101,47 @@ function init() {
     moveToPointer(x, y);
   });
 
-
   window.addEventListener('resize', onWindowResize);
+
+  // Initialize all groups as visible
+  Object.keys(buildingGroups).forEach(group => visibleGroups.add(group));
+  
+  // Set initial button states - make all buttons active
+  document.querySelectorAll('.filter-buttons button').forEach(button => {
+    const filter = button.getAttribute('data-filter');
+    if (filter) { // Only for filter buttons, not the "Check the Detail" button
+      button.classList.add('active');
+    }
+  });
 
   document.querySelectorAll('.filter-buttons button').forEach(button => {
     button.addEventListener('click', () => {
       const filter = button.getAttribute('data-filter');
+      
+      // Skip if it's the "Check the Detail" button
+      if (!filter) return;
 
       if (filter === 'all') {
-        visibleGroups.clear();
-        Object.keys(buildingGroups).forEach(group => visibleGroups.add(group));
-        document.querySelectorAll('.filter-buttons button').forEach(b => b.classList.remove('active'));
+        // Check if all groups are currently visible
+        const allVisible = Object.keys(buildingGroups).every(group => visibleGroups.has(group));
+        
+        if (allVisible) {
+          // If all are visible, hide all
+          visibleGroups.clear();
+          document.querySelectorAll('.filter-buttons button').forEach(b => {
+            if (b.getAttribute('data-filter')) {
+              b.classList.remove('active');
+            }
+          });
+        } else {
+          // If not all are visible, show all
+          Object.keys(buildingGroups).forEach(group => visibleGroups.add(group));
+          document.querySelectorAll('.filter-buttons button').forEach(b => {
+            if (b.getAttribute('data-filter')) {
+              b.classList.add('active');
+            }
+          });
+        }
       } else {
         if (visibleGroups.has(filter)) {
           visibleGroups.delete(filter);
@@ -109,17 +150,49 @@ function init() {
           visibleGroups.add(filter);
           button.classList.add('active');
         }
+        
+        // Update the "All" button state based on whether all groups are visible
+        const allButton = document.querySelector('.filter-buttons button[data-filter="all"]');
+        const allGroupsVisible = Object.keys(buildingGroups).every(group => visibleGroups.has(group));
+        
+        if (allGroupsVisible) {
+          allButton.classList.add('active');
+        } else {
+          allButton.classList.remove('active');
+        }
       }
 
       updateBuildingVisibility();
     });
   });
+  
+  // Add event listener for the "Check the Detail" button
+  const checkDetailBtn = document.getElementById('check-detail-btn');
+  checkDetailBtn.addEventListener('click', () => {
+    console.log("Check Detail button clicked. isNearPortal:", isNearPortal, "activePortalIndex:", activePortalIndex);
+    if (isNearPortal && activePortalIndex !== -1) {
+      showBuildingInfo(activePortalIndex);
+    }
+  });
+  
+  // Initialize the "Check the Detail" button as disabled
+  checkDetailBtn.classList.add('disabled');
+  checkDetailBtn.classList.remove('active');
 }
 
 function updateBuildingVisibility() {
   buildings.forEach(b => b.visible = false);
+  portals.forEach(p => p.visible = false); // Hide all portals by default
+  
   visibleGroups.forEach(group => {
     buildingGroups[group]?.forEach(b => b.visible = true);
+    
+    // Show portals for the visible group
+    portals.forEach(portal => {
+      if (portal.userData.group === group) {
+        portal.visible = true;
+      }
+    });
   });
 }
 
@@ -197,56 +270,234 @@ function createWalls() {
 function createManualBuildings() {
   const loader = new THREE.TextureLoader();
   const data = [
-    { group: 'hongdae', texture: 'textures/h1.jpg', w: 2, h: 3, d: 2 },
-    { group: 'hongdae', texture: 'textures/h2.jpg', w: 3, h: 4, d: 2 },
-    { group: 'hongdae', texture: 'textures/h3.jpg', w: 2, h: 2, d: 2 },
-    { group: 'hongdae', texture: 'textures/h4.jpg', w: 2.5, h: 5, d: 2.5 },
-    { group: 'hongdae', texture: 'textures/h5.jpg', w: 2, h: 4, d: 2 },
-    { group: 'gangnam', texture: 'textures/g1.jpg', w: 3, h: 3, d: 2 },
-    { group: 'gangnam', texture: 'textures/g2.jpg', w: 2.5, h: 2, d: 2.5 },
-    { group: 'gangnam', texture: 'textures/g3.jpg', w: 2, h: 5, d: 3 },
-    { group: 'gangnam', texture: 'textures/g4.jpg', w: 3, h: 3, d: 2 },
-    { group: 'myeongdong', texture: 'textures/m1.jpg', w: 2, h: 2.5, d: 2 },
-    { group: 'myeongdong', texture: 'textures/m2.jpg', w: 2.5, h: 2, d: 2 }
+    { 
+      group: 'Traveling', 
+      texture: 'textures/h1.jpg', 
+      w: 2, 
+      h: 3, 
+      d: 2, 
+      name: 'Hongdae Street Market', 
+      description: 'Famous for street performances and youth culture',
+      location: 'Hongdae, Seoul',
+      type: 'Shopping & Entertainment',
+      hours: '10:00 AM - 10:00 PM'
+    },
+    { 
+      group: 'Traveling', 
+      texture: 'textures/h2.jpg', 
+      w: 3, 
+      h: 4, 
+      d: 2, 
+      name: 'Hongdae Club Street', 
+      description: 'Nightlife and entertainment district',
+      location: 'Hongdae, Seoul',
+      type: 'Nightlife',
+      hours: '6:00 PM - 5:00 AM'
+    },
+    { 
+      group: 'Traveling', 
+      texture: 'textures/h3.jpg', 
+      w: 2, 
+      h: 2, 
+      d: 2, 
+      name: 'Hongdae Art Center', 
+      description: 'Contemporary art exhibitions and performances',
+      location: 'Hongdae, Seoul',
+      type: 'Arts & Culture',
+      hours: '11:00 AM - 8:00 PM'
+    },
+    { 
+      group: 'Traveling', 
+      texture: 'textures/h4.jpg', 
+      w: 2.5, 
+      h: 5, 
+      d: 2.5, 
+      name: 'Hongdae Shopping Street', 
+      description: 'Fashion and accessories shopping area',
+      location: 'Hongdae, Seoul',
+      type: 'Shopping',
+      hours: '10:00 AM - 10:00 PM'
+    },
+    { 
+      group: 'Traveling', 
+      texture: 'textures/h2.jpg', 
+      w: 2, 
+      h: 4, 
+      d: 2, 
+      name: 'Hongdae Food Street', 
+      description: 'Local and international cuisine',
+      location: 'Hongdae, Seoul',
+      type: 'Dining',
+      hours: '11:00 AM - 11:00 PM'
+    },
+    { 
+      group: 'Beuaty', 
+      texture: 'textures/g1.jpg', 
+      w: 3, 
+      h: 3, 
+      d: 2, 
+      name: 'Gangnam Station', 
+      description: 'Major transportation hub and shopping area',
+      location: 'Gangnam, Seoul',
+      type: 'Transportation & Shopping',
+      hours: '5:30 AM - 12:30 AM'
+    },
+    { 
+      group: 'Beuaty', 
+      texture: 'textures/g2.jpg', 
+      w: 2.5, 
+      h: 2, 
+      d: 2.5, 
+      name: 'COEX Mall', 
+      description: 'Largest underground shopping mall in Asia',
+      location: 'Gangnam, Seoul',
+      type: 'Shopping',
+      hours: '10:00 AM - 10:00 PM'
+    },
+    { 
+      group: 'Beuaty', 
+      texture: 'textures/g3.jpg', 
+      w: 2, 
+      h: 5, 
+      d: 3, 
+      name: 'Bongeunsa Temple', 
+      description: 'Historic Buddhist temple in modern district',
+      location: 'Gangnam, Seoul',
+      type: 'Religious & Cultural',
+      hours: '3:00 AM - 10:00 PM'
+    },
+    { 
+      group: 'Beuaty', 
+      texture: 'textures/g4.jpg', 
+      w: 3, 
+      h: 3, 
+      d: 2, 
+      name: 'Gangnam Style Street', 
+      description: 'Made famous by PSY\'s Gangnam Style',
+      location: 'Gangnam, Seoul',
+      type: 'Entertainment',
+      hours: '24/7'
+    },
+    { 
+      group: 'Fashion', 
+      texture: 'textures/m1.jpg', 
+      w: 2, 
+      h: 2.5, 
+      d: 2, 
+      name: 'Myeongdong Shopping Street', 
+      description: 'Major shopping district for cosmetics and fashion',
+      location: 'Myeongdong, Seoul',
+      type: 'Shopping',
+      hours: '10:00 AM - 10:00 PM'
+    },
+    { 
+      group: 'Fashion', 
+      texture: 'textures/m2.jpg', 
+      w: 2.5, 
+      h: 2, 
+      d: 2, 
+      name: 'Myeongdong Cathedral', 
+      description: 'Historic Catholic church and landmark',
+      location: 'Myeongdong, Seoul',
+      type: 'Religious & Historical',
+      hours: '9:00 AM - 9:00 PM'
+    },
+    { 
+      group: 'Festival', 
+      texture: 'textures/m2.jpg', 
+      w: 2.5, 
+      h: 2, 
+      d: 2, 
+      name: 'Myeongdong Cathedral', 
+      description: 'Historic Catholic church and landmark',
+      location: 'Myeongdong, Seoul',
+      type: 'Religious & Historical',
+      hours: '9:00 AM - 9:00 PM'
+    },
+    { 
+      group: 'Festival', 
+      texture: 'textures/m2.jpg', 
+      w: 2.5, 
+      h: 2, 
+      d: 2, 
+      name: 'Myeongdong Cathedral', 
+      description: 'Historic Catholic church and landmark',
+      location: 'Myeongdong, Seoul',
+      type: 'Religious & Historical',
+      hours: '9:00 AM - 9:00 PM'
+    }
+    
   ];
 
-  data.forEach(({ group, texture, w, h, d }) => {
+  data.forEach(({ group, texture, w, h, d, name, description, location, type, hours }) => {
     const material = new THREE.MeshBasicMaterial({ map: loader.load(texture) });
     const geo = new THREE.BoxGeometry(w, h, d);
     const building = new THREE.Mesh(geo, material);
     
     let x, z;
-let attempts = 0;
-do {
-  x = Math.random() * (boundary * 2 - w) - boundary;
-  z = Math.random() * (boundary * 2 - d) - boundary;
-  attempts++;
-} while (isPositionOccupied(x, z, w, d) && attempts < 100);
+    let attempts = 0;
+    do {
+      // Keep buildings inside walls
+      x = Math.random() * (boundary * 2 - w - wallThickness) - (boundary - wallThickness);
+      z = Math.random() * (boundary * 2 - d - wallThickness) - (boundary - wallThickness);
+      attempts++;
+    } while (isPositionOccupied(x, z, w, d) && attempts < 100);
 
     building.position.set(x, h / 2, z);
-    
-    
-    // Create portal
-    const portalGeometry = new THREE.CircleGeometry(1, 64); // bigger & smoother
-    const portalMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.7 });
-    const portal = new THREE.Mesh(portalGeometry, portalMaterial);
-    portal.rotation.x = -Math.PI / 2; // Flat on ground
-  
-    // Offset the portal to be in front of the building
-    const portalOffset = d / 2 + 0.3; // a little in front
-    portal.position.set(x, 0.01, z + d / 2 + 1);
-  
+    building.userData = { group }; // Store group information in userData
     scene.add(building);
-    scene.add(portal);
-    
     buildings.push(building);
     buildingGroups[group].push(building);
 
+    // Store building information
+    buildingInfo.push({ 
+      name, 
+      description, 
+      position: building.position.clone(), 
+      group,
+      location,
+      type,
+      hours
+    });
+
+    // Create portal in front of the building
+    const portalGeometry = new THREE.CircleGeometry(1, 32);
+    const portalMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0xFFD666, // your key color
+      transparent: true, 
+      opacity: 0.7,
+      emissive: 0xFFD666,
+      emissiveIntensity: 0
+    });
+    const portal = new THREE.Mesh(portalGeometry, portalMaterial);
     
+    // Set portal position in front of the building, ensuring it stays inside walls
+    const portalOffset = 1.5; // Distance in front of building
+    const portalZ = Math.min(z + d/2 + portalOffset, boundary - wallThickness - 1);
+    portal.position.set(x, 0.01, portalZ);
+    
+    // Tilt the portal slightly for better visibility
+    portal.rotation.x = -Math.PI / 2; // Flat on ground
+    
+    // Add a pulsing light to the portal
+    const portalLight = new THREE.PointLight(0xFFD666, 0, 3);
+    portalLight.position.set(x, 0.5, portalZ);
+    scene.add(portalLight);
+    portal.userData = { group, light: portalLight }; // Store light reference in userData
+    
+    portal.userData = { group }; // Store group information in userData
+    scene.add(portal);
+    portals.push(portal);
   });
 }
 
 function isPositionOccupied(x, z, w, d) {
+  // Check if position is in the safe zone
+  const distanceFromCenter = Math.sqrt(x * x + z * z);
+  if (distanceFromCenter < safeZoneRadius) {
+    return true;
+  }
+  
   for (const b of buildings) {
     const bounds = new THREE.Box3().setFromObject(b);
     const min = bounds.min, max = bounds.max;
@@ -271,6 +522,47 @@ function animate() {
     character.position.copy(nextPosition);
   }
 
+  // Update portal glow based on character position
+  let wasNearPortal = isNearPortal;
+  isNearPortal = false;
+  activePortalIndex = -1;
+  
+  portals.forEach((portal, index) => {
+    const distance = character.position.distanceTo(portal.position);
+    
+    if (distance < 2) { // If character is within 2 units of portal
+      const intensity = 1 - (distance / 2); // Calculate glow intensity
+      portal.material.opacity = 0.7 + (intensity * 0.3); // Increase portal opacity
+      portal.material.emissiveIntensity = intensity * 2; // Increase glow intensity
+      
+      // Add pulsing effect to the portal
+      const pulseIntensity = 0.5 + Math.sin(Date.now() * 0.005) * 0.5;
+      portal.scale.set(1 + pulseIntensity * 0.1, 1 + pulseIntensity * 0.1, 1);
+      
+      // Check if character is very close to portal
+      if (distance < 0.5) {
+        isNearPortal = true;
+        activePortalIndex = index;
+        console.log("Character is near portal:", index, "Distance:", distance);
+      }
+    } else {
+      portal.material.opacity = 0.7; // Reset portal
+      portal.material.emissiveIntensity = 0; // Remove glow
+      portal.scale.set(1, 1, 1); // Reset scale
+    }
+  });
+  
+  // Update the "Check the Detail" button state
+  const checkDetailBtn = document.getElementById('check-detail-btn');
+  if (isNearPortal) {
+    checkDetailBtn.classList.remove('disabled');
+    checkDetailBtn.classList.add('active');
+    console.log("Button is now active");
+  } else {
+    checkDetailBtn.classList.add('disabled');
+    checkDetailBtn.classList.remove('active');
+  }
+
   character.rotation.x = -0.1;
   character.rotation.z = 0.1;
 
@@ -288,3 +580,55 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+// Function to show building information
+function showBuildingInfo(index) {
+  const info = buildingInfo[index];
+  
+  // Get the building info popup elements
+  const buildingInfoPopup = document.getElementById('building-info');
+  const buildingName = document.getElementById('building-name');
+  const buildingDescription = document.getElementById('building-description');
+  const buildingLocation = document.getElementById('building-location');
+  const buildingType = document.getElementById('building-type');
+  const buildingHours = document.getElementById('building-hours');
+  
+  // Update the popup content
+  buildingName.textContent = info.name;
+  buildingDescription.textContent = info.description;
+  buildingLocation.textContent = `Location: ${info.location}`;
+  buildingType.textContent = `Type: ${info.type}`;
+  buildingHours.textContent = `Hours: ${info.hours}`;
+  
+  // Show the popup
+  buildingInfoPopup.style.display = 'flex';
+  
+  // Add a console log for debugging
+  console.log("Showing building info:", info.name);
+}
+
+// Function to close building information
+function closeBuildingInfo() {
+  const buildingInfoPopup = document.getElementById('building-info');
+  buildingInfoPopup.style.display = 'none';
+  
+  // Add a console log for debugging
+  console.log("Closing building info popup");
+}
+
+// Make closeBuildingInfo available globally
+window.closeBuildingInfo = closeBuildingInfo;
+
+// Add a click event listener to the document to close the popup when clicking outside
+document.addEventListener('click', function(event) {
+  const buildingInfoPopup = document.getElementById('building-info');
+  const closeBtn = document.querySelector('.close-btn');
+  
+  // If the popup is visible and the click is not on the close button
+  if (buildingInfoPopup.style.display === 'flex' && 
+      event.target !== closeBtn && 
+      !buildingInfoPopup.contains(event.target)) {
+    closeBuildingInfo();
+  }
+});
+

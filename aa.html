@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expandable Box</title>
+  <style>
+    .box {
+      width: 250px;
+      height: 250px;
+      border: 1px solid black;
+      position: relative;
+      overflow: hidden;
+      transition: height 0.3s ease-in-out;
+      padding: 20px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+    }
+
+    .hidden-text, .close-banner {
+      display: none;
+    }
+
+    .close-banner {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .box.expanded {
+      height: 1000px;
+    }
+
+    .box.expanded .hidden-text,
+    .box.expanded .close-banner {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" onclick="expandBox()">
+    <h1>Hello, World</h1>
+    <div class="hidden-text">
+      <p>Random text 1</p>
+      <p>Random text 2</p>
+      <p>Random text 3</p>
+      <p>Random text 4</p>
+      <p>Random text 5</p>
+      <p>Random text 6</p>
+    </div>
+    <div class="close-banner" onclick="closeBox(event)">Close</div>
+  </div>
+
+  <script>
+    function expandBox() {
+      const box = document.querySelector('.box');
+      box.classList.add('expanded');
+    }
+
+    function closeBox(event) {
+      event.stopPropagation(); // Prevents the click from closing the box when clicking the close button
+      const box = document.querySelector('.box');
+      box.classList.remove('expanded');
+    }
+  </script>
+</body>
+</html>
