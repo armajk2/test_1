@@ -627,7 +627,8 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
     .signup-link {
         width: 100%;  
         margin-top: 6px;
-        font-size: 14px;  
+        font-size: 14px;
+        margin-top:40px;  
     }
     
     .left-sidebar {
