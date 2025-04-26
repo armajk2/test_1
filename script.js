@@ -589,7 +589,7 @@ async function login() {
         //     response: error.response?.data,
         //     status: error.response?.status
         // });
-        alert(error.response?.data?.message || '로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+        alert(error.response?.data?.message || 'Login failed. Please check your email and password.');
     }
     fetchPosts();
 }
@@ -608,9 +608,9 @@ async function signup() {
         const { user, session } = response.data;
 
         if (user && !session) {
-            alert('가입 완료! 이메일 인증을 완료해야 로그인할 수 있습니다. 메일함을 확인해주세요.');
+            alert('Sign-up complete! You need to verify your email before logging in. Please check your inbox.');
         } else if (user && session) {
-            alert('회원가입이 완료되었습니다!');
+            alert('Registration successful!');
         }
 
         // 회원가입 팝업 닫고 로그인 폼 띄우기
@@ -618,8 +618,8 @@ async function signup() {
         showLoginForm();
         
     } catch (error) {
-        console.error('회원가입 실패:', error.response?.data || error.message);
-        alert(error.response?.data?.message || '회원가입에 실패했습니다. 다시 시도해주세요.');
+        console.error('Sign-up failed:', error.response?.data || error.message);
+        alert(error.response?.data?.message || 'Sign-up failed. Please try again.');
     }
 }
 function hideCommentSection(postId) {
