@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Scene Viewer</title>
-    <link rel="stylesheet" href="game.css">
-    <link rel="stylesheet" href="styles.css">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./game1.css">
+
+        <title>3D Character Top View</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"
+            rel="stylesheet">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"
+            rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jaro&display=swap" rel="stylesheet">
 
 
-</head>
-<body>
+    </head>
+    <body>
+
         <!-- Top Banner -->
         <header class="banner">
             <div class="left_banner">
@@ -207,31 +220,50 @@
                     </aside>
                 </div>
 
+                <!-- Button to show/hide the post input -->
+                <div class="overlay" id="overlay" onclick="hideLoginForm()"></div>
+                <div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
+                <div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
+                <div class="hamburgeroverlay" onclick="toggleMenu_2()"></div>
+
+
+                <div id="loading">Loading...</div>
+
                 <div class="filter-buttons">
                     <button data-filter="all">All</button>
                     <button data-filter="Traveling">Traveling</button>
                     <button data-filter="Beuaty">Beuaty</button>
                     <button data-filter="Fashion">Fashion</button>
                     <button data-filter="Festival">Festival</button>
-                    <button id="detailButton">Check the Detail</button>
+                    <button id="check-detail-btn">Check the Detail</button>
                 </div>
                 
+                <!-- Building Information Display -->
+                <div id="building-info" class="building-info">
+                    <div class="info-container">
+                        <h2 id="building-name">Building Name</h2>
+                        <p id="building-description">Building description will appear here.</p>
+                        <div class="building-details">
+                            <p id="building-location">Location: </p>
+                            <p id="building-type">Type: </p>
+                            <p id="building-hours">Hours: </p>
+                        </div>
+                        <button class="close-btn" onclick="closeBuildingInfo()">Close</button>
+                    </div>
+                </div>
+                
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                <script src="./game1.js"></script>
+
+        <script defer="defer" src="script.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/OBJLoader.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+                    
 
 
-    <div id="popup">
-        <button id="closePopup">×</button>
-        <h2 id="popupTitle"></h2>
-        <p><strong>Description:</strong> <span id="popupDescription"></span></p>
-        <p><strong>Location:</strong> <span id="popupLocation"></span></p>
-        <p><strong>Type:</strong> <span id="popupType"></span></p>
-        <p><strong>Hours:</strong> <span id="popupHours"></span></p>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="game.js"></script>
-    <script src="script.js"></script>
 
-</body>
-</html>
+            </body>
+        </html>
