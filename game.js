@@ -140,6 +140,7 @@ animate();
 
 function updateCameraOffset() {
     const isMobile = window.innerWidth < 768;
+    
     cameraOffset = isMobile ? new THREE.Vector3(7, 12, 12) : new THREE.Vector3(10, 15, 15);
 }
 
@@ -214,25 +215,12 @@ function init() {
 
 
     // Add lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-    scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(5, 10, 7.5);
-    directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
-    directionalLight.shadow.camera.near = 0.5;
-    directionalLight.shadow.camera.far = 50;
-    directionalLight.shadow.camera.left = -30;
-    directionalLight.shadow.camera.right = 30;
-    directionalLight.shadow.camera.top = 30;
-    directionalLight.shadow.camera.bottom = -30;
+
     scene.add(directionalLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 0.6);
-    pointLight.position.set(-5, 5, -5);
-    scene.add(pointLight);
 
     
     // Add ground with texture
