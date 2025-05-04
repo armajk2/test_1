@@ -340,6 +340,7 @@ h3 {
     padding: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    text-align: center;
 }
 
 .research-card:hover {
@@ -410,6 +411,7 @@ h3 {
 
 .prototype-item {
     position: absolute;
+    overflow-x: auto;
     top: 0;
     left: 0;
     width: 100%;

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swiper with Buttons</title>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fdfdfd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .swiper-container {
+      width: 90%;
+      max-width: 600px;
+      height: 300px;
+      position: relative;
+    }
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background-color: #ffd666;
+      border-radius: 12px;
+      height: 100%;
+    }
+
+    .swiper-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .swiper-button.prev {
+      left: 10px;
+    }
+
+    .swiper-button.next {
+      right: 10px;
+    }
+
+    .swiper-pagination {
+      bottom: 10px !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="swiper-container">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Cursor Buttons -->
+    <button class="swiper-button prev" id="prevBtn">&#8592;</button>
+    <button class="swiper-button next" id="nextBtn">&#8594;</button>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      swiper.slidePrev();
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      swiper.slideNext();
+    });
+  </script>
+
+</body>
+</html>
