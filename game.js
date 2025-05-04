@@ -195,6 +195,15 @@ function createWall(x, z, width, depth) {
   createWall(-mapSize / 2 - 0.5, 0, 1, mapSize + 2); // West
   createWall(mapSize / 2 + 0.5, 0, 1, mapSize + 2);  // East
 
+
+  let frameCount = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  frameCount++;
+  if (frameCount % 2 === 0) return; // Skip every other frame
+  renderer.render(scene, camera);
+}
+
 // Initialize the scene
 function init() {
     // Create scene
@@ -228,7 +237,7 @@ function init() {
     const groundTexture = textureLoader.load('textures/ground.jpg');
     groundTexture.wrapS = THREE.RepeatWrapping;
     groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.repeat.set(10, 10); // Repeat texture 10x10 times
+    groundTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
     const groundMaterial = new THREE.MeshStandardMaterial({ 
