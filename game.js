@@ -177,6 +177,11 @@ function init() {
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     updateCameraOffset();
 
+    camera.position.set(0, 30, 0);   // Position the camera above the scene
+    camera.lookAt(0, 0, 0);          // Make it look at the center
+    
+    updateCameraOffset();
+
     // Create renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
