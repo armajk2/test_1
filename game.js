@@ -1,4 +1,5 @@
-let scene, camera, renderer, buildings = [], spider, portal, controls, targetPosition;
+let scene, camera, renderer, buildings = [], portal, controls, targetPosition;
+let walkAction;
 let spiderTarget = new THREE.Vector3();
 const loadingManager = new THREE.LoadingManager();
 let modelsLoaded = 0;
@@ -17,6 +18,17 @@ const mapSize = 40; // Map size
 const visibleGroups = new Set();
 const boundary = 39;
 const wallThickness = 1;
+let isMoving = false;
+let mixer;
+let walkingAction;
+let moveSpeed = 0.05;  // Speed of the movement
+let spider = null;  // The character (spider) object
+let characterLoaded = false; // Flag to check if character is already loaded
+const clock = new THREE.Clock();  // Clock for animation updates
+const movementThreshold = 0.1; // You can adjust this value
+
+
+
 
 // Building positions and information
 const buildingPositions = [
@@ -277,6 +289,8 @@ function init() {
     });
     
 
+
+
     // Load buildings
     const gltfLoader = new THREE.GLTFLoader(loadingManager);
     buildingPositions.forEach((pos, index) => {
@@ -306,43 +320,52 @@ function init() {
             scene.add(building);
             buildings.push(building);
         });
+
+
+        gltfLoader.load('models/character.glb', (gltf) => {
+            spider = gltf.scene;
+            mixer = new THREE.AnimationMixer(spider);
+
+            scene.add(spider);
+
+
+
+            spider.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+            // Assuming the walking animation is the first one
+            walkAction = mixer.clipAction(gltf.animations[0]);
+            walkAction.play();
+            walkAction.paused = true; // Pause it at start
+        
+            spider.position.set(0, 0, 0);
+            spiderTarget.copy(spider.position);
+    
+            const box = new THREE.Box3().setFromObject(spider);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 2 / maxDim;
+            spider.position.sub(center.multiplyScalar(scale));
+            spider.position.set(0, 0, 0);
+            spider.scale.set(1.5, 1.5, 1.5); // Adjust scale as needed
+
+            spiderTarget.copy(spider.position);
+    
+            targetPosition = spider.position.clone();
+            lookTarget = spider.position.clone();
+        
+
+            gltf.animations.forEach((clip) => {
+                mixer.clipAction(clip).play();
+            });
+        });
     });
 
-    // Load the spider
-    const objLoader = new THREE.OBJLoader(loadingManager);
-    objLoader.load('models/spider.obj', (object) => {
-        spider = object;
-
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x333333,
-            roughness: 0.7,
-            metalness: 0.3
-        });
-
-        spider.traverse((child) => {
-            if (child.isMesh) {
-                child.material = material;
-                child.castShadow = true;
-                child.receiveShadow = true;
-            }
-        });
-
-        const box = new THREE.Box3().setFromObject(spider);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2 / maxDim;
-        spider.scale.setScalar(scale);
-
-        spider.position.sub(center.multiplyScalar(scale));
-        spider.position.set(0, 0.6, 0);
-
-        scene.add(spider);
-        spiderTarget.copy(spider.position);
-
-        targetPosition = spider.position.clone();
-        lookTarget = spider.position.clone();
-    });
 
     // Add click handler for spider movement
     function handleTapOrClick(event) {
@@ -365,18 +388,24 @@ function init() {
     
         const intersects = raycaster.intersectObject(ground);
         if (intersects.length > 0) {
-            // Get the potential target position from the raycast
+            // Get the target position
             const targetX = intersects[0].point.x;
             const targetZ = intersects[0].point.z;
     
-            // Check if the new position would collide with any walls
-        if (!checkCollisions(targetX, targetZ)) {
-            // If no collision, update the spider's target position
-            spiderTarget.copy(intersects[0].point);
-            spiderTarget.y = 0.1;
+            // Check if there's no collision
+            if (!checkCollisions(targetX, targetZ)) {
+                // Set the target position and mark the character as moving
+                spiderTarget.set(targetX, 0.1, targetZ);
+                isMoving = true;
+                if (walkingAction) walkingAction.paused = false; // Start animation
             }
         }
     }
+
+
+
+
+
 
     renderer.domElement.addEventListener('click', handleTapOrClick);
     renderer.domElement.addEventListener('touchstart', handleTapOrClick);
@@ -403,6 +432,7 @@ document.querySelectorAll('.filter-buttons button').forEach(button => {
     button.classList.add('active');
     }
 });
+
 
 document.querySelectorAll('.filter-buttons button').forEach(button => {
     button.addEventListener('click', () => {
@@ -480,9 +510,45 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function updateCharacterMovement() {
+    if (!spider) return;
+
+    const speed = 0.05;
+    const distance = spider.position.distanceTo(spiderTarget);
+
+    if (distance > 0.1) {
+        isMoving = true;
+
+        const direction = new THREE.Vector3().subVectors(spiderTarget, spider.position).normalize();
+        spider.position.add(direction.multiplyScalar(speed));
+
+        // Rotate to face target
+        spider.lookAt(spiderTarget);
+
+        // Start animation if it's paused
+        if (walkAction && walkAction.paused) {
+            walkAction.paused = false;
+        }
+    } else {
+        isMoving = false;
+
+        // Stop animation when target reached
+        if (walkAction && !walkAction.paused) {
+            walkAction.paused = true;
+        }
+    }
+}
+
+
+
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
+
+    const delta = clock.getDelta();
+    if (mixer) mixer.update(delta);
+
+    updateCharacterMovement();
 
     // Update spider position
     if (spider) {
