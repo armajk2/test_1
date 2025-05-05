@@ -10,10 +10,11 @@ const PORTAL_DISTANCE_FROM_BUILDING = 5; // Distance of portal from building
 let cameraOffset, lookTarget;
 const buildingGroups = {
     Traveling: [],
-    Beuaty: [],
+    Beauty: [],
     Fashion: [],
     Festival: []
 };
+const portals = []; // Add portals array
 const mapSize = 40; // Map size
 const visibleGroups = new Set();
 const boundary = 39;
@@ -37,104 +38,112 @@ const buildingPositions = [
         description: 'Famous for street performances and youth culture',
         location: 'Hongdae, Seoul',
         type: 'Shopping & Entertainment',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Festival'
     }},
     { x: -18, z: -10, info: {
         name: 'Gyeongbokgung Palace',
         description: 'The main royal palace of the Joseon dynasty',
         location: 'Jongno-gu, Seoul',
         type: 'Historical Site',
-        hours: '9:00 AM - 6:00 PM'
+        hours: '9:00 AM - 6:00 PM',
+        group: 'Traveling'
     }},
     { x: -16, z: 10, info: {
         name: 'N Seoul Tower',
-        group: 'Traveling', // ← added
         description: 'Iconic communication and observation tower',
         location: 'Namsan, Seoul',
         type: 'Landmark',
-        hours: '10:00 AM - 11:00 PM'
+        hours: '10:00 AM - 11:00 PM',
+        group: 'Traveling'
     }},
     { x: 3, z: -16, info: {
         name: 'Lotte World',
-        group: 'Traveling', // ← added
-
         description: 'World\'s largest indoor theme park',
         location: 'Songpa-gu, Seoul',
         type: 'Amusement Park',
-        hours: '9:30 AM - 10:00 PM'
+        hours: '9:30 AM - 10:00 PM',
+        group: 'Traveling'
     }},
     { x: 5, z: 15, info: {
         name: 'Bukchon Hanok Village',
-        group: 'Traveling', // ← added
-
         description: 'Traditional Korean village with hanok houses',
         location: 'Jongno-gu, Seoul',
         type: 'Cultural Site',
-        hours: '24/7'
+        hours: '24/7',
+        group: 'Traveling'
     }},
     { x: 15, z: -20, info: {
         name: 'Dongdaemun Design Plaza',
-        group: 'Fashion', // ← added
         description: 'Major urban development landmark',
         location: 'Jung-gu, Seoul',
         type: 'Architecture',
-        hours: '10:00 AM - 7:00 PM'
+        hours: '10:00 AM - 7:00 PM',
+        group: 'Fashion'
     }},
     { x: 17, z: 5, info: {
         name: 'Myeongdong Shopping Street',
         description: 'Popular shopping and food district',
         location: 'Jung-gu, Seoul',
         type: 'Shopping',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Fashion'
     }},
     { x: -1, z: -8, info: {
         name: 'COEX Mall',
         description: 'Largest underground shopping mall in Asia',
         location: 'Gangnam-gu, Seoul',
         type: 'Shopping Mall',
-        hours: '10:30 AM - 10:00 PM'
+        hours: '10:30 AM - 10:00 PM',
+        group: 'Fashion'
     }},
     { x: 10, z: -10, info: {
         name: 'Insadong',
         description: 'Traditional Korean culture and crafts',
         location: 'Jongno-gu, Seoul',
         type: 'Cultural District',
-        hours: '10:00 AM - 8:00 PM'
+        hours: '10:00 AM - 8:00 PM',
+        group: 'Beauty'
     }},
     { x: -10, z: -15, info: {
         name: 'Namdaemun Market',
         description: 'Largest traditional market in Korea',
         location: 'Jung-gu, Seoul',
         type: 'Market',
-        hours: '11:00 PM - 4:00 PM'
+        hours: '11:00 PM - 4:00 PM',
+        group: 'Beauty'
     }},
     { x: -8, z: 14, info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
         type: 'Shopping & Entertainment',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Beauty'
     }},
     { x: 8, z: 3, info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
         type: 'Shopping & Entertainment',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Beauty'
     }},
     { x: 16, z: 14, info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
         type: 'Shopping & Entertainment',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Beauty'
     }},
     { x: -5, z: 2, info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
         type: 'Shopping & Entertainment',
-        hours: '10:00 AM - 10:00 PM'
+        hours: '10:00 AM - 10:00 PM',
+        group: 'Beauty'
     }}
 ];
 
@@ -142,7 +151,7 @@ const buildingPositions = [
 loadingManager.onLoad = function() {
     modelsLoaded++;
     if (modelsLoaded === totalModels) {
-        document.getElementById('loading').style.display = 'none';
+        document.getElementById('loading-screen').style.display = 'none';
     }
 };
 
@@ -157,18 +166,36 @@ function updateCameraOffset() {
 }
 
 function checkCollisions(newX, newZ) {
-    const spiderRadius = 0.4;
-    const bufferZone = 0.2;
-    for (const building of buildings) {
-    if (!building.visible) continue;
-    const bounds = new THREE.Box3().setFromObject(building);
-    const min = bounds.min, max = bounds.max;
-    if (newX + spiderRadius + bufferZone > min.x &&
-        newX - spiderRadius - bufferZone < max.x &&
-        newZ + spiderRadius + bufferZone > min.z &&
-        newZ - spiderRadius - bufferZone < max.z) {
+    const spiderRadius = 0.5; // Increased collision radius
+    const bufferZone = 0.5; // Increased buffer zone
+    
+    // Check boundary collisions with walls
+    const wallBoundary = boundary - wallThickness;
+    if (Math.abs(newX) > wallBoundary - spiderRadius || Math.abs(newZ) > wallBoundary - spiderRadius) {
         return true;
     }
+    
+    // Check building collisions
+    for (const building of buildings) {
+        if (!building.visible) continue;
+        
+        const bounds = new THREE.Box3().setFromObject(building);
+        const min = bounds.min;
+        const max = bounds.max;
+        
+        // Add buffer zone to building bounds
+        const minX = min.x - bufferZone;
+        const maxX = max.x + bufferZone;
+        const minZ = min.z - bufferZone;
+        const maxZ = max.z + bufferZone;
+        
+        // Check if the new position would intersect with the building
+        if (newX + spiderRadius > minX &&
+            newX - spiderRadius < maxX &&
+            newZ + spiderRadius > minZ &&
+            newZ - spiderRadius < maxZ) {
+            return true;
+        }
     }
     return false;
 }
@@ -185,20 +212,25 @@ const wallHeight = 3;
 
 function createWall(x, z, width, depth) {
     const wallMaterial = new THREE.MeshStandardMaterial({
-        color: 0xff0000,        // Red color
-        transparent: true,      // Allow opacity to work
-        opacity: 0.5,           // 0.0 = fully transparent, 1.0 = fully opaque
-});
+        color: 0xff0000,
+        transparent: true,
+        opacity: 0.5,
+    });
+    
     const wall = new THREE.Mesh(
-
-    new THREE.BoxGeometry(width, wallHeight, depth),
-    wallMaterial
+        new THREE.BoxGeometry(width, wallHeight, depth),
+        wallMaterial
     );
+    
     wall.position.set(x, wallHeight / 2, z);
-    wall.castShadow = true;
-    wall.receiveShadow = true;
+
+    
+    // Add wall to buildings array for collision detection
     scene.add(wall);
-    buildings.push(wall); // Include in collision detection
+    buildings.push(wall);
+    
+    // Make walls always visible
+    wall.visible = true;
 }
 
   // Create 4 walls around the square map
@@ -262,35 +294,6 @@ function init() {
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Create portals for each building
-    buildingPositions.forEach((pos, index) => {
-        const portalGeometry = new THREE.CircleGeometry(1, 32);
-        const portalMaterial = new THREE.MeshBasicMaterial({
-            color:0xFFD666, 
-            transparent: true,
-            opacity: 0.5,
-        });
-
-        const portal = new THREE.Mesh(portalGeometry, portalMaterial);
-        portal.rotation.x = -Math.PI / 2;
-
-        // Always position the portal relative to the building
-        portal.position.set(
-            pos.x,
-            0.1,
-            pos.z + PORTAL_DISTANCE_FROM_BUILDING
-        );
-    
-        portal.userData = { info: pos.info };
-        scene.add(portal);
-    
-        const portalGlow = new THREE.PointLight(0xFFD666, 0, 5);
-        portal.add(portalGlow);
-    });
-    
-
-
-
     // Load buildings
     const gltfLoader = new THREE.GLTFLoader(loadingManager);
     buildingPositions.forEach((pos, index) => {
@@ -317,18 +320,51 @@ function init() {
             building.position.x = pos.x;
             building.position.z = pos.z;
             
+            // Add building to its group
+            if (pos.info.group) {
+                buildingGroups[pos.info.group].push(building);
+            }
+            
             scene.add(building);
             buildings.push(building);
+
+            // Create portal for the building
+            const portalGeometry = new THREE.CircleGeometry(1, 32);
+            const portalMaterial = new THREE.MeshBasicMaterial({
+                color: 0xFFD666,
+                transparent: true,
+                opacity: 0.5,
+            });
+
+            const portal = new THREE.Mesh(portalGeometry, portalMaterial);
+            portal.rotation.x = -Math.PI / 2;
+            portal.position.set(
+                pos.x,
+                0.1,
+                pos.z + PORTAL_DISTANCE_FROM_BUILDING
+            );
+            
+            portal.userData = { 
+                info: pos.info,
+                group: pos.info.group // Store group information
+            };
+            
+            // Add portal glow
+            const portalGlow = new THREE.PointLight(0xFFD666, 0, 5);
+            portal.add(portalGlow);
+            
+            scene.add(portal);
+            portals.push(portal);
         });
+    });
 
-
+    // Load character only once
+    if (!characterLoaded) {
         gltfLoader.load('models/character.glb', (gltf) => {
             spider = gltf.scene;
             mixer = new THREE.AnimationMixer(spider);
 
             scene.add(spider);
-
-
 
             spider.traverse((child) => {
                 if (child.isMesh) {
@@ -337,10 +373,9 @@ function init() {
                 }
             });
 
-            // Assuming the walking animation is the first one
             walkAction = mixer.clipAction(gltf.animations[0]);
             walkAction.play();
-            walkAction.paused = true; // Pause it at start
+            walkAction.paused = true;
         
             spider.position.set(0, 0, 0);
             spiderTarget.copy(spider.position);
@@ -352,20 +387,19 @@ function init() {
             const scale = 2 / maxDim;
             spider.position.sub(center.multiplyScalar(scale));
             spider.position.set(0, 0, 0);
-            spider.scale.set(1.5, 1.5, 1.5); // Adjust scale as needed
+            spider.scale.set(1.5, 1.5, 1.5);
 
             spiderTarget.copy(spider.position);
-    
             targetPosition = spider.position.clone();
             lookTarget = spider.position.clone();
         
-
             gltf.animations.forEach((clip) => {
                 mixer.clipAction(clip).play();
             });
+            
+            characterLoaded = true;
         });
-    });
-
+    }
 
     // Add click handler for spider movement
     function handleTapOrClick(event) {
@@ -487,10 +521,21 @@ document.querySelectorAll('.filter-buttons button').forEach(button => {
 });
 
 function updateBuildingVisibility() {
+    // Hide all buildings and portals first
     buildings.forEach(b => b.visible = false);
-    portals.forEach(p => p.visible = false); // Hide all portals by default
+    portals.forEach(p => p.visible = false);
+    
+    // Show buildings and portals for visible groups
     visibleGroups.forEach(group => {
-    buildingGroups[group]?.forEach(b => b.visible = true);
+        // Show buildings in this group
+        buildingGroups[group]?.forEach(b => b.visible = true);
+        
+        // Show portals for buildings in this group
+        portals.forEach(portal => {
+            if (portal.userData.group === group) {
+                portal.visible = true;
+            }
+        });
     });
 }
 
@@ -510,6 +555,38 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function handleTapOrClick(event, ground) {
+    let clientX, clientY;
+
+    if (event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    } else {
+        clientX = event.clientX;
+        clientY = event.clientY;
+    }
+
+    const rect = renderer.domElement.getBoundingClientRect();
+    const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    const y = -((clientY - rect.top) / rect.height) * 2 + 1;
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+
+    // Update matrix world before raycasting
+    scene.updateMatrixWorld();
+
+    const intersects = raycaster.intersectObject(ground);
+    if (intersects.length > 0) {
+        const targetX = intersects[0].point.x;
+        const targetZ = intersects[0].point.z;
+
+        spiderTarget.set(targetX, 0.1, targetZ);
+        isMoving = true;  // Start moving towards the target position
+    }
+}
+
+
 function updateCharacterMovement() {
     if (!spider) return;
 
@@ -519,20 +596,38 @@ function updateCharacterMovement() {
     if (distance > 0.1) {
         isMoving = true;
 
+        // Calculate the direction vector
         const direction = new THREE.Vector3().subVectors(spiderTarget, spider.position).normalize();
-        spider.position.add(direction.multiplyScalar(speed));
-
-        // Rotate to face target
-        spider.lookAt(spiderTarget);
-
-        // Start animation if it's paused
-        if (walkAction && walkAction.paused) {
-            walkAction.paused = false;
+        
+        // Calculate the next position
+        const nextX = spider.position.x + direction.x * speed;
+        const nextZ = spider.position.z + direction.z * speed;
+        
+        // Check if the next position would cause a collision
+        if (!checkCollisions(nextX, nextZ)) {
+            // If no collision, update position
+            spider.position.x = nextX;
+            spider.position.z = nextZ;
+            
+            // Rotate to face movement direction
+            if (!direction.equals(new THREE.Vector3(0, 0, 0))) {
+                spider.lookAt(spider.position.clone().add(direction));
+            }
+            
+            // Start animation if it's paused
+            if (walkAction && walkAction.paused) {
+                walkAction.paused = false;
+            }
+        } else {
+            // If there would be a collision, stop moving
+            isMoving = false;
+            spiderTarget.copy(spider.position);
+            if (walkAction && !walkAction.paused) {
+                walkAction.paused = true;
+            }
         }
     } else {
         isMoving = false;
-
-        // Stop animation when target reached
         if (walkAction && !walkAction.paused) {
             walkAction.paused = true;
         }
@@ -610,4 +705,16 @@ function animate() {
     }
 
     renderer.render(scene, camera);
-} 
+}
+
+// Initialize all groups as visible when the page loads
+window.addEventListener('load', () => {
+    Object.keys(buildingGroups).forEach(group => visibleGroups.add(group));
+    document.querySelectorAll('.filter-buttons button').forEach(button => {
+        const filter = button.getAttribute('data-filter');
+        if (filter) {
+            button.classList.add('active');
+        }
+    });
+    updateBuildingVisibility();
+}); 
