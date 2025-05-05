@@ -165,9 +165,27 @@ function updateCameraOffset() {
     cameraOffset = isMobile ? new THREE.Vector3(7, 12, 12) : new THREE.Vector3(10, 15, 15);
 }
 
+function moveToPointer(x, y) {
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+    
+    // Create a plane for raycasting
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    const intersectionPoint = new THREE.Vector3();
+    
+    if (raycaster.ray.intersectPlane(plane, intersectionPoint)) {
+        // Check if the target position is valid (not inside buildings or walls)
+        if (!checkCollisions(intersectionPoint.x, intersectionPoint.z)) {
+            spiderTarget.set(intersectionPoint.x, 0.1, intersectionPoint.z);
+            isMoving = true;
+            if (walkAction) walkAction.paused = false;
+        }
+    }
+}
+
 function checkCollisions(newX, newZ) {
-    const spiderRadius = 0.5; // Increased collision radius
-    const bufferZone = 0.5; // Increased buffer zone
+    const spiderRadius = 0.5;
+    const bufferZone = 0.5;
     
     // Check boundary collisions with walls
     const wallBoundary = boundary - wallThickness;
@@ -189,7 +207,6 @@ function checkCollisions(newX, newZ) {
         const minZ = min.z - bufferZone;
         const maxZ = max.z + bufferZone;
         
-        // Check if the new position would intersect with the building
         if (newX + spiderRadius > minX &&
             newX - spiderRadius < maxX &&
             newZ + spiderRadius > minZ &&
@@ -230,7 +247,7 @@ function createWall(x, z, width, depth) {
     buildings.push(wall);
     
     // Make walls always visible
-    wall.visible = true;
+    wall.visible = false;
 }
 
   // Create 4 walls around the square map

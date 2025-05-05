@@ -1,55 +1,66 @@
 body {
   margin: 0;
-  background: #fdfdfd;
   overflow: hidden;
+  background: #000;
+  font-family: 'Arial', sans-serif;
 }
 
 canvas {
-  position: fixed;
   display: block;
-  z-index: 2;
 }
+
 
 .filter-buttons {
   position: absolute;
   bottom: 10px;
-  left: 10px;
   z-index: 8;
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 100;
 }
 
 .filter-buttons button {
-  margin-right: 5px;
-  padding: 6px 12px;
+  padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
-  border: 1px solid #FFD666;
-  background-color: #FFD666;
-  color: black;
-  border-radius: 4px;
-  transition: opacity 0.3s;
-  opacity: 1; /* Default opacity when active */
+  border: none;
+  background: #FFD666;
+  color: #000;
+  border-radius: 6px;
+  transition: all 0.3s ease;
   font-weight: bold;
 }
 
 .filter-buttons button:not(.active) {
-  opacity: 0.3; /* Lower opacity when inactive */
+  opacity: 0.5;
+  background: #666;
+  color: #fff;
+}
+
+.filter-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #detailButton {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+  background: #4CAF50;
   color: white;
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+#detailButton:not(.active) {
   opacity: 0.5;
   pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 999;
 }
 
 #detailButton.active {
@@ -58,148 +69,55 @@ canvas {
 }
 
 #popup {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   color: white;
-  padding: 20px;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
+  padding: 25px;
+  border-radius: 12px;
+  font-family: 'Arial', sans-serif;
   display: none;
-  z-index: 100;
+  z-index: 1000;
   max-width: 400px;
   width: 90%;
-}
-
-
-#loading-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #000;
-  color: #fff;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 #popup h2 {
-  margin-top: 0;
-  color: #4CAF50;
+  margin: 0 0 20px 0;
+  color: #FFD666;
+  font-size: 24px;
 }
 
 #popup p {
-  margin: 10px 0;
+  margin: 12px 0;
+  line-height: 1.5;
+  color: #fff;
+}
+
+#popup strong {
+  color: #FFD666;
+  margin-right: 8px;
 }
 
 #closePopup {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-} 
-
-#check-detail-btn {
-  background-color: #FFD666;
-  color: black;
-  border-color: #FFD666;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  opacity: 0.3; /* Default opacity when inactive */
-}
-
-#check-detail-btn.active {
-  opacity: 1; /* Full opacity when active */
-}
-
-#check-detail-btn.disabled {
-  cursor: not-allowed;
-}
-
-#check-detail-btn:hover:not(.disabled) {
-  background-color: #ffc833;
-}
-
-/* Building Information Display Styles */
-.building-info {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.7);
-  pointer-events: auto;
-}
-
-.info-container {
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: 0 0 20px rgba(255, 214, 102, 0.5);
-  text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
-  pointer-events: auto;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.info-container h2 {
-  color: #FFD666;
-  margin-bottom: 15px;
+  color: #fff;
   font-size: 24px;
-}
-
-.info-container p {
-  margin-bottom: 20px;
-  line-height: 1.5;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.building-details {
-  background-color: rgba(255, 214, 102, 0.1);
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-.building-details p {
-  margin-bottom: 10px;
-  text-align: left;
-  padding-left: 10px;
-}
-
-.close-btn {
-  background-color: #FFD666;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
   cursor: pointer;
-  color: black;
-  font-weight: bold;
-  transition: background-color 0.2s;
-  pointer-events: auto;
+  padding: 5px;
+  line-height: 1;
+  transition: transform 0.3s ease;
 }
 
-.close-btn:hover {
-  background-color: #ffc833;
-}
+#closePopup:hover {
+  transform: rotate(90deg);
+  color: #FFD666;
+} 
