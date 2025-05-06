@@ -10,6 +10,8 @@ body {
     /* box-sizing: border-box; */
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap');
+
 
 /* *{
     outline: 1px solid red; 
@@ -63,9 +65,8 @@ body.archive{
     background-color: #FFD666;
 }
 
-
 .logo{
-    font-family: "Cherry Bomb One", system-ui;
+    font-family: "Jura", sans-serif;
     font-size: clamp(24px, 4vw, 28px); /* scales between 18px and 28px */
     cursor: pointer;
     margin-left: 80%;
@@ -319,8 +320,8 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
     cursor: pointer;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 3vh;
-    height: 3vh;
+    width: 4vh;
+    height: 4vh;
     cursor: pointer;
     }
 
@@ -386,7 +387,7 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
     .logo {
         font-size: clamp(24px, 4vw, 28px); /* scales between 18px and 28px */
         margin-left: auto;
-        font-family: "Cherry Bomb One", system-ui;
+        font-family: "Jura", sans-serif;
     }
 
     .profile {

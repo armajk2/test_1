@@ -10,8 +10,12 @@ body {
 
 canvas {
   display: block;
+  position: fixed;
 }
 
+.container {
+  position: fixed;
+}
 
 .filter-buttons {
   position: absolute;

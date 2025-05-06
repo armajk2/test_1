@@ -4,8 +4,6 @@
 
 body {
     font-family: 'IBM Plex Sans', sans-serif;
-    background: rgb(255, 214, 102,0.1);
-
 }
 
 .list{
@@ -17,7 +15,7 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .list ul li {
@@ -36,6 +34,7 @@ body {
 h2{
     align-items: center;
     text-align: center;
+    font-weight: 200;
     padding-bottom: 20px;
     border-bottom: solid 2px rgb(0, 0, 0,0.3);
 }
@@ -48,6 +47,7 @@ h3 {
 
 .popup{
     padding-top: 0;
+    border-radius: 10px;
     position: fixed;
     bottom: -100%;
     width: 100%;
@@ -71,6 +71,10 @@ h3 {
 
 .popup::after {
     display: none;
+}
+
+.popup h3 {
+    font-weight: 100;
 }
 
 .popup-content {
@@ -115,7 +119,7 @@ h3 {
 .desc {
   font-size: 18px;
   font-weight: bolder;
-  color: #555;
+  color: #f3f3f3;
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -139,7 +143,7 @@ h3 {
 }
 
 .popup-body {
-    padding: 16px;
+    padding: 15px;
     overflow-y: auto;
     flex-grow: 1;
 }
@@ -192,7 +196,6 @@ h3 {
 }
 
 .fixed-date-boxes {
-    font-family: "Cherry Bomb One", system-ui;
     position: sticky;
     top: 0;
     display: flex;
@@ -236,8 +239,8 @@ h3 {
 
 .timeline-text {
     padding: 20px;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     background-color: #f8f8f8;
     font-family: 'IBM Plex Sans', sans-serif;
 
@@ -250,9 +253,9 @@ h3 {
 }
 
 .timeline-text p {
-    font-size: 16px;
+    font-size: 15px;
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.5;
     color: #010101;
 }
 
@@ -331,7 +334,7 @@ h3 {
 
 .timeline-details-text {
     font-size: 0.9em;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Enhanced click indicator */
@@ -382,8 +385,8 @@ h3 {
     background-color: white;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: height 0.3s ease, box-shadow 0.3s ease;
     transition: all 0.3s ease;
     text-align: left;
@@ -404,31 +407,33 @@ h3 {
 
 
   .research-section p, .debug-check {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #010101;
   }
 
   .highlight-bubble {
     background-color: #FFD666;
-    color: #f1f1f1;
-    padding: 2px 10px;
-    border-radius: 999px;
-    display: inline-block;
+    color: #010101;
+    padding: 0px 7px;
     white-space: nowrap;
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
-  
-  .highlight-bubble:hover {
-    background-color: #ffc933;
-  }
 
-  .highlight-description {
+.highlight-bubble:hover {
+    background-color: #ffc933;
+}
+
+.highlight-description {
     margin-top: 5px;
-    font-size: 15px;
-    color: #010101;
-  }
+    font-size: 14px;
+    color: black;
+    text-decoration: underline;
+    text-underline-offset: 6px; /* You can increase or decrease this */
+    text-decoration-thickness: 0.1px; /* Adjust thickness */
+
+}
   
   .hidden {
     display: none;
@@ -468,14 +473,13 @@ h3 {
 
   .prototype-tile {
     background: #f3f3f3;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     height: 100px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
     cursor: pointer;
     transition: all 0.4s ease;
     overflow: hidden;
@@ -497,7 +501,7 @@ h3 {
 
   .prototype-tile .prototype-label {
     display: block; /* Show the label by default */
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
   }
 
@@ -510,7 +514,7 @@ h3 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 20px;
     text-align: center;
   }
@@ -571,8 +575,8 @@ h3 {
 .feedback-content {
     background: #f3f3f3;
     padding: 10px;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .feedback-details {
@@ -623,8 +627,8 @@ h3 {
     flex: 1 1 300px;
     background: #f3f3f3;
     padding: 20px;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -693,8 +697,8 @@ h3 {
     flex: 1 1 200px;
     background: #f3f3f3;
     padding: 20px;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -746,7 +750,7 @@ h3 {
     gap: 20px;
     overflow-x: auto;
     height: 100%;
-    padding: 0 10px 10px 10px;
+    padding: 0 0px 10px 10px;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
 }
@@ -779,7 +783,7 @@ h3 {
     background: #fff;
     height: 80%;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
 
@@ -825,6 +829,7 @@ h3 {
     position: fixed;
     bottom: calc(40px + env(safe-area-inset-bottom));
     right: 20px;
+    bottom: 30px;
     z-index: 999;
     font-weight: bold;
     font-size: 14px;
@@ -850,8 +855,8 @@ h3 {
     justify-content: center;
     background: #f3f3f3;
     display: block;
-    border-radius: 20px 0 20px 20px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 0px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: height 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -859,11 +864,12 @@ h3 {
 
 
 
-
   .box1 .hidden-text {
     display: none;
     padding: 20px;
     opacity: 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+
     transition: opacity 0.4s ease, display 0s ease 0.4s; /* Make opacity transition smooth */
     overflow-y: auto; /* Allow scrolling inside the text area */
     flex-grow: 1; /* Allow the content to expand vertically */
@@ -874,7 +880,6 @@ h3 {
 .box1 a{
     cursor: pointer;
     margin: 0;
-    font-weight: bolder;
     font-size: 18px;
     text-align: center;
   }
@@ -883,8 +888,8 @@ h3 {
     max-width: 80%;
     margin: 10px 0 20px 0;
     padding: 10px 15px;
-    border-radius: 20px;
-    line-height: 1.4;
+    border-radius: 10px;
+    line-height: 1.5;
     font-size: 15px;
   }
   
@@ -917,7 +922,8 @@ h3 {
   .box1.expanded {
     height: 500px; /* Adjust the height when expanded */
     clip-path: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced box-shadow when expanded */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+
 
 }
   
