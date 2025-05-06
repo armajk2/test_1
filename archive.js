@@ -294,7 +294,20 @@ function setupMeetingNotes() {
   });
 }
 
+// Reset all interactive elements
+function resetInteractiveElements() {
+  // Reset toggle buttons
+  document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.textContent = 'Show Details';
+  });
 
+  // Reset hidden elements
+  document.querySelectorAll('.hidden').forEach(element => {
+    if (!element.classList.contains('popup-content')) {
+      element.classList.remove('show');
+    }
+  });
+}
 
 function toggleDescription(span) {
   const desc = span.nextElementSibling;
