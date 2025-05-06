@@ -225,16 +225,16 @@ function setupToggleButtons() {
   });
 }
 
-// Prototype navigation
-  const tiles = document.querySelectorAll('.prototype-tile');
+// Select all prototype tiles
+const tiles = document.querySelectorAll('.prototype-tile');
 
-  tiles.forEach(tile => {
+// Add click event listener to each tile
+tiles.forEach(tile => {
     tile.addEventListener('click', () => {
-      const isExpanded = tile.classList.contains('expanded');
-      tiles.forEach(t => t.classList.remove('expanded'));
-      if (!isExpanded) tile.classList.add('expanded');
+        // Toggle the 'expanded' class on the clicked tile
+        tile.classList.toggle('expanded');
     });
-  });
+});
 
 // Feedback timeline animation
 function setupFeedbackTimeline() {
@@ -261,7 +261,7 @@ function setupUseCaseCards() {
 // Branding showcase animation
 function setupBrandingShowcase() {
   const brandingSections = document.querySelectorAll('.branding-section');
-  
+
   brandingSections.forEach((section, index) => {
     // Add staggered animation delay
     section.style.animationDelay = `${index * 0.3}s`;
@@ -272,7 +272,7 @@ function setupBrandingShowcase() {
 // Reflection cards animation
 function setupReflectionCards() {
   const reflectionCards = document.querySelectorAll('.reflection-card');
-  
+
   reflectionCards.forEach((card, index) => {
     // Add staggered animation delay
     card.style.animationDelay = `${index * 0.2}s`;
@@ -284,7 +284,7 @@ function setupReflectionCards() {
 function setupMeetingNotes() {
   const frame = document.querySelector('.frame');
   const boxes = document.querySelectorAll('.box1');
-  
+
   // Add scroll snap points
   boxes.forEach(box => {
     box.addEventListener('click', () => {
@@ -294,34 +294,7 @@ function setupMeetingNotes() {
   });
 }
 
-// Reset all interactive elements
-function resetInteractiveElements() {
-  // Reset toggle buttons
-  document.querySelectorAll('.toggle-btn').forEach(button => {
-    button.textContent = 'Show Details';
-  });
-  
-  // Reset hidden elements
-  document.querySelectorAll('.hidden').forEach(element => {
-    if (!element.classList.contains('popup-content')) {
-      element.classList.remove('show');
-    }
-  });
-  
-  // Reset prototype navigation
-  document.querySelectorAll('.prototype-btn').forEach(button => {
-    button.classList.remove('active');
-  });
-  
-  document.querySelectorAll('.prototype-item').forEach(item => {
-    item.classList.remove('active');
-  });
-  
-  // Reset animation classes
-  document.querySelectorAll('.animate-in').forEach(element => {
-    element.classList.remove('animate-in');
-  });
-}
+
 
 function toggleDescription(span) {
   const desc = span.nextElementSibling;

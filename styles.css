@@ -381,7 +381,6 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
         align-items: center;
         display: flex;
         justify-content: flex-start;
-        gap: 20px;
     }
 
     .logo {

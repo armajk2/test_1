@@ -74,6 +74,7 @@ h3 {
 }
 
 .popup h3 {
+    text-align: left;
     font-weight: 100;
 }
 
@@ -97,6 +98,8 @@ h3 {
 
 .frame::-webkit-scrollbar {
     width: 6px;
+    display: none;
+
 }
 
 .frame::-webkit-scrollbar-track {
@@ -220,8 +223,6 @@ h3 {
     position: relative;
 }
 
-
-
 .timeline-item {
     position: relative;
     margin-bottom: 60px;
@@ -235,15 +236,12 @@ h3 {
     transform: translateX(0);
 }
 
-
-
 .timeline-text {
     padding: 20px;
     border-radius: 10px 0 10px 10px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     background-color: #f8f8f8;
     font-family: 'IBM Plex Sans', sans-serif;
-
 }
 
 .timeline-text h3 {
@@ -258,8 +256,6 @@ h3 {
     line-height: 1.5;
     color: #010101;
 }
-
-
 
 .timeline-box {
     height: auto;
@@ -368,7 +364,7 @@ h3 {
 }
 
 .research-container::-webkit-scrollbar {
-    width: 6px;
+    display: none;
 }
 
 .research-container::-webkit-scrollbar-track {
@@ -434,8 +430,8 @@ h3 {
     text-decoration-thickness: 0.1px; /* Adjust thickness */
 
 }
-  
-  .hidden {
+
+.hidden {
     display: none;
 }
 
@@ -452,6 +448,7 @@ h3 {
 
 .prototype-container::-webkit-scrollbar {
     width: 6px;
+    display: none;
 }
 
 .prototype-container::-webkit-scrollbar-track {
@@ -463,17 +460,17 @@ h3 {
     background: #FFD666;
     border-radius: 4px;
 }
+
 .prototype-grid {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     grid-template-rows: repeat(4, auto);   /* 4 rows (optional) */
+    flex-wrap: nowrap; /* stay in one row */
+}
 
-  }
-
-  .prototype-tile {
+.prototype-tile {
     background: #f3f3f3;
-    border-radius: 10px 0 10px 10px;
+    border-radius: 10px 10px 0px 10px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     height: 100px;
     width: 100%;
@@ -486,45 +483,45 @@ h3 {
     position: relative;
     flex-direction: column;
     transform-origin: center center; /* Ensure the expansion happens from the center */
-  }
-  
+}
 
-  .prototype-tile.expanded {
+.prototype-tile.expanded {
     height: 200px; /* Adjust height */
-    width: 300px; /* Adjust width */
-    background: #ddd;
+    width: 100%; /* Adjust width */
     z-index: 1;
     transform: scale(1); /* Make the tile expand smoothly */
     transition: transform 0.4s ease, height 0.4s ease, width 0.4s ease; /* Ensure smooth transition */
-  }
-  
+}
 
-  .prototype-tile .prototype-label {
+.prototype-tile .prototype-label {
     display: block; /* Show the label by default */
     font-size: 1rem;
     text-align: center;
-  }
+}
 
-  .prototype-tile.expanded .prototype-label {
+.prototype-tile.expanded .prototype-label {
     display: none; /* Hide the label when expanded */
-  }
+}
   /* Individual image inside the scrollable container */
-  .prototype-image {
+.prototype-image {
     display: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
     padding: 20px;
     text-align: center;
-  }
-  
-  .prototype-label {
+}
+
+.prototype-img{
+    width: 100%;
+}
+
+.prototype-label {
     transition: opacity 0.3s ease;
     z-index: 2;
-  }
-  
-  .prototype-tile.expanded .prototype-image {
+}
+
+.prototype-tile.expanded .prototype-image {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -541,6 +538,8 @@ h3 {
 
 .feedback-container::-webkit-scrollbar {
     width: 6px;
+    display: none;
+
 }
 
 .feedback-container::-webkit-scrollbar-track {
@@ -591,12 +590,13 @@ h3 {
 }
 
 .feedback-details ul {
+    list-style-type: square;
     padding-left: 20px;
     margin-top: 10px;
 }
 
 .feedback-details li {
-    margin-bottom: 8px;
+    margin-bottom: px;
 }
 
 /* Use case section styles */
@@ -611,6 +611,8 @@ h3 {
 
 .usecase-container::-webkit-scrollbar {
     width: 6px;
+    display: none;
+
 }
 
 .usecase-container::-webkit-scrollbar-track {
@@ -670,6 +672,8 @@ h3 {
 
 .branding-container::-webkit-scrollbar {
     width: 6px;
+    display: none;
+
 }
 
 .branding-container::-webkit-scrollbar-track {
@@ -719,7 +723,7 @@ h3 {
 }
 
   /* Specific styles for logo-2 image */
-.logo-item:nth-child(2) .logo-image {
+.logo-item:nth-child(1) .logo-image {
     font-size: 60px;
     font-family: "Jaro", system-ui;
 }
@@ -875,16 +879,14 @@ h3 {
     flex-grow: 1; /* Allow the content to expand vertically */
   }
 
-
-
 .box1 a{
     cursor: pointer;
     margin: 0;
     font-size: 18px;
     text-align: center;
-  }
+}
 
-  .chat-message {
+.chat-message {
     max-width: 80%;
     margin: 10px 0 20px 0;
     padding: 10px 15px;
