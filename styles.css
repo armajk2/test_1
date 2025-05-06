@@ -67,7 +67,6 @@ body.archive{
 .logo{
     font-family: "Cherry Bomb One", system-ui;
     font-size: clamp(24px, 4vw, 28px); /* scales between 18px and 28px */
-    font-weight: bold;
     cursor: pointer;
     margin-left: 80%;
     text-decoration: none; /* removes underline */
@@ -387,7 +386,6 @@ transition: left 0.3s ease-in-out; /* Smooth transition for sidebar */
     .logo {
         font-size: clamp(24px, 4vw, 28px); /* scales between 18px and 28px */
         margin-left: auto;
-        font-weight: bold;
         font-family: "Cherry Bomb One", system-ui;
     }
 

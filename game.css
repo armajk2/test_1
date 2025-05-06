@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap');
+
+
 body {
   margin: 0;
   overflow: hidden;
@@ -21,7 +24,8 @@ canvas {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 12px;
   backdrop-filter: blur(10px);
-  z-index: 100;
+  z-index: 9;
+
 }
 
 .filter-buttons button {
@@ -34,6 +38,8 @@ canvas {
   border-radius: 6px;
   transition: all 0.3s ease;
   font-weight: bold;
+  font-family: 'IBM Plex Sans', sans-serif;
+
 }
 
 .filter-buttons button:not(.active) {
@@ -77,7 +83,7 @@ canvas {
   color: white;
   padding: 25px;
   border-radius: 12px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   display: none;
   z-index: 1000;
   max-width: 400px;

@@ -9,7 +9,9 @@
             rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="./archive.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <link
             href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"
             rel="stylesheet">
@@ -235,239 +237,318 @@
                 <div class="overlay" id="overlay2" onclick="hideLogoutForm()"></div>
                 <div class="overlay" id="overlay3" onclick="hidePostForm()"></div>
                 <div class="hamburgeroverlay" onclick="toggleMenu_2()"></div>
-                
-            <div class="list">
-                <ul>
-                    <li data-key="meeting">Meeting Notes</li>
-                    <li data-key="research">Research Findings</li>
-                    <li data-key="wireframes">Wireframes & Prototypes</li>
-                    <li data-key="feedback">Feedback Summary</li>
-                    <li data-key="usecases">Key Use Cases</li>
-                    <li data-key="branding">Logo & Typeface Selection Process</li>
-                    <li data-key="timeline">Timeline</li>
-                    <li data-key="reflection">Review / Reflection</li>
-                </ul>
-            </div>
 
-            <div class="popup" id="popup">
-                <div id="meeting" class="popup-content hidden">
-                    <h2>Meeting Notes</h2>
-                    <div class="frame">
-                        <div class="box-wrapper">
-                            <div class="box1" >
-                                <a>Meeting 1: Project Kickoff</a>
-                                <div class="hidden-text">
-                                    <hr>
-                                    <div class="chat-message person1">I'm thinking of taking a break from school this semester. </div>
-                                    <div class="chat-message person2">Oh yeah? What are you gonna do during your break?</div>
-                                    <div class="chat-message person1">Just rest and maybe study a bit on the side.</div>
-                                    <div class="chat-message person2">I see. Let's try doing something together then — I should have time too.</div>
-                                    <div class="chat-message person1">Let's goooo!</div>
-                                  </div>
-                                <div class="close-banner" onclick="closeBox(event)">Close</div>
-                              </div>
-                            <div class="desc">12/17/2024</div>
-                        </div>
-                        <div class="box-wrapper">
-                            <div class="box1">
-                                <a>Meeting 2: Idea Discussion</a>
-                                <div class="hidden-text">
-                                    <hr>
-                                    <div class="chat-message person1">We should target an existing market rather than creating a new one. It’s about what's already there, right?</div>
-                                    <div class="chat-message person2">Yeah, marketing is 80% of the work. But for a platform, we need to gather both users and providers, so it’s a tough task.</div>
-                                    <div class="chat-message person1">True. There are freelance platforms like "Soomgo" and "Kmong" already. We've done some demand research, and there’s a high demand for designers.</div>
-                                    <div class="chat-message person2">So we can focus on promoting services for individual business owners. The process isn't that long.</div>
-                                    <div class="chat-message person1">Exactly, the future belongs to those who can predict it. We need a long-term plan to build value and reach a lot of people.</div>
-                                    <div class="chat-message person2">Right. The key question is: how much value can we provide, and how many people can we reach?</div>
-                                    <div class="chat-message person1">And using AI technology could be a game-changer, but do we sell our technology or just use it for profit? It’s a short-term vs long-term debate.</div>
-                                    <div class="chat-message person2">It’s like consulting for 500,000 won. But the difference is, if we build a company, we scale. The challenge is differentiating services like design, translation, tutoring… it’s hard to stand out without luck or strong connections.</div>
-                                    <div class="chat-message person1">Exactly, the key is having a unique skill set—something that others don’t have, like Apple or Nike. It’s not just about expanding an idea; it’s about the uniqueness of the skills we have.</div>
-                                    <div class="chat-message person2">So, the question is whether we should focus on selling our skills and gradually grow our business, or go with an idea-driven platform like Facebook or Baemin?</div>
-                                    <div class="chat-message person1">We only have a year to figure this out. We’ll be working with just two people. I’m willing to learn the necessary skills within two months. But we have no connections, and we need to think about the international market. We have time, but no capital.</div>
-                                  </div>
-                                <div class="close-banner" onclick="closeBox(event)">Close</div>
-                            </div>
-                            <div class="desc">1/13/2025</div>
-                        </div>
-                        <div class="box-wrapper">
-                            <div class="box1">Meeting 3: Development Planning
-                                <div class="hidden-text">
-                                    <hr>
-                                    <div class="chat-message person1">Our target users are exchange students who want to get closer to Koreans, right?</div>
-                                    <div class="chat-message person2">Exactly! And the revenue model can be through ads initially, but once we have more users, we can expand into other directions.</div>
-                                    <div class="chat-message person1">The mood needs to be friendly, comfortable, and bright, with a mix of yellow and green. This will attract users to connect easily.</div>
-                                    <div class="chat-message person2">Right! The interface should have buttons for login, Instagram, events, logo, notifications, and introduction.</div>
-                                    <div class="chat-message person1">We’ll incorporate photos and videos to make it more engaging and immersive.</div>
-                                    <div class="chat-message person2">For the user experience, the platform should make users feel excited, safe, and connected, sharing hobbies, and it should be a fun environment without fear or tension.</div>
-                                    <div class="chat-message person1">We should focus on creating opportunities for new people to meet, with small groups and challenges, and build language skills while strengthening connections.</div>
-                                    <div class="chat-message person2">We want users to experience joy, excitement, and expansion of perspectives while making new connections—just like how I wish I could enjoy Korea through the eyes of Koreans themselves.</div>
-                                    <div class="chat-message person1">We are creating new connections in a global society, but how is that different from dating apps?</div>
-                                    <div class="chat-message person2">The key is that it’s not about dating. It’s about fostering genuine connections and excitement in experiencing Korea and meeting new people, expanding your world.</div>
-                                  </div>
-                                <div class="close-banner" onclick="closeBox(event)">Close</div>
-                            </div>
-                            <div class="desc">3/10/2025</div>
-                        </div>
-                        <div class="box-wrapper">
-                            <div class="box1">Meeting 4: Testing Strategy
-                                <div class="hidden-text">
-                                    <hr>
-                                    <div class="chat-message person1">Our platform's key components should be straightforward: sign-up, trending posts, search engine, categories, posting, and app download later. Don't forget the logo!</div>
-                                    <div class="chat-message person2">Right, for the design, we need to focus on one-point color FFD050 for readability, with a clean and minimal UI like Reddit or Discord. Let's make it modern and simple.</div>
-                                    <div class="chat-message person1">We should also integrate simple SVG icons and animations to enhance the user experience, but keep it subtle and not overdone.</div>
-                                    <div class="chat-message person2">And we definitely need both light and dark modes, so users can choose their preference. We could also add rounded corners and soft UI for a friendly feel, like Tailwind UI.</div>
-                                    <div class="chat-message person1">For functionality, let's include features like fake accounts to boost community activity, customizable avatars, content voting, and a scoring system to encourage engagement, like karma on Reddit.</div>
-                                    <div class="chat-message person2">Yes, simplicity is key, with intuitive UI, easy navigation, and minimal distractions. We also need to ensure the design is flexible, whether light or dark mode, and the icons should stand out without cluttering the screen.</div>
-                                    <div class="chat-message person1">Exactly! Focus on the essentials—clean, user-friendly, and visually engaging.</div>
-                                  </div>
-                                <div class="close-banner" onclick="closeBox(event)">Close</div>
-                            </div>
-                            <div class="desc">3/18/2025</div>
-                        </div>
-                        <div class="box-wrapper">
-                            <div class="box1">Meeting 5: Final Review
+                <div class="list">
+                    <ul>
+                        <li data-key="meeting">Meeting Notes</li>
+                        <li data-key="research">Research Findings</li>
+                        <li data-key="wireframes">Wireframes & Prototypes</li>
+                        <li data-key="feedback">Feedback Summary</li>
+                        <li data-key="usecases">Key Use Cases</li>
+                        <li data-key="branding">Logo & Typeface Selection Process</li>
+                        <li data-key="timeline">Timeline</li>
+                        <li data-key="reflection">Review / Reflection</li>
+                    </ul>
+                </div>
 
-                                <div class="hidden-text">
-                                    <hr>
-                                    <div class="chat-message person1">Alright, what do we need to fix now?</div>
-                                    <div class="chat-message person2">Is it functionally perfect?</div>
-                                    <div class="chat-message person1">Nope, haha.</div>
-                                    <div class="chat-message person2">Then get on it, will you?</div>
-                                    <div class="chat-message person1">Have you finished the front end?</div>
-                                    <div class="chat-message person2">Nope, haha.</div>
-                                    <div class="chat-message person1">Ugh, I can’t work with you.</div>
-                                    <div class="chat-message person2">Hey, I’m the boss here. Listen to me</div>
+                <div class="popup" id="popup">
+                    <div id="meeting" class="popup-content hidden">
+                        <h2>Meeting Notes</h2>
+                        <div class="frame">
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>12/17/2024</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">I'm thinking of taking a break from school this semester.
+                                        </div>
+                                        <div class="chat-message person2">Oh yeah? What are you gonna do during your break?</div>
+                                        <div class="chat-message person1">Just rest and maybe study a bit on the side.</div>
+                                        <div class="chat-message person2">I see. Let's try doing something together then — I should have time too.</div>
+                                        <div class="chat-message person1">Let's goooo!</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
                                 </div>
-                                <div class="close-banner" onclick="closeBox(event)">Close</div>
                             </div>
-                            <div class="desc">4/21/2025</div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>1/13/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">We should target an existing market rather
+                                            than creating a new one. It’s about what's already there, right?</div>
+                                        <div class="chat-message person2">Yeah, marketing is 80% of the work. But for a
+                                            platform, we need to gather both users and providers, so it’s a tough task.</div>
+                                        <div class="chat-message person1">True. There are freelance platforms like
+                                            "Soomgo" and "Kmong" already. We've done some demand research, and there’s a
+                                            high demand for designers.</div>
+                                        <div class="chat-message person2">So we can focus on promoting services for
+                                            individual business owners. The process isn't that long.</div>
+                                        <div class="chat-message person1">Exactly, the future belongs to those who can
+                                            predict it. We need a long-term plan to build value and reach a lot of people.</div>
+                                        <div class="chat-message person2">Right. The key question is: how much value can
+                                            we provide, and how many people can we reach?</div>
+                                        <div class="chat-message person1">And using AI technology could be a
+                                            game-changer, but do we sell our technology or just use it for profit? It’s a
+                                            short-term vs long-term debate.</div>
+                                        <div class="chat-message person2">It’s like consulting for 500,000 won. But the
+                                            difference is, if we build a company, we scale. The challenge is differentiating
+                                            services like design, translation, tutoring… it’s hard to stand out without luck
+                                            or strong connections.</div>
+                                        <div class="chat-message person1">Exactly, the key is having a unique skill
+                                            set—something that others don’t have, like Apple or Nike. It’s not just about
+                                            expanding an idea; it’s about the uniqueness of the skills we have.</div>
+                                        <div class="chat-message person2">So, the question is whether we should focus on
+                                            selling our skills and gradually grow our business, or go with an idea-driven
+                                            platform like Facebook or Baemin?</div>
+                                        <div class="chat-message person1">We only have a year to figure this out. We’ll
+                                            be working with just two people. I’m willing to learn the necessary skills
+                                            within two months. But we have no connections, and we need to think about the
+                                            international market. We have time, but no capital.</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>3/10/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">Our target users are exchange students who want to get closer to Koreans, right?</div>
+                                        <div class="chat-message person2">Exactly! And the revenue model can be through
+                                            ads initially, but once we have more users, we can expand into other directions.</div>
+                                        <div class="chat-message person1">The mood needs to be friendly, comfortable,
+                                            and bright, with a mix of yellow and green. This will attract users to connect
+                                            easily.</div>
+                                        <div class="chat-message person2">Right! The interface should have buttons for
+                                            login, Instagram, events, logo, notifications, and introduction.</div>
+                                        <div class="chat-message person1">We’ll incorporate photos and videos to make it more engaging and immersive.</div>
+                                        <div class="chat-message person2">For the user experience, the platform should
+                                            make users feel excited, safe, and connected, sharing hobbies, and it should be
+                                            a fun environment without fear or tension.</div>
+                                        <div class="chat-message person1">We should focus on creating opportunities for
+                                            new people to meet, with small groups and challenges, and build language skills
+                                            while strengthening connections.</div>
+                                        <div class="chat-message person2">We want users to experience joy, excitement,
+                                            and expansion of perspectives while making new connections—just like how I wish
+                                            I could enjoy Korea through the eyes of Koreans themselves.</div>
+                                        <div class="chat-message person1">We are creating new connections in a global
+                                            society, but how is that different from dating apps?</div>
+                                        <div class="chat-message person2">The key is that it’s not about dating. It’s
+                                            about fostering genuine connections and excitement in experiencing Korea and
+                                            meeting new people, expanding your world.</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>3/18/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">Our platform's key components should be
+                                            straightforward: sign-up, trending posts, search engine, categories, posting,
+                                            and app download later. Don't forget the logo!</div>
+                                        <div class="chat-message person2">Right, for the design, we need to focus on
+                                            one-point color FFD050 for readability, with a clean and minimal UI like Reddit
+                                            or Discord. Let's make it modern and simple.</div>
+                                        <div class="chat-message person1">We should also integrate simple SVG icons and
+                                            animations to enhance the user experience, but keep it subtle and not overdone.</div>
+                                        <div class="chat-message person2">And we definitely need both light and dark
+                                            modes, so users can choose their preference. We could also add rounded corners
+                                            and soft UI for a friendly feel, like Tailwind UI.</div>
+                                        <div class="chat-message person1">For functionality, let's include features like
+                                            fake accounts to boost community activity, customizable avatars, content voting,
+                                            and a scoring system to encourage engagement, like karma on Reddit.</div>
+                                        <div class="chat-message person2">Yes, simplicity is key, with intuitive UI,
+                                            easy navigation, and minimal distractions. We also need to ensure the design is
+                                            flexible, whether light or dark mode, and the icons should stand out without
+                                            cluttering the screen.</div>
+                                        <div class="chat-message person1">Exactly! Focus on the essentials—clean, user-friendly, and visually engaging.</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>3/25/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">Our platform's key components should be
+                                            straightforward: sign-up, trending posts, search engine, categories, posting,
+                                            and app download later. Don't forget the logo!</div>
+                                        <div class="chat-message person2">Right, for the design, we need to focus on
+                                            one-point color FFD050 for readability, with a clean and minimal UI like Reddit
+                                            or Discord. Let's make it modern and simple.</div>
+                                        <div class="chat-message person1">We should also integrate simple SVG icons and
+                                            animations to enhance the user experience, but keep it subtle and not overdone.</div>
+                                        <div class="chat-message person2">And we definitely need both light and dark
+                                            modes, so users can choose their preference. We could also add rounded corners
+                                            and soft UI for a friendly feel, like Tailwind UI.</div>
+                                        <div class="chat-message person1">For functionality, let's include features like
+                                            fake accounts to boost community activity, customizable avatars, content voting,
+                                            and a scoring system to encourage engagement, like karma on Reddit.</div>
+                                        <div class="chat-message person2">Yes, simplicity is key, with intuitive UI,
+                                            easy navigation, and minimal distractions. We also need to ensure the design is
+                                            flexible, whether light or dark mode, and the icons should stand out without
+                                            cluttering the screen.</div>
+                                        <div class="chat-message person1">Exactly! Focus on the essentials—clean, user-friendly, and visually engaging.</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>4/8/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">We have to finish everything by today no matter what.</div>
+                                        <div class="chat-message person2">Okay.</div>
+                                        <div class="chat-message person1">What do we need to fix?</div>
+                                        <div class="chat-message person2">There are way too many functional issues right
+                                            now. Like, when you click the search box and then click somewhere else, the
+                                            search icon doesn't reappear. Also, the posting feature isn't working.</div>
+                                        <div class="chat-message person1">Wait, that's something you're supposed to handle.</div>
+                                        <div class="chat-message person2">No, that's your task.</div>
+                                        <div class="chat-message person1">LOL</div>
+                                        <!-- you can continue here -->
+
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+                            <div class="box-wrapper">
+                                <div class="box1">
+                                    <a>4/21/2025</a>
+                                    <div class="hidden-text">
+                                        <hr>
+                                        <div class="chat-message person1">Alright, what do we need to fix now?</div>
+                                        <div class="chat-message person2">Is it functionally perfect?</div>
+                                        <div class="chat-message person1">Nope, haha.</div>
+                                        <div class="chat-message person2">Then get on it, will you?</div>
+                                        <div class="chat-message person1">Have you finished the front end?</div>
+                                        <div class="chat-message person2">Nope, haha.</div>
+                                        <div class="chat-message person1">Ugh, I can’t work with you.</div>
+                                        <div class="chat-message person2">Hey, I’m the boss here. Listen to me</div>
+                                    </div>
+                                    <div class="close-banner" onclick="closeBox(event)">Close</div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
 
-                <div id="research" class="popup-content hidden">
-                    <h2>Research Findings</h2>
-                    <div class="research-container">
-                        <div class="research-card">
-                            <h3>How long?</h3>
-                            <p>Define the timeline for the project and establish key milestones to ensure timely delivery.</p>
-                            <div class="research-details hidden">
-                                <ul>
-                                    <li>Users prefer simple navigation</li>
-                                    <li>Mobile responsiveness is crucial</li>
-                                    <li>Community features are highly valued</li>
-                                </ul>
+                    <div id="research" class="popup-content hidden">
+                        <h2>Research Findings</h2>
+                        <div class="research-container">
+                            <div class="research-section">
+                                <h3>[1]</h3>
+                                <div class="debug-check">
+                                    It's better to tap into markets that already exist. Platforms like 숨고 and 크몽
+                                    reveal a strong demand, especially for freelance skills like design and
+                                    tutoring. Marketing takes up 80% of the effort. Helping solo entrepreneurs is
+                                    fast to launch. However, platform models are tough—they require both active
+                                    users and providers.
+                                </div>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="research-card">
-                            <h3>What problems might arise?</h3>
-                            <p>Evaluate potential challenges that could hinder the project’s success and how to overcome them.</p>
-                            <div class="research-details hidden">
-                                <ul>
-                                    <li>Feature comparison matrix</li>
-                                    <li>Strengths and weaknesses</li>
-                                    <li>Market positioning</li>
-                                </ul>
+
+                            <div class="research-section">
+                                <h3>[2]</h3>
+                                <div class="debug-check">
+                                    You have two paths: sell your skill and scale, or build a user-driven platform.
+                                    With limited time and no capital, skill-based business is easier short-term. But
+                                    platform-based ideas have longer-term potential. Your language skills (KR/EN/JP)
+                                    open overseas options too.
+                                </div>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="research-card">
-                            <h3>What should We consider?</h3>
-                            <p>Identify key trends and factors that could influence the design and features of the platform.</p>
-                            <div class="research-details hidden">
-                                <ul>
-                                    <li>Rising popularity of niche communities</li>
-                                    <li>Integration with social media</li>
-                                    <li>Focus on user-generated content</li>
-                                </ul>
+
+                            <div class="research-section">
+                                <h3>[3]</h3>
+                                <div class="debug-check">
+                                    Focus on building something for the future. Ask yourself: how much value can you
+                                    give, to how many people? <span class="highlight-bubble" onclick="toggleDescription(this)">Unique skills</span>
+                                    <span class="highlight-description hidden"> [its all about the money]</span>
+
+                                    are key to differentiation. Build from
+                                    your core expertise, not just trendy ideas. Don't aim for a one-season hit—go
+                                    for sustainable growth.
+                                </div>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="research-card">
-                            <h3>What do we have to study for?</h3>
-                            <p>Analyze current industry trends and market demands to inform the platform's development.</p>
-                            <div class="research-details hidden">
-                                <ul>
-                                    <li>Rising popularity of niche communities</li>
-                                    <li>Integration with social media</li>
-                                    <li>Focus on user-generated content</li>
-                                </ul>
+
+                            <div class="research-section">
+                                <h3>[4]</h3>
+                                <div class="debug-check">
+                                    The feeling of
+                                    <span class="highlight-bubble" onclick="toggleDescription(this)">설렘</span>
+                                    <span class="highlight-description hidden"> [A heart-fluttering excitement, especially when meeting someone new.]</span>
+
+                                    is powerful.
+                                </div>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="research-card">
-                            <h3>What to ask</h3>
-                            <p>Gather important questions and insights from key stakeholders to guide the platform’s development.</p>
-                            <div class="research-details hidden">
-                                <ul>
-                                    <li>Rising popularity of niche communities</li>
-                                    <li>Integration with social media</li>
-                                    <li>Focus on user-generated content</li>
-                                </ul>
+                            
+
+                            <div class="research-section">
+                                <h3>[5]</h3>
+                                <div class="debug-check">
+                                    Think: do you sell your skill, or create a space where others sell theirs? You
+                                    can consult, design, or tutor, but scaling is tricky. Platforms like Facebook or
+                                    Airbnb grew by connecting people. Consider doing both: sell now, build later.
+                                    Stay aware of gender/culture balance, and clarify how you're different from
+                                    existing apps.
+                                </div>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
+
                         </div>
                     </div>
-                </div>
 
-                <div id="wireframes" class="popup-content hidden">
-                    <h2>Wireframes & Prototypes</h2>
-                    <div class="prototype-container">
-                        <div class="prototype-nav">
-                            <button class="prototype-btn active" data-target="wireframe1">Wireframe 1</button>
-                            <button class="prototype-btn" data-target="wireframe2">Wireframe 2</button>
-                            <button class="prototype-btn" data-target="wireframe3">Wireframe 3</button>
-                            <button class="prototype-btn" data-target="wireframe4">Wireframe 4</button>
-                            <button class="prototype-btn" data-target="wireframe5">Wireframe 5</button>
-                            <button class="prototype-btn" data-target="wireframe6">Wireframe 6</button>
-                            <button class="prototype-btn" data-target="wireframe7">Wireframe 7</button>
-                            <button class="prototype-btn" data-target="wireframe8">Wireframe 8</button>
-                        </div>
-                        <div class="prototype-content">
-                            <div class="prototype-item" id="wireframe1">
-                                <div class="prototype-image">Wireframe 1 Image</div>
-                                <div class="prototype-image">Wireframe 1 Image</div>
-                                <div class="prototype-image">Wireframe 1 Image</div>
-                                <div class="prototype-image">Wireframe 1 Image</div>
-                                <div class="prototype-image">Wireframe 1 Image</div>
+                    <div id="wireframes" class="popup-content hidden">
+                        <h2>Wireframes & Prototypes</h2>
+                        <div class="prototype-container">
 
-                            </div>
-                            <div class="prototype-item" id="wireframe2">
-                                <div class="prototype-image">Wireframe 2 Image</div>
-                                <p>Refined wireframe incorporating feedback from stakeholders.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe3">
-                                <div class="prototype-image">Prototype 3 Image</div>
-                                <p>First interactive prototype with basic functionality.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe4">
-                                <div class="prototype-image">Prototype 4 Image</div>
-                                <p>Final prototype with all features implemented.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe5">
-                                <div class="prototype-image">Prototype 4 Image</div>
-                                <p>Final prototype with all features implemented.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe6">
-                                <div class="prototype-image">Prototype 4 Image</div>
-                                <p>Final prototype with all features implemented.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe7">
-                                <div class="prototype-image">Prototype 4 Image</div>
-                                <p>Final prototype with all features implemented.</p>
-                            </div>
-                            <div class="prototype-item" id="wireframe8">
-                                <div class="prototype-image">Prototype 4 Image</div>
-                                <p>Final prototype with all features implemented.</p>
+                            <div class="prototype-container">
+                                <div class="prototype-grid">
+                                    <div class="prototype-tile" data-id="1">
+                                        <span class="prototype-label">Wireframe 1</span>
+                                        <div class="prototype-image">Image 1</div>
+                                        <div class="prototype-image">Image 2</div>
+                                        <div class="prototype-image">Image 3</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="2">
+                                        <span class="prototype-label">Wireframe 2</span>
+                                        <div class="prototype-image">Wireframe 2 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="3">
+                                        <span class="prototype-label">Wireframe 3</span>
+                                        <div class="prototype-image">Prototype 3 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="4">
+                                        <span class="prototype-label">Wireframe 4</span>
+                                        <div class="prototype-image">Prototype 4 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="5">
+                                        <span class="prototype-label">Wireframe 5</span>
+                                        <div class="prototype-image">Prototype 4 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="6">
+                                        <span class="prototype-label">Wireframe 6</span>
+                                        <div class="prototype-image">Prototype 4 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="7">
+                                        <span class="prototype-label">Wireframe 7</span>
+                                        <div class="prototype-image">Prototype 4 Image</div>
+                                    </div>
+                                    <div class="prototype-tile" data-id="8">
+                                        <span class="prototype-label">Wireframe 8</span>
+                                        <div class="prototype-image">Prototype 4 Image</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="feedback" class="popup-content hidden">
-                    <h2>Feedback Summary</h2>
-                    <div class="feedback-container">
+                    <div id="feedback" class="popup-content hidden">
+                        <h2>Feedback Summary</h2>
+                        <div class="feedback-container">
                             <div class="feedback-item">
                                 <div class="feedback-content">
                                     <h3>1st Feedback</h3>
@@ -485,7 +566,8 @@
                             <div class="feedback-item">
                                 <div class="feedback-content">
                                     <h3>2nd Feedback</h3>
-                                    <p>Insights and evaluations on the latest features and functionality of the platform, based on user and stakeholder feedback.</p>
+                                    <p>Insights and evaluations on the latest features and functionality of the
+                                        platform, based on user and stakeholder feedback.</p>
                                     <div class="feedback-details hidden">
                                         <ul>
                                             <li>Add more community features</li>
@@ -539,314 +621,233 @@
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div>
 
-                <div id="usecases" class="popup-content hidden">
-                    <h2>Key Use Cases</h2>
-                    <div class="usecase-container">
-                        <div class="usecase-card">
-                            <h3>User Registration</h3>
-                            <p>New users can create an account and set up their profile.</p>
-                            <div class="usecase-details hidden">
-                                <h4>Steps:</h4>
-                                <ol>
-                                    <li>User clicks "Sign Up"</li>
-                                    <li>User enters email and password</li>
-                                    <li>User verifies email</li>
-                                    <li>User completes profile setup</li>
-                                </ol>
+                    <div id="usecases" class="popup-content hidden">
+                        <h2>Key Use Cases</h2>
+                        <div class="usecase-container">
+                            <div class="usecase-card">
+                                <h3>User Registration</h3>
+                                <p>New users can create an account and set up their profile.</p>
+                                <div class="usecase-details hidden">
+                                    <h4>Steps:</h4>
+                                    <ol>
+                                        <li>User clicks "Sign Up"</li>
+                                        <li>User enters email and password</li>
+                                        <li>User verifies email</li>
+                                        <li>User completes profile setup</li>
+                                    </ol>
+                                </div>
+                                <button class="toggle-btn">Show Details</button>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="usecase-card">
-                            <h3>Creating Posts</h3>
-                            <p>Users can create and publish new posts to the community.</p>
-                            <div class="usecase-details hidden">
-                                <h4>Steps:</h4>
-                                <ol>
-                                    <li>User clicks "Write Post"</li>
-                                    <li>User selects category</li>
-                                    <li>User writes content</li>
-                                    <li>User adds media (optional)</li>
-                                    <li>User publishes post</li>
-                                </ol>
+                            <div class="usecase-card">
+                                <h3>Creating Posts</h3>
+                                <p>Users can create and publish new posts to the community.</p>
+                                <div class="usecase-details hidden">
+                                    <h4>Steps:</h4>
+                                    <ol>
+                                        <li>User clicks "Write Post"</li>
+                                        <li>User selects category</li>
+                                        <li>User writes content</li>
+                                        <li>User adds media (optional)</li>
+                                        <li>User publishes post</li>
+                                    </ol>
+                                </div>
+                                <button class="toggle-btn">Show Details</button>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
-                        </div>
-                        <div class="usecase-card">
-                            <h3>Searching Content</h3>
-                            <p>Users can search for specific content within the platform.</p>
-                            <div class="usecase-details hidden">
-                                <h4>Steps:</h4>
-                                <ol>
-                                    <li>User enters search term</li>
-                                    <li>System displays relevant results</li>
-                                    <li>User can filter results</li>
-                                    <li>User selects desired content</li>
-                                </ol>
+                            <div class="usecase-card">
+                                <h3>Searching Content</h3>
+                                <p>Users can search for specific content within the platform.</p>
+                                <div class="usecase-details hidden">
+                                    <h4>Steps:</h4>
+                                    <ol>
+                                        <li>User enters search term</li>
+                                        <li>System displays relevant results</li>
+                                        <li>User can filter results</li>
+                                        <li>User selects desired content</li>
+                                    </ol>
+                                </div>
+                                <button class="toggle-btn">Show Details</button>
                             </div>
-                            <button class="toggle-btn">Show Details</button>
                         </div>
                     </div>
-                </div>
 
-                <div id="branding" class="popup-content hidden">
-                    <h2>Logo & Typeface Selection</h2>
-                    <div class="branding-container">
-                        <div class="branding-section">
-                            <h3>Logo Evolution</h3>
-                            <div class="logo-showcase">
-                                <div class="logo-item">
-                                    <div class="logo-image">
-                                      <img src="./images/logo_1.png" alt="Logo">
+                    <div id="branding" class="popup-content hidden">
+                        <h2>Logo & Typeface Selection</h2>
+                        <div class="branding-container">
+                            <div class="branding-section">
+                                <h3>Logo Evolution</h3>
+                                <div class="logo-showcase">
+                                    <div class="logo-item">
+                                        <div class="logo-image">
+                                            <img src="./images/logo_1.png" alt="Logo">
+                                        </div>
                                     </div>
-                                    <p>Initial concept</p>
-                                  </div>
-                                  
-                                  <div class="logo-item logo-item-logo2">  <!-- Added class for logo-2 -->
-                                    <div class="logo-image">
-                                      WUDL
+
+                                    <div class="logo-item logo-item-logo2">
+                                        <!-- Added class for logo-2 -->
+                                        <div class="logo-image">
+                                            WUDL
+                                        </div>
                                     </div>
-                                    <p>Initial concept</p>
-                                  </div>
-                                  
-                                  <div class="logo-item logo-item-logo3">
-                                    <div class="logo-image">
-                                      WUDL
+
+                                    <div class="logo-item logo-item-logo3">
+                                        <div class="logo-image">
+                                            WUDL
+                                        </div>
                                     </div>
-                                    <p>Final logo</p>
-                                  </div>
-                            </div>
-                        </div>
-                        <div class="branding-section">
-                            <h3>Typeface Selection</h3>
-                            <div class="typeface-showcase">
-                                <div class="typeface-item">
-                                    <h4 class="typeface-sample" style="font-family: 'IBM Plex Sans';">IBM Plex Sans</h4>
-                                    <p>Used for body text and UI elements</p>
-                                </div>
-                                <div class="typeface-item">
-                                    <h4 class="typeface-sample" style="font-family: 'Cherry Bomb One';">Cherry Bomb One</h4>
-                                    <p>Used for logo and headings</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="branding-section">
-                            <h3>Color Palette</h3>
-                            <div class="color-showcase">
-                                <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #FFD666;"></div>
-                                    <p>Primary: #FFD666</p>
+                            <div class="branding-section">
+                                <h3>Typeface Selection</h3>
+                                <div class="typeface-showcase">
+                                    <div class="typeface-item">
+                                        <h4 class="typeface-sample" style="font-family: 'IBM Plex Sans';">IBM Plex Sans</h4>
+                                        <p>Used for body text and UI elements</p>
+                                    </div>
+                                    <div class="typeface-item">
+                                        <h4 class="typeface-sample" style="font-family: 'Cherry Bomb One';">Cherry Bomb One</h4>
+                                        <p>Used for logo and headings</p>
+                                    </div>
                                 </div>
-                                <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #d9d9d9;"></div>
-                                    <p>Secondary: #f3f3f3</p>
-                                </div>
-                                <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #f8f8f8;"></div>
-                                    <p>Thrid: #f8f8f8</p>
-                                </div>
-                                <div class="color-item">
-                                    <div class="color-swatch" style="background-color: #030303;"></div>
-                                    <p>Fourth: #030303</p>
+                            </div>
+                            <div class="branding-section">
+                                <h3>Color Palette</h3>
+                                <div class="color-showcase">
+                                    <div class="color-item">
+                                        <div class="color-swatch" style="background-color: #FFD666;"></div>
+                                        <p>Primary: #FFD666</p>
+                                    </div>
+                                    <div class="color-item">
+                                        <div class="color-swatch" style="background-color: #d9d9d9;"></div>
+                                        <p>Secondary: #f3f3f3</p>
+                                    </div>
+                                    <div class="color-item">
+                                        <div class="color-swatch" style="background-color: #f8f8f8;"></div>
+                                        <p>Thrid: #f8f8f8</p>
+                                    </div>
+                                    <div class="color-item">
+                                        <div class="color-swatch" style="background-color: #030303;"></div>
+                                        <p>Fourth: #030303</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="timeline" class="popup-content hidden">
-                    <h2>Timeline</h2>
-                    <div class="timeline-frame">
-                      <div class="timeline-progress">
-                        <div class="timeline-progress-bar"></div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">📌 February - Project Kickoff</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📅</div>
-                              <div class="timeline-details-text">Initial project planning and team formation</div>
+                    <div id="timeline" class="popup-content hidden">
+                        <h2>Timeline</h2>
+                        <div class="timeline-frame">
+                            <div class="fixed-date-boxes">
+                                <div class="date-box year">25</div>
+                                <div class="date-box month">03</div>
+                                <div class="date-box day">25</div>
                             </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">👥</div>
-                              <div class="timeline-details-text">Stakeholder meetings and requirements gathering</div>
+                            <div class="timeline-content">
+                                <div class="timeline-item" data-date="25/03/24">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-text">
+                                        <h3>Project Kickoff</h3>
+                                        <p>Today marked the beginning of our exciting journey. The team gathered for the
+                                            first time, sharing ideas and setting ambitious goals. We discussed the
+                                            potential impact of our platform on the exchange student community, focusing on
+                                            creating meaningful connections and cultural experiences. The energy in the room
+                                            was palpable as we outlined our vision for the next few months.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item" data-date="25/03/27">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-text">
+                                        <h3>Initial Research Phase</h3>
+                                        <p>After conducting extensive market research and user interviews, we've
+                                            identified key pain points in the exchange student experience. The data shows a
+                                            strong need for a platform that bridges cultural gaps and facilitates meaningful
+                                            connections. Our findings suggest that current solutions lack the personal touch
+                                            and community aspect that exchange students crave.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item" data-date="25/04/10">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-text">
+                                        <h3>Design Sprint</h3>
+                                        <p>We completed an intensive design sprint, focusing on user experience and
+                                            interface design. The team created multiple wireframes and prototypes, testing
+                                            different approaches to navigation and content organization. User feedback was
+                                            overwhelmingly positive, particularly regarding the intuitive layout and
+                                            engaging visual elements we incorporated.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item" data-date="25/04/20">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-text">
+                                        <h3>Development Milestone</h3>
+                                        <p>The core functionality of our platform is now operational. We've implemented
+                                            the user authentication system, content management features, and real-time
+                                            messaging capabilities. The development team has made significant progress in
+                                            optimizing performance and ensuring cross-platform compatibility. Initial
+                                            testing shows promising results in terms of speed and reliability.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item" data-date="25/04/26">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-text">
+                                        <h3>Beta Testing Launch</h3>
+                                        <p>We've officially launched our beta testing phase with a select group of
+                                            exchange students. The feedback has been incredibly valuable, helping us
+                                            identify areas for improvement and unexpected use cases. Users particularly
+                                            appreciate the community features and the ease of finding local events and
+                                            activities. We're now working on implementing the suggested improvements.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📋</div>
-                              <div class="timeline-details-text">Project scope and timeline defined</div>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">🧠 Week 1 - Research + Ideation</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🔍</div>
-                              <div class="timeline-details-text">User research and interviews conducted</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📊</div>
-                              <div class="timeline-details-text">Competitor analysis completed</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">💡</div>
-                              <div class="timeline-details-text">Initial design concepts developed</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">🎨 Week 2 - Wireframing</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">✏️</div>
-                              <div class="timeline-details-text">Low-fidelity wireframes created</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🔄</div>
-                              <div class="timeline-details-text">Iterative feedback and refinement</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📱</div>
-                              <div class="timeline-details-text">Mobile and desktop layouts designed</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">💻 Week 3 - Prototype Development</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🛠️</div>
-                              <div class="timeline-details-text">Interactive prototypes built</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🎮</div>
-                              <div class="timeline-details-text">User flow testing and optimization</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🔧</div>
-                              <div class="timeline-details-text">Technical feasibility assessment</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">🧪 Week 4 - Testing</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">👥</div>
-                              <div class="timeline-details-text">User testing sessions conducted</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📝</div>
-                              <div class="timeline-details-text">Feedback collected and analyzed</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🔄</div>
-                              <div class="timeline-details-text">Design iterations based on feedback</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">🚀 Week 5 - Final Implementation</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">💻</div>
-                              <div class="timeline-details-text">Final development and coding</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🔍</div>
-                              <div class="timeline-details-text">Quality assurance and bug fixes</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📱</div>
-                              <div class="timeline-details-text">Cross-device testing and optimization</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="timeline-box">
-                        <div class="timeline-content">📂 Week 6 - Archive + Reflection</div>
-                        <div class="timeline-details">
-                          <div class="timeline-details-content">
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📊</div>
-                              <div class="timeline-details-text">Project metrics and analytics review</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">📝</div>
-                              <div class="timeline-details-text">Documentation and knowledge sharing</div>
-                            </div>
-                            <div class="timeline-details-item">
-                              <div class="timeline-details-icon">🤝</div>
-                              <div class="timeline-details-text">Team retrospective and lessons learned</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                </div>
 
-                <div id="reflection" class="popup-content hidden">
-                    <h2>Review / Reflection</h2>
-                    <div class="reflection-container">
-                        <div class="reflection-card">
-                            <h3>What Went Well</h3>
-                            <ul class="reflection-list">
-                                <li>User-centered design approach</li>
-                                <li>Iterative development process</li>
-                                <li>Strong team collaboration</li>
-                                <li>Effective feedback integration</li>
-                            </ul>
-                        </div>
-                        <div class="reflection-card">
-                            <h3>Challenges Faced</h3>
-                            <ul class="reflection-list">
-                                <li>Technical implementation hurdles</li>
-                                <li>Time constraints</li>
-                                <li>Balancing feature scope</li>
-                                <li>Cross-browser compatibility</li>
-                            </ul>
-                        </div>
-                        <div class="reflection-card">
-                            <h3>Lessons Learned</h3>
-                            <ul class="reflection-list">
-                                <li>Importance of early user testing</li>
-                                <li>Value of iterative design</li>
-                                <li>Need for clear communication</li>
-                                <li>Benefits of modular development</li>
-                            </ul>
-                        </div>
-                        <div class="reflection-card">
-                            <h3>Future Improvements</h3>
-                            <ul class="reflection-list">
-                                <li>Enhanced mobile experience</li>
-                                <li>Additional community features</li>
-                                <li>Performance optimization</li>
-                                <li>Expanded content categories</li>
-                            </ul>
+                    <div id="reflection" class="popup-content hidden">
+                        <h2>Review / Reflection</h2>
+                        <div class="reflection-container">
+                            <div class="reflection-card">
+                                    <h3>What Went Well</h3>
+                                    <img class = "reflect-img" src="./images/reflect-1.gif" alt="">
+
+                                    <div class ="reflect">The features were implemented well. Although it took about a month longer than expected, I believe that all the features we aimed to implement turned out great in the end. The design color turned out better than expected, and most of all, I am really satisfied with the brand name we came up with. Additionally, through role division, we each did our tasks very well, and I believe we have all grown from the experience.</div>
+                            </div>
+                            <div class="reflection-card">
+                                <h3>Challenges Faced</h3>
+                                <div class="reflect">
+                                    The biggest challenge was diving in with the belief that we could easily create something using AI without a solid foundation.
+                                    <img class = "reflect-img" src="./images/reflect-2.gif" alt="">
+                                    No matter how advanced AI gets, we realized that we have to understand and modify it ourselves to truly implement the features we want. That was really difficult. Also, when I designed it in Figma, everything seemed easy, but when I tried to implement it with code, the layout wasn’t coming out as I wanted, and the features weren’t working, which was very frustrating. Originally, we planned to finish by March, but it ended up getting pushed to April. It was really disappointing.
+                                </div>
+                                
+                            </div>
+                            <div class="reflection-card">
+                                <h3>Lessons Learned</h3>
+                                <div class="reflect">
+                                    AI still cannot replace humans—at least not yet. Trying to build a fully responsive website was an overly ambitious challenge. There’s so much to study in UI/UX. But once you understand the theory, growth feels much faster. Also, when working on tasks, I realized that sharing files before one person is fully done can lead to errors—either someone else modifies it incorrectly, or I do. I’ve learned that it’s best to let one person finish before the next begins. 
+                                    <img class = "reflect-img" src="./images/reflect-3.gif" alt="">
+                                    Still, it was a valuable experience overall.
+                                </div>
+                                
+                            </div>
+                            <div class="reflection-card">
+                                <h3>Future Improvements</h3>
+                                <div class="reflect">
+                                    Since the design isn’t fully complete, we still need to keep refining the visual details. Currently, it only works well on mobile, so we’ll need to continue improving it to look good on web as well. We also realized the importance of communication. In the future, we plan to collect real user feedback and keep iterating based on that input. Additionally, the 3D interactions are still too heavy, so they’ll require a lot more optimization going forward.
+                                    <img class = "reflect-img" src="./images/reflect-4.gif" alt="">
+
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="lang-switch">
-                <span id="lang-eng" onclick="updateLanguage('ENG')">ENG</span> /
-                <span id="lang-kor" onclick="updateLanguage('KOR')">KOR</span>
-              </div>
-              
+                <div class="lang-switch">
+                    <span id="lang-eng" onclick="updateLanguage('ENG')">ENG</span>
+                    /
+                    <span id="lang-kor" onclick="updateLanguage('KOR')">KOR</span>
+                </div>
 
+            </body>
 
-
-        </body>
-
-    </html>
+        </html>

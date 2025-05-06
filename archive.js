@@ -144,8 +144,57 @@ function setupTimelineInteractions() {
   });
 }
 
+// Timeline scroll functionality
+function setupTimelineScroll() {
+    const timelineFrame = document.querySelector('.timeline-frame');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const yearBox = document.querySelector('.date-box.year');
+    const monthBox = document.querySelector('.date-box.month');
+    const dayBox = document.querySelector('.date-box.day');
+
+    const months = {
+        '01': '01', '02': '02', '03': '03', '04': '04',
+        '05': '05'
+    };
+
+    function updateDateBoxes(date) {
+        const [year, month, day] = date.split('/');
+        yearBox.textContent = year;
+        monthBox.textContent = months[month];
+        dayBox.textContent = day;
+    }
+
+    function updateActiveItem() {
+        const scrollPosition = timelineFrame.scrollTop;
+        const viewportHeight = timelineFrame.clientHeight;
+        const scrollCenter = scrollPosition + (viewportHeight / 2);
+
+        timelineItems.forEach(item => {
+            const itemTop = item.offsetTop;
+            const itemHeight = item.offsetHeight;
+            const itemCenter = itemTop + (itemHeight / 2);
+            const distance = Math.abs(scrollCenter - itemCenter);
+
+            if (distance < viewportHeight / 3) {
+                item.classList.add('active');
+                const date = item.getAttribute('data-date');
+                updateDateBoxes(date);
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    if (timelineFrame) {
+        timelineFrame.addEventListener('scroll', updateActiveItem);
+        // Initial update
+        updateActiveItem();
+    }
+}
+
 // Initialize timeline functionality
 document.addEventListener('DOMContentLoaded', () => {
+  setupTimelineScroll();
   const timelineFrame = document.querySelector('.timeline-frame');
   if (timelineFrame) {
     timelineFrame.addEventListener('scroll', revealTimelineBoxes);
@@ -177,29 +226,15 @@ function setupToggleButtons() {
 }
 
 // Prototype navigation
-function setupPrototypeNavigation() {
-  const prototypeButtons = document.querySelectorAll('.prototype-btn');
-  const prototypeItems = document.querySelectorAll('.prototype-item');
+  const tiles = document.querySelectorAll('.prototype-tile');
 
-  prototypeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const target = button.getAttribute('data-target');
-
-      // Update active button
-      prototypeButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      // Show target content
-      prototypeItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.id === target) {
-          item.classList.add('active');
-        }
-      });
+  tiles.forEach(tile => {
+    tile.addEventListener('click', () => {
+      const isExpanded = tile.classList.contains('expanded');
+      tiles.forEach(t => t.classList.remove('expanded'));
+      if (!isExpanded) tile.classList.add('expanded');
     });
   });
-}
-
 
 // Feedback timeline animation
 function setupFeedbackTimeline() {
@@ -286,6 +321,11 @@ function resetInteractiveElements() {
   document.querySelectorAll('.animate-in').forEach(element => {
     element.classList.remove('animate-in');
   });
+}
+
+function toggleDescription(span) {
+  const desc = span.nextElementSibling;
+  desc.classList.toggle('hidden');
 }
 
 // Initialize section-specific interactions

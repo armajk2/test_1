@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback Navigator</title>
+  <style>
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: linear-gradient(135deg, #fff9e6, #ffe6e6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .feedback-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      transition: transform 0.3s ease;
+    }
+
+    .feedback-container:hover {
+      transform: scale(1.01);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .nav-buttons button {
+      background-color: #FFD666;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 18px;
+      border-radius: 50%;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #f4c738;
+      transform: scale(1.1);
+    }
+
+    .circle {
+      width: 50px;
+      height: 50px;
+      border: 3px dashed #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      background-color: #fff;
+    }
+
+    .show-btn {
+      background-color: #ff7f50;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .show-btn:hover {
+      background-color: #ff6347;
+      transform: scale(1.05);
+    }
+
+    .feedback-detail {
+      margin-top: 30px;
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.7;
+      display: none;
+      border-radius: 10px;
+      padding: 20px;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .theme-1 { background: #fffbe6; color: #333; }
+    .theme-2 { background: #ffeaea; color: #5b2222; }
+    .theme-3 { background: #e6f7ff; color: #204455; }
+    .theme-4 { background: #f0ffe6; color: #314d2f; }
+    .theme-5 { background: #f9e6ff; color: #582e6e; }
+  </style>
+</head>
+<body>
+
+  <div class="feedback-container">
+    <div class="nav-buttons">
+      <button id="prevBtn">⟨</button>
+      <div class="circle" id="feedbackIndex">1</div>
+      <button id="nextBtn">⟩</button>
+    </div>
+    <button class="show-btn" id="showDetailBtn">🎈 Show Detail</button>
+    <div class="feedback-detail theme-1" id="feedbackDetail"></div>
+  </div>
+
+  <script>
+    const feedbackTexts = [
+      "✨ <b>What went well:</b><br> The features were implemented well. Although it took about a month longer than expected, all key features were successfully completed. The color choices and especially the brand name turned out great. We also divided roles efficiently, which helped us grow.",
+      "💣 <b>What was hard:</b><br> Jumping in without a solid foundation and relying too much on AI was a mistake. Coding things from Figma was much harder than expected, and layouts didn’t translate well. It caused delays and mental stress, extending the project into April.",
+      "🧠 <b>What we learned:</b><br> AI can’t replace human understanding yet. Responsive web design is a real challenge. We learned that theoretical understanding is powerful, and tasks should be done in strict order to avoid conflicts. It was a valuable experience.",
+      "📱 <b>What to improve:</b><br> The design isn’t fully polished, so we’ll continue refining it. It’s optimized for mobile, but we want to improve desktop views. We'll gather real user feedback and revisit 3D interactions to make them lighter and smoother.",
+      "🎉 <b>Final thoughts:</b><br> This project pushed our limits and taught us about collaboration, design, development, and patience. Despite the challenges, we’re proud of the outcome and excited to apply these lessons to future work."
+    ];
+
+    const themes = ['theme-1', 'theme-2', 'theme-3', 'theme-4', 'theme-5'];
+
+    let currentIndex = 0;
+
+    const feedbackIndex = document.getElementById("feedbackIndex");
+    const feedbackDetail = document.getElementById("feedbackDetail");
+
+    function updateNumber() {
+      feedbackIndex.textContent = currentIndex + 1;
+      feedbackDetail.style.display = "none";
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex + 4) % 5;
+      updateNumber();
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % 5;
+      updateNumber();
+    });
+
+    document.getElementById("showDetailBtn").addEventListener("click", () => {
+      feedbackDetail.innerHTML = feedbackTexts[currentIndex];
+      feedbackDetail.className = `feedback-detail ${themes[currentIndex]}`;
+      feedbackDetail.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
