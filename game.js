@@ -3,10 +3,10 @@ let walkAction;
 let spiderTarget = new THREE.Vector3();
 const loadingManager = new THREE.LoadingManager();
 let modelsLoaded = 0;
-const totalModels = 12; // 11 buildings + 1 spider
+const totalModels = 12; // 11 buildings + 1 sheep
 const PORTAL_ACTIVATION_DISTANCE = 3;
 let portalGlowIntensity = 0;
-const PORTAL_DISTANCE_FROM_BUILDING = 5; // Distance of portal from building
+const PORTAL_DISTANCE_FROM_BUILDING = 4; // Distance of portal from building
 let cameraOffset, lookTarget;
 const buildingGroups = {
     Traveling: [],
@@ -15,25 +15,24 @@ const buildingGroups = {
     Festival: []
 };
 const portals = []; // Add portals array
-const mapSize = 40; // Map size
 const visibleGroups = new Set();
+
+const mapSize = 41; // Map size
 const boundary = 39;
 const wallThickness = 1;
 let isMoving = false;
 let mixer;
 let walkingAction;
 let moveSpeed = 0.05;  // Speed of the movement
-let spider = null;  // The character (spider) object
+let sheep = null;  // Changed from spider to sheep
 let characterLoaded = false; // Flag to check if character is already loaded
 const clock = new THREE.Clock();  // Clock for animation updates
 const movementThreshold = 0.1; // You can adjust this value
 
-
-
-
 // Building positions and information
 const buildingPositions = [
-    { x: -14, z: 0, info: {
+    { x: -14, z: 0,    model: 'box.glb',
+        info: {
         name: 'Hongdae Street Market',
         description: 'Famous for street performances and youth culture',
         location: 'Hongdae, Seoul',
@@ -41,7 +40,7 @@ const buildingPositions = [
         hours: '10:00 AM - 10:00 PM',
         group: 'Festival'
     }},
-    { x: -18, z: -10, info: {
+    { x: -18, z: -10, model: 'build.glb', info: {
         name: 'Gyeongbokgung Palace',
         description: 'The main royal palace of the Joseon dynasty',
         location: 'Jongno-gu, Seoul',
@@ -49,7 +48,7 @@ const buildingPositions = [
         hours: '9:00 AM - 6:00 PM',
         group: 'Traveling'
     }},
-    { x: -16, z: 10, info: {
+    { x: -16, z: 10, model: 'build.glb', info: {
         name: 'N Seoul Tower',
         description: 'Iconic communication and observation tower',
         location: 'Namsan, Seoul',
@@ -57,7 +56,7 @@ const buildingPositions = [
         hours: '10:00 AM - 11:00 PM',
         group: 'Traveling'
     }},
-    { x: 3, z: -16, info: {
+    { x: 3, z: -16, model: 'building.glb', info: {
         name: 'Lotte World',
         description: 'World\'s largest indoor theme park',
         location: 'Songpa-gu, Seoul',
@@ -65,7 +64,7 @@ const buildingPositions = [
         hours: '9:30 AM - 10:00 PM',
         group: 'Traveling'
     }},
-    { x: 5, z: 15, info: {
+    { x: 5, z: 10, model: 'tree.glb', info: {
         name: 'Bukchon Hanok Village',
         description: 'Traditional Korean village with hanok houses',
         location: 'Jongno-gu, Seoul',
@@ -73,7 +72,7 @@ const buildingPositions = [
         hours: '24/7',
         group: 'Traveling'
     }},
-    { x: 15, z: -20, info: {
+    { x: 15, z: -20, model: 'container.glb', info: {
         name: 'Dongdaemun Design Plaza',
         description: 'Major urban development landmark',
         location: 'Jung-gu, Seoul',
@@ -81,7 +80,7 @@ const buildingPositions = [
         hours: '10:00 AM - 7:00 PM',
         group: 'Fashion'
     }},
-    { x: 17, z: 5, info: {
+    { x: 17, z: 5, model: 'chair.glb', info: {
         name: 'Myeongdong Shopping Street',
         description: 'Popular shopping and food district',
         location: 'Jung-gu, Seoul',
@@ -89,7 +88,7 @@ const buildingPositions = [
         hours: '10:00 AM - 10:00 PM',
         group: 'Fashion'
     }},
-    { x: -1, z: -8, info: {
+    { x: -1, z: -8, model: 'building.glb', info: {
         name: 'COEX Mall',
         description: 'Largest underground shopping mall in Asia',
         location: 'Gangnam-gu, Seoul',
@@ -97,7 +96,7 @@ const buildingPositions = [
         hours: '10:30 AM - 10:00 PM',
         group: 'Fashion'
     }},
-    { x: 10, z: -10, info: {
+    { x: 10, z: -10, model: 'tree.glb', info: {
         name: 'Insadong',
         description: 'Traditional Korean culture and crafts',
         location: 'Jongno-gu, Seoul',
@@ -105,7 +104,7 @@ const buildingPositions = [
         hours: '10:00 AM - 8:00 PM',
         group: 'Beauty'
     }},
-    { x: -10, z: -15, info: {
+    { x: -10, z: -15, model: 'container.glb', info: {
         name: 'Namdaemun Market',
         description: 'Largest traditional market in Korea',
         location: 'Jung-gu, Seoul',
@@ -113,7 +112,7 @@ const buildingPositions = [
         hours: '11:00 PM - 4:00 PM',
         group: 'Beauty'
     }},
-    { x: -8, z: 14, info: {
+    { x: -8, z: 14, model: 'build.glb', info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
@@ -121,7 +120,7 @@ const buildingPositions = [
         hours: '10:00 AM - 10:00 PM',
         group: 'Beauty'
     }},
-    { x: 8, z: 3, info: {
+    { x: 8, z: 3, model: 'sofa.glb', info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
@@ -129,7 +128,7 @@ const buildingPositions = [
         hours: '10:00 AM - 10:00 PM',
         group: 'Beauty'
     }},
-    { x: 16, z: 14, info: {
+    { x: 16, z: 14, model: 'sofa.glb', info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
@@ -137,7 +136,7 @@ const buildingPositions = [
         hours: '10:00 AM - 10:00 PM',
         group: 'Beauty'
     }},
-    { x: -5, z: 2, info: {
+    { x: -5, z: 2, model: 'build.glb', info: {
         name: 'Gangnam Style',
         description: 'Modern shopping and entertainment district',
         location: 'Gangnam-gu, Seoul',
@@ -195,7 +194,6 @@ function checkCollisions(newX, newZ) {
     
     // Check building collisions
     for (const building of buildings) {
-        if (!building.visible) continue;
         
         const bounds = new THREE.Box3().setFromObject(building);
         const min = bounds.min;
@@ -241,11 +239,11 @@ function createWall(x, z, width, depth) {
     
     wall.position.set(x, wallHeight / 2, z);
 
-    
+
     // Add wall to buildings array for collision detection
     scene.add(wall);
     buildings.push(wall);
-    
+
     // Make walls always visible
     wall.visible = false;
 }
@@ -272,7 +270,7 @@ function init() {
     scene.background = new THREE.Color(0xffffff);
 
     // Create camera
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     updateCameraOffset();
 
     // Create renderer
@@ -292,35 +290,87 @@ function init() {
     scene.add(directionalLight);
 
 
-    
     // Add ground with texture
-    const textureLoader = new THREE.TextureLoader(loadingManager);
-    const groundTexture = textureLoader.load('textures/ground.jpg');
-    groundTexture.wrapS = THREE.RepeatWrapping;
-    groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+// Create the gradient texture using a canvas
+const canvas = document.createElement('canvas');
+canvas.width = 1024; // Size of the texture (adjust as necessary)
+canvas.height = 1024; // Ensure it's square for a seamless gradient
 
+// Get the 2D drawing context of the canvas
+const ctx = canvas.getContext('2d');
+    // Vertical gradient from top to bottom
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#FFD666');  // Top color
+    gradient.addColorStop(1, '#ffab50');  // Bottom color
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const gradientTexture = new THREE.CanvasTexture(canvas);
+
+    gradientTexture.wrapS = THREE.ClampToEdgeWrapping;  // Prevent repeating horizontally
+    gradientTexture.wrapT = THREE.ClampToEdgeWrapping;  // Prevent repeating vertically
+    gradientTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+
+    // Use the gradient texture in a standard material
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
     const groundMaterial = new THREE.MeshStandardMaterial({ 
-        map: groundTexture,
+        map: gradientTexture,
         roughness: 0.9,
         metalness: 0.1
     });
+
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-    ground.rotation.x = -Math.PI / 2;
+    ground.rotation.x = -Math.PI / 2; // Rotate the ground to be flat
     ground.receiveShadow = true;
+
     scene.add(ground);
 
     // Load buildings
     const gltfLoader = new THREE.GLTFLoader(loadingManager);
     buildingPositions.forEach((pos, index) => {
-        gltfLoader.load('models/building.glb', (gltf) => {
-            const building = gltf.scene;
+      gltfLoader.load(`models/${pos.model}`, (gltf) => {
+        const building = gltf.scene;
             
             building.traverse((child) => {
                 if (child.isMesh) {
                     child.castShadow = true;
                     child.receiveShadow = true;
+                    
+                    // Add colors based on model type
+                    let materialColor;
+                    switch(pos.model) {
+                        case 'box.glb':
+                            materialColor = 0x4CAF50; // Green
+                            break;
+                        case 'build.glb':
+                            materialColor = 0x2196F3; // Blue
+                            break;
+                        case 'chair.glb':
+                            materialColor = 0xFF9800; // Orange
+                            break;
+                        case 'container.glb':
+                            materialColor = 0x9C27B0; // Purple
+                            break;
+                        case 'sofa.glb':
+                            materialColor = 0xF44336; // Red
+                            break;
+                        case 'tree.glb':
+                            materialColor = 0x7CFC00; // Brown
+                            break;
+                        case 'building.glb':
+                            materialColor = 0x607D8B; // Blue Grey
+                            break;
+                        default:
+                            materialColor = 0xFFFFFF; // White
+                    }
+                    
+                    child.material = new THREE.MeshStandardMaterial({
+                        color: materialColor,
+                        roughness: 0.7,
+                        metalness: 0.2
+                    });
                 }
             });
             
@@ -336,7 +386,21 @@ function init() {
             building.position.y = 0;
             building.position.x = pos.x;
             building.position.z = pos.z;
+
+            // Rotate build.glb model
+            if (pos.model === 'build.glb') {
+                building.rotation.y = -Math.PI / 2; // Rotate 90 degrees around X axis
+                building.position.y = 0.3; // Move to Y=1
+            }
+
+            if (pos.model === 'box.glb') {
+                building.position.y = 0.5; // Move to Y=1
+            }
             
+            if (pos.model === 'sofa.glb') {
+                building.rotation.y = -Math.PI / 2; // Rotate 90 degrees around X axis
+            }
+
             // Add building to its group
             if (pos.info.group) {
                 buildingGroups[pos.info.group].push(building);
@@ -377,43 +441,39 @@ function init() {
 
     // Load character only once
     if (!characterLoaded) {
-        gltfLoader.load('models/character.glb', (gltf) => {
-            spider = gltf.scene;
-            mixer = new THREE.AnimationMixer(spider);
+        gltfLoader.load('models/sheep.glb', (gltf) => {
+            sheep = gltf.scene;
+            scene.add(sheep);
 
-            scene.add(spider);
-
-            spider.traverse((child) => {
+            sheep.traverse((child) => {
                 if (child.isMesh) {
                     child.castShadow = true;
                     child.receiveShadow = true;
+                    // Add color to the sheep
+                    child.material = new THREE.MeshStandardMaterial({
+                        color: 0xFFFFFF,  // White color for the sheep
+                        roughness: 0.7,
+                        metalness: 0.1
+                    });
                 }
             });
-
-            walkAction = mixer.clipAction(gltf.animations[0]);
-            walkAction.play();
-            walkAction.paused = true;
         
-            spider.position.set(0, 0, 0);
-            spiderTarget.copy(spider.position);
-    
-            const box = new THREE.Box3().setFromObject(spider);
+            sheep.position.set(0, 1, 0);
+            spiderTarget.copy(sheep.position);
+        
+            const box = new THREE.Box3().setFromObject(sheep);
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
             const scale = 2 / maxDim;
-            spider.position.sub(center.multiplyScalar(scale));
-            spider.position.set(0, 0, 0);
-            spider.scale.set(1.5, 1.5, 1.5);
+            sheep.position.sub(center.multiplyScalar(scale));
+            sheep.position.set(0, 1, 0);
+            sheep.scale.set(1, 1, 1);
 
-            spiderTarget.copy(spider.position);
-            targetPosition = spider.position.clone();
-            lookTarget = spider.position.clone();
+            spiderTarget.copy(sheep.position);
+            targetPosition = sheep.position.clone();
+            lookTarget = sheep.position.clone();
         
-            gltf.animations.forEach((clip) => {
-                mixer.clipAction(clip).play();
-            });
-            
             characterLoaded = true;
         });
     }
@@ -605,49 +665,40 @@ function handleTapOrClick(event, ground) {
 
 
 function updateCharacterMovement() {
-    if (!spider) return;
+    if (!sheep) return;
 
-    const speed = 0.05;
-    const distance = spider.position.distanceTo(spiderTarget);
+    const speed = 0.01;
+    const distance = sheep.position.distanceTo(spiderTarget);
 
     if (distance > 0.1) {
         isMoving = true;
 
         // Calculate the direction vector
-        const direction = new THREE.Vector3().subVectors(spiderTarget, spider.position).normalize();
+        const direction = new THREE.Vector3().subVectors(spiderTarget, sheep.position).normalize();
         
         // Calculate the next position
-        const nextX = spider.position.x + direction.x * speed;
-        const nextZ = spider.position.z + direction.z * speed;
+        const nextX = sheep.position.x + direction.x * speed;
+        const nextZ = sheep.position.z + direction.z * speed;
         
         // Check if the next position would cause a collision
         if (!checkCollisions(nextX, nextZ)) {
-            // If no collision, update position
-            spider.position.x = nextX;
-            spider.position.z = nextZ;
+            // If no collision, update position while maintaining Y at 1
+            sheep.position.x = nextX;
+            sheep.position.z = nextZ;
+            sheep.position.y = 1; // Keep Y position at 1
             
-            // Rotate to face movement direction
-            if (!direction.equals(new THREE.Vector3(0, 0, 0))) {
-                spider.lookAt(spider.position.clone().add(direction));
-            }
-            
-            // Start animation if it's paused
-            if (walkAction && walkAction.paused) {
-                walkAction.paused = false;
+            // Only rotate if we're actually moving and the direction is not zero
+            if (distance > 0.2 && !direction.equals(new THREE.Vector3(0, 0, 0))) {
+                const targetRotation = Math.atan2(direction.x, direction.z);
+                sheep.rotation.y = targetRotation;
             }
         } else {
             // If there would be a collision, stop moving
             isMoving = false;
-            spiderTarget.copy(spider.position);
-            if (walkAction && !walkAction.paused) {
-                walkAction.paused = true;
-            }
+            spiderTarget.copy(sheep.position);
         }
     } else {
         isMoving = false;
-        if (walkAction && !walkAction.paused) {
-            walkAction.paused = true;
-        }
     }
 }
 
@@ -657,47 +708,44 @@ function updateCharacterMovement() {
 function animate() {
     requestAnimationFrame(animate);
 
-    const delta = clock.getDelta();
-    if (mixer) mixer.update(delta);
-
     updateCharacterMovement();
 
-    // Update spider position
-    if (spider) {
+    // Update sheep position
+    if (sheep) {
         const direction = new THREE.Vector3()
-            .subVectors(spiderTarget, spider.position)
+            .subVectors(spiderTarget, sheep.position)
             .normalize();
 
-        if (spider.position.distanceTo(spiderTarget) > 0.1) {
-            spider.position.add(direction.multiplyScalar(0.1));
+        if (sheep.position.distanceTo(spiderTarget) > 0.1) {
+            sheep.position.add(direction.multiplyScalar(0.1));
+            sheep.position.y = 1; // Keep Y position at 1
 
-            if (!direction.equals(new THREE.Vector3(0, 0, 0))) {
-                spider.lookAt(spider.position.clone().add(direction));
+            // Only rotate if we're actually moving and the direction is not zero
+            if (sheep.position.distanceTo(spiderTarget) > 0.2 && !direction.equals(new THREE.Vector3(0, 0, 0))) {
+                const targetRotation = Math.atan2(direction.x, direction.z);
+                sheep.rotation.y = targetRotation;
             }
         }
 
         // Use cameraOffset instead of fixedOffset
-        const desiredCameraPosition = spider.position.clone().add(cameraOffset); // cameraOffset defined earlier
-        camera.position.lerp(desiredCameraPosition, 0.05); // Smoothly move camera towards the target position
-        lookTarget.lerp(spider.position, 0.1);
+        const desiredCameraPosition = sheep.position.clone().add(cameraOffset);
+        camera.position.lerp(desiredCameraPosition, 0.05);
+        lookTarget.lerp(sheep.position, 0.1);
         camera.lookAt(lookTarget);
-        // Optional: lock camera rotation (only needs to be set once, can move to init)
 
         // Check distance to portals
         let nearestPortal = null;
         let minDistance = Infinity;
 
-
         scene.children.forEach(child => {
             if (child instanceof THREE.Mesh && child.geometry instanceof THREE.CircleGeometry) {
-                const distance = spider.position.distanceTo(child.position);
+                const distance = sheep.position.distanceTo(child.position);
                 if (distance < minDistance) {
                     minDistance = distance;
                     nearestPortal = child;
                 }
             }
         });
-
 
         if (nearestPortal && minDistance < PORTAL_ACTIVATION_DISTANCE) {
             portalGlowIntensity = Math.min(portalGlowIntensity + 0.05, 1);
@@ -711,7 +759,7 @@ function animate() {
         // Update portal glows
         scene.children.forEach(child => {
             if (child instanceof THREE.Mesh && child.geometry instanceof THREE.CircleGeometry) {
-                const distance = spider.position.distanceTo(child.position);
+                const distance = sheep.position.distanceTo(child.position);
                 const intensity = Math.max(0, 1 - distance / PORTAL_ACTIVATION_DISTANCE);
                 child.material.opacity = 0.5 + intensity * 0.5;
                 if (child.children[0]) {
